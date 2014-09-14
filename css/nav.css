@@ -25,6 +25,31 @@ article, section {
     position: relative;
 }
 
+.hanging-menu {
+    position: absolute;
+    right: 0;
+    margin-top: -1.19em;
+    z-index: 1;
+    background: #ECECEC;
+    border: solid thin gray;
+}
+
+#page-header + .hanging-menu {
+    top: 1.05em;
+    margin-top: 0;
+    right: 2em;
+}
+
+.hanging-menu ul {
+    margin: 0;
+    font-size: smaller;
+    padding: 0.2em 0.4em;
+}
+
+.hanging-menu a {
+    text-decoration: none;
+}
+
 .section-nav {
     position: relative;
     left: auto;
