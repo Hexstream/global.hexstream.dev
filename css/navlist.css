@@ -82,28 +82,51 @@
 }
 
 
-.navlist .quick-links {
+.navlist .quick-links, .navlist .status-indicators {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 100%;
     white-space: nowrap;
-    margin-left: 1em;
     letter-spacing: 0.2em;
 }
 
-.navlist .quick-links > div {
+.navlist .quick-links {
+    left: 100%;
+    margin-left: 1em;
+}
+
+.navlist .status-indicators {
+    right: 100%;
+    margin-right: 10em;
+}
+
+.navlist .status-indicators .ready {
+    color: green;
+}
+
+.navlist .status-indicators .stub {
+    color: red;
+}
+
+.navlist .quick-links > div, .navlist .status-indicators > div {
     position: absolute;
     top: 50%;
     line-height: 2em;
     margin-top: -1em;
 }
 
-.navlist .quick-links a {
+.navlist .quick-links a, .navlist .status-indicators span {
     padding: 1em;
     border: thin solid;
     border-color: transparent;
+}
+
+.navlist .quick-links a {
     opacity: .4;
+}
+
+.navlist .status-indicators span {
+    opacity: .6;
 }
 
 .navlist .quick-links a:hover, .navlist .quick-links a:focus {
@@ -111,6 +134,11 @@
     outline-style: none;
     border-color: gray;
     opacity: 1;
+}
+
+.navlist section:hover .status-indicators span {
+    opacity: 1;
+    border: thin solid;
 }
 
 
