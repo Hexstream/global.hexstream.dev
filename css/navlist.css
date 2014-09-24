@@ -97,11 +97,15 @@
 
 .navlist .status-indicators {
     right: 100%;
-    margin-right: 10em;
+    margin-right: 11.5em;
 }
 
 .navlist .status-indicators .ready {
     color: green;
+}
+
+.navlist .status-indicators .incomplete {
+    color: orange;
 }
 
 .navlist .status-indicators .stub {
