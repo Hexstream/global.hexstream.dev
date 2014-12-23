@@ -30,6 +30,7 @@ article, section {
     right: 0;
     margin-top: -1.19em;
     z-index: 1;
+    text-align: right;
     background: #ECECEC;
     border: solid thin gray;
 }
