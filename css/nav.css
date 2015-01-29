@@ -190,7 +190,7 @@ nav.breadcrumbs a.here:hover, nav.breadcrumbs a.here:focus {
 }
 
 
-.start-browsing + .start-browsing {
+.start-browsing + .start-browsing, nav.merge + nav.merge {
     margin-left: -0.5em;
     border-left: none;
 }
