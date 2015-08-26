@@ -19,6 +19,14 @@
     text-decoration: inherit;
 }
 
+.navlist ins {
+    text-decoration: underline;
+}
+
+.navlist del {
+    text-decoration: line-through;
+}
+
 .navlist section {
     margin: 0;
     margin-bottom: 0;
