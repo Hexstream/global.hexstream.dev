@@ -108,15 +108,15 @@
     margin-right: 11.5em;
 }
 
-.navlist .status-indicators .ready {
+.navlist .status-indicators .ready, .navtable .ready {
     color: green;
 }
 
-.navlist .status-indicators .incomplete {
+.navlist .status-indicators .incomplete, .navtable .incomplete {
     color: orange;
 }
 
-.navlist .status-indicators .stub {
+.navlist .status-indicators .stub, .navtable .stub {
     color: red;
 }
 
@@ -166,6 +166,10 @@
 
 .navlist-group .navlist:first-child {
     margin-top: 0;
+}
+
+.navlist-group .navtable {
+    width: 100%;
 }
 
 
