@@ -112,7 +112,19 @@
     color: green;
 }
 
+.navlist .status-indicators .detailed, .navtable .detailed {
+    color: green;
+}
+
 .navlist .status-indicators .incomplete, .navtable .incomplete {
+    color: orange;
+}
+
+.navlist .status-indicators .raw, .navtable .raw {
+    color: orange;
+}
+
+.navlist .status-indicators .trivial, .navtable .trivial {
     color: orange;
 }
 
