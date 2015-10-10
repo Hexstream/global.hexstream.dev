@@ -306,3 +306,50 @@ table tr:hover .anchor {
 table tr .anchor:hover {
     opacity: 1;
 }
+
+
+section.item-section > h1 {
+    display: table;
+    padding-right: 0.7em;
+    border: dashed thin gray;
+}
+
+section > h1 .section-relative-nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1.2em;
+    left: 0.45em;
+    text-align: center;
+}
+
+section > h1 .section-relative-nav .anchor {
+    top: 50%;
+    margin-top: -0.6em;
+}
+
+section > h1 .section-relative-nav > * {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border: thin solid transparent;
+    margin: 0;
+}
+
+section > h1 .section-relative-nav .prev {
+    bottom: 100%;
+    margin-bottom: -0.6em;
+    opacity: 0.25;
+}
+
+section > h1 .section-relative-nav .next {
+    top: 100%;
+    margin-top: -0.5em;
+    opacity: 0.25;
+}
+
+section > h1 .section-relative-nav > :hover, section > h1 .section-relative-nav > :hover {
+    background: #FFCC99;
+    border: thin solid black;
+    opacity: 1;
+}
