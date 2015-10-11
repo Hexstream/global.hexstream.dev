@@ -318,8 +318,8 @@ section > h1 .section-relative-nav {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 1.2em;
-    left: 0.45em;
+    width: 2em;
+    left: 0;
     text-align: center;
 }
 
@@ -333,7 +333,10 @@ section > h1 .section-relative-nav > * {
     left: 0;
     right: 0;
     border: thin solid transparent;
+    width: 1.2em;
     margin: 0;
+    left: 50%;
+    margin-left: -0.6em;
 }
 
 section > h1 .section-relative-nav .prev {
@@ -346,6 +349,17 @@ section > h1 .section-relative-nav .next {
     top: 100%;
     margin-top: -0.5em;
     opacity: 0.25;
+}
+
+section > h1 .section-relative-nav .upwards {
+    left: auto;
+    right: 100%;
+    margin-right: -0.6em;
+}
+
+section > h1 .section-relative-nav .downwards {
+    left: 100%;
+    margin-left: -0.6em;
 }
 
 section > h1 .section-relative-nav > :hover, section > h1 .section-relative-nav > :hover {
