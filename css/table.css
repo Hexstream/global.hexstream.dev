@@ -24,9 +24,9 @@ table.contains-anchor-column {
 
 table th.anchor {
     padding: 0;
-    border-top: none;
-    border-left: none;
-    border-bottom: none;
+    border-top: transparent;
+    border-left: transparent;
+    border-bottom: transparent;
     background: transparent;
     width: 1.8em;
     opacity: 0;
