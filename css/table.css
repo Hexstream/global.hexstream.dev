@@ -3,7 +3,7 @@ table {
     margin: 1em auto 2em;
     margin-left: auto;
     margin-right: auto;
-    border: solid medium gray;
+    border: solid 0.15em darkgray;
 }
 
 table.contains-main-colgroup {
@@ -11,7 +11,7 @@ table.contains-main-colgroup {
 }
 
 table colgroup.main {
-    border: solid medium gray;
+    border: solid 0.15em darkgray;
 }
 
 table.contains-weightless-colgroups {
