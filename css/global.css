@@ -136,19 +136,18 @@ header .description {
     text-decoration: none;
 }
 
-#page-header .description, #page-header .author-line {
+#page-header p {
     padding: 0;
-    margin: 0.1em 0 0;
+    margin: 0;
     line-height: 1.15em;
+}
+
+#page-header p + p {
+    margin-top: 0.25em;
 }
 
 #page-header .description {
     font-size: large;
-    margin-top: 0;
-}
-
-#page-header .author-line {
-    margin-top: 0.25em;
 }
 
 
@@ -198,11 +197,6 @@ header .description {
 p {
     margin: 1em;
     line-height: 1.4em;
-}
-
-
-.news-item p {
-    margin: 0.5em 0;
 }
 
 

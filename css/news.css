@@ -13,6 +13,10 @@
     max-width: 40em;
 }
 
+#news .news-item p {
+    margin: 0.5em 0;
+}
+
 #news .news-item .date {
     position: absolute;
     top: -1.8em;
