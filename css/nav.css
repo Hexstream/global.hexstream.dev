@@ -307,6 +307,27 @@ section > h1 .section-relative-nav .anchor {
     margin-top: -0.6em;
 }
 
+section > h1 .section-relative-nav .of {
+    position: absolute;
+    left: auto;
+    right: 100%;
+    top: 50%;
+    font-size: medium;
+    padding: 0.1em 0.2em;
+    margin-top: -0.7em;
+    margin-right: 0.4em;
+    color: black;
+    opacity: 0.25;
+}
+
+section > h1 .section-relative-nav .of.tight {
+    margin-right: 0.1em;
+}
+
+section > h1 .section-relative-nav .of:hover {
+    opacity: 1;
+}
+
 section > h1 .section-relative-nav > * {
     position: absolute;
     left: 0;
