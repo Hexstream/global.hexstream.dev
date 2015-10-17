@@ -362,8 +362,14 @@ section > h1 .section-relative-nav .downwards {
     margin-left: -0.6em;
 }
 
-section > h1 .section-relative-nav > :hover, section > h1 .section-relative-nav > :hover {
+section > h1 .section-relative-nav > :hover {
     background: #FFCC99;
     border: thin solid black;
     opacity: 1;
+}
+
+section > h1 .section-relative-nav .of:hover {
+    background: transparent;
+    border: transparent;
+    opacity: 0.25;
 }
