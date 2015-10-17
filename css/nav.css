@@ -370,6 +370,6 @@ section > h1 .section-relative-nav > :hover {
 
 section > h1 .section-relative-nav .of:hover {
     background: transparent;
-    border: transparent;
+    border: thin solid transparent;
     opacity: 0.25;
 }
