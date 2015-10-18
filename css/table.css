@@ -46,6 +46,11 @@ table tr .anchor:hover {
 }
 
 
+table th.name {
+    text-align: right;
+}
+
+
 table.sparse, colgroup.sparse {
     background-color: #ECECEC;
     background-image: url("../images/not-applicable.svg");
