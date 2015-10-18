@@ -209,6 +209,7 @@ h1.breadcrumbs {
     background-color: #ECECEC;
     text-align: left;
     font-size: large;
+    white-space: nowrap;
     padding-left: 2em;
     padding-top: 0.75em;
     padding-bottom: 0.75em;
