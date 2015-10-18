@@ -51,6 +51,12 @@ table th.name {
 }
 
 
+table th a[href]:hover, table th a[href]:focus {
+    background: transparent;
+    text-decoration: underline;
+}
+
+
 table.sparse, colgroup.sparse {
     background-color: #ECECEC;
     background-image: url("../images/not-applicable.svg");
