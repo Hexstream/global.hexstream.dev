@@ -46,6 +46,27 @@ table tr .anchor:hover {
 }
 
 
+table.contains-direct-links th.name a {
+    padding-right: 0.2em;
+}
+
+table.contains-direct-links th.direct-link {
+    background: #E0E0E0;
+    border-left: hidden;
+}
+
+table.contains-direct-links th.direct-link a {
+    opacity: 0.2;
+    padding-left: 0.2em;
+    padding-right: 0.4em;
+}
+
+table.contains-direct-links .direct-link a:hover {
+    opacity: 1;
+}
+
+
+
 table th.name {
     text-align: right;
 }
