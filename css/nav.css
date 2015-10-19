@@ -374,3 +374,37 @@ section > h1 .section-relative-nav .of:hover {
     border: thin solid transparent;
     opacity: 0.25;
 }
+
+
+ul.tabs {
+    display: table;
+    border-collapse: collapse;
+    margin: -0.5em auto 0;
+    background: #FFCC99;
+    border: medium solid black;
+}
+
+ul.tabs > li {
+    display: table-cell;
+    border: thin solid grey;
+}
+
+ul.tabs > li > a {
+    display: block;
+    position: relative;
+    padding: 0.35em 1em;
+    text-decoration: none;
+}
+
+ul.tabs > li > a.here {
+    text-decoration: underline;
+}
+
+ul.tabs > li > a:hover, ul.tabs > li > a:focus {
+    background: #FFDD99;
+    outline-style: none;
+}
+
+ul.tabs > li > a.here:hover, ul.tabs > li > a.here:focus, ul.tabs > li > a.not-available:hover, ul.tabs > li > a.not-available:focus {
+    background: transparent;
+}
