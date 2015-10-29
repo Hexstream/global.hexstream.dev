@@ -120,6 +120,10 @@
     color: orange;
 }
 
+.navlist .status-indicators .outdated, .navtable .outdated {
+    color: orange;
+}
+
 .navlist .status-indicators .raw, .navtable .raw {
     color: orange;
 }
