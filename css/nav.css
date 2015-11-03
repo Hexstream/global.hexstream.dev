@@ -288,13 +288,13 @@ main dt .anchor {
 }
 
 
-section.item-section > h1 {
+section.item-section h1 {
     display: table;
     padding-right: 0.7em;
     border: dashed thin gray;
 }
 
-section > h1 .section-relative-nav {
+section h1 .section-relative-nav {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -303,12 +303,12 @@ section > h1 .section-relative-nav {
     text-align: center;
 }
 
-section > h1 .section-relative-nav .anchor {
+section h1 .section-relative-nav .anchor {
     top: 50%;
     margin-top: -0.6em;
 }
 
-section > h1 .section-relative-nav .of {
+section h1 .section-relative-nav .of {
     position: absolute;
     left: auto;
     right: 100%;
@@ -321,15 +321,15 @@ section > h1 .section-relative-nav .of {
     opacity: 0.25;
 }
 
-section > h1 .section-relative-nav .of.tight {
+section h1 .section-relative-nav .of.tight {
     margin-right: 0.1em;
 }
 
-section > h1 .section-relative-nav .of:hover {
+section h1 .section-relative-nav .of:hover {
     opacity: 1;
 }
 
-section > h1 .section-relative-nav > * {
+section h1 .section-relative-nav > * {
     position: absolute;
     left: 0;
     right: 0;
@@ -340,36 +340,36 @@ section > h1 .section-relative-nav > * {
     margin-left: -0.6em;
 }
 
-section > h1 .section-relative-nav .prev {
+section h1 .section-relative-nav .prev {
     bottom: 100%;
     margin-bottom: -0.6em;
     opacity: 0.25;
 }
 
-section > h1 .section-relative-nav .next {
+section h1 .section-relative-nav .next {
     top: 100%;
     margin-top: -0.5em;
     opacity: 0.25;
 }
 
-section > h1 .section-relative-nav .upwards {
+section h1 .section-relative-nav .upwards {
     left: auto;
     right: 100%;
     margin-right: -0.6em;
 }
 
-section > h1 .section-relative-nav .downwards {
+section h1 .section-relative-nav .downwards {
     left: 100%;
     margin-left: -0.6em;
 }
 
-section > h1 .section-relative-nav > :hover {
+section h1 .section-relative-nav > :hover {
     background: #FFCC99;
     border: thin solid black;
     opacity: 1;
 }
 
-section > h1 .section-relative-nav .of:hover {
+section h1 .section-relative-nav .of:hover {
     background: transparent;
     border: thin solid transparent;
     opacity: 0.25;
