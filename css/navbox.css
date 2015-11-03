@@ -125,6 +125,7 @@
 }
 
 
+/* Obsoleted by .navbox-groups, below. Remove when markup is updated everywhere.*/
 .navboxes {
     display: table;
     margin: 2em auto;
@@ -183,6 +184,57 @@
 .navboxes .navbox .item-count {
     margin-left: -0.05em;
 }
+
+
+/* Obsoletes .navboxes, above. */
+.navbox-groups {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 3em auto;
+    justify-content: center;
+}
+
+.navbox-groups > nav {
+    position: relative;
+}
+
+.navbox-groups > nav > h1 {
+    position: absolute;
+    top: -2.3em;
+    left: 0;
+    right: 0;
+    color: #BBBBBB;
+    text-align: center;
+}
+
+.navbox-groups > nav > h1 a {
+    color: #CCCCCC;
+    font-size: medium;
+}
+
+.navbox-groups > nav > h1 a:hover, .navbox-groups > nav > h1 a:focus {
+    color: black;
+    opacity: 1;
+}
+
+.navbox-groups > nav .body {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    padding: 1em 0.5em 0;
+    border: thin dashed #AAAAAA;
+}
+
+.navbox-groups > nav .body .navbox {
+    width: auto;
+    flex: none;
+    min-width: 10em;
+}
+
+.navbox-groups > nav.anonymous > .body {
+    border: thin dashed transparent;
+}
+
 
 .here-indicator-left, .here-indicator-right {
     background: gray;
