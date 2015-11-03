@@ -119,10 +119,6 @@ header .description {
     font-family: sanvito-pro-display, serif;
 }
 
-#page-header + section > h1, #page-header + nav > h1, #page-header + section > header, #page-header + nav > header {
-    margin-top: 1.5em;
-}
-
 #page-header h1 {
     margin: 0;
     padding: 0;
