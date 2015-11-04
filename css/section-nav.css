@@ -12,11 +12,31 @@ section h1.breadcrumbs {
     background-color: #ECECEC;
 }
 
-section h1.breadcrumbs > a, section h1.breadcrumbs > .separator {
+section h1.breadcrumbs > a, section h1.breadcrumbs > .separator, section h1.breadcrumbs > .related-group {
     padding: 0.2em;
     margin: 0.4em 0;
     border: thin solid transparent;
     flex: none;
+}
+
+section h1.breadcrumbs > .separator {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+}
+
+section h1.breadcrumbs .related-group {
+    display: flex;
+    padding: 0 0.3em;
+    border: none;
+}
+
+section h1.breadcrumbs .related-group > a {
+    border: thin solid;
+    padding: 0.2em 0.3em;
+}
+
+section h1.breadcrumbs .related-group > a + a {
+    margin-left: 0.3em;
 }
 
 section h1.breadcrumbs a {
@@ -27,15 +47,10 @@ section h1.breadcrumbs .here {
     opacity: 1;
 }
 
-section h1.breadcrumbs > a[href]:hover, section h1.breadcrumbs > a[href]:focus {
+section h1.breadcrumbs a[href]:hover, section h1.breadcrumbs a[href]:focus {
     background: #FFCC99;
     border: thin solid black;
     opacity: 1;
-}
-
-section h1.breadcrumbs > .related-group > a {
-    border: thin solid;
-    padding: 0.2em 0.4em;
 }
 
 section h1.breadcrumbs .anchor {
@@ -139,11 +154,6 @@ section h1.breadcrumbs .section-relative-nav .downwards {
     margin-left: -0.6em;
 }
 
-section h1.breadcrumbs .section-relative-nav > :hover {
-    background: #FFCC99;
-    border: thin solid black;
-    opacity: 1;
-}
 
 section h1.breadcrumbs .section-relative-nav .of:hover {
     background: transparent;
