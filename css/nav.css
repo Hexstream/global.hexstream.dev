@@ -1,5 +1,6 @@
 @import "navlist.css";
 @import "navbox.css";
+@import "section-nav.css";
 
 
 /* Reset doesn't actually belong here... */
@@ -53,63 +54,6 @@ article, section {
 
 .hanging-menu a {
     text-decoration: none;
-}
-
-.section-nav {
-    position: relative;
-    left: auto;
-}
-
-.section-nav .navbox {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-nav .navbox-next {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-nav .navbox-previous {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-.section-nav:first-child {
-    position: absolute;
-    left: -12.5em;
-    z-index: 1;
-}
-
-.section-nav:first-child .navbox {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-}
-
-.section-nav:first-child a:first-child.navbox-previous {
-    margin-top: -1.4em;
-}
-
-
-.end-of-section-indicator {
-    font-size: smaller;
-    color: black;
-    opacity: 0.25;
-    border-top: thin solid gray;
-    border-bottom: thin solid gray;
-    margin: 1em auto;
-    display: table;
-}
-
-.end-of-section-indicator a {
-    color: black;
-    padding: 0 1em;
-    text-decoration: none;
-}
-
-.end-of-section-indicator:hover {
-    opacity: 1;
 }
 
 
@@ -200,35 +144,6 @@ nav.breadcrumbs a.here:hover, nav.breadcrumbs a.here:focus {
 }
 
 
-/* Need the extra weight for this one, to override some global.css rules. */
-h1.breadcrumbs {
-    position: relative;
-    padding: 0.4em;
-    margin: 3em 0 1em 0;
-    border: solid thin gray;
-    background-color: #ECECEC;
-    text-align: left;
-    font-size: large;
-    white-space: nowrap;
-    padding-left: 2em;
-    padding-top: 0.75em;
-    padding-bottom: 0.75em;
-}
-
-h1.breadcrumbs > a, h1.breadcrumbs a {
-    opacity: 0.5;
-}
-
-h1.breadcrumbs .here {
-    opacity: 1;
-}
-
-h1.breadcrumbs > .related-group > a {
-    border: thin solid;
-    padding: 0.2em 0.4em;
-}
-
-
 .back-to-top {
     display: block;
     text-align: center;
@@ -271,108 +186,12 @@ dt {
     position: relative;
 }
 
-main h1 .anchor {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    margin-top: -0.6em;
-    margin-left: 0.6em;
-}
-
 main dt .anchor {
     position: absolute;
     left: 0;
     margin-top: 0.1em;
     margin-left: -1.4em;
     font-size: medium;
-}
-
-
-section.item-section h1 {
-    display: table;
-    padding-right: 0.7em;
-    border: dashed thin gray;
-}
-
-section h1 .section-relative-nav {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 2em;
-    left: 0;
-    text-align: center;
-}
-
-section h1 .section-relative-nav .anchor {
-    top: 50%;
-    margin-top: -0.6em;
-}
-
-section h1 .section-relative-nav .of {
-    position: absolute;
-    left: auto;
-    right: 100%;
-    top: 50%;
-    font-size: medium;
-    padding: 0.1em 0.2em;
-    margin-top: -0.7em;
-    margin-right: 0.4em;
-    color: black;
-    opacity: 0.25;
-}
-
-section h1 .section-relative-nav .of.tight {
-    margin-right: 0.1em;
-}
-
-section h1 .section-relative-nav .of:hover {
-    opacity: 1;
-}
-
-section h1 .section-relative-nav > * {
-    position: absolute;
-    left: 0;
-    right: 0;
-    border: thin solid transparent;
-    width: 1.2em;
-    margin: 0;
-    left: 50%;
-    margin-left: -0.6em;
-}
-
-section h1 .section-relative-nav .prev {
-    bottom: 100%;
-    margin-bottom: -0.6em;
-    opacity: 0.25;
-}
-
-section h1 .section-relative-nav .next {
-    top: 100%;
-    margin-top: -0.5em;
-    opacity: 0.25;
-}
-
-section h1 .section-relative-nav .upwards {
-    left: auto;
-    right: 100%;
-    margin-right: -0.6em;
-}
-
-section h1 .section-relative-nav .downwards {
-    left: 100%;
-    margin-left: -0.6em;
-}
-
-section h1 .section-relative-nav > :hover {
-    background: #FFCC99;
-    border: thin solid black;
-    opacity: 1;
-}
-
-section h1 .section-relative-nav .of:hover {
-    background: transparent;
-    border: thin solid transparent;
-    opacity: 0.25;
 }
 
 
