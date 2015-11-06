@@ -175,9 +175,24 @@ section > header > h1.breadcrumbs {
     margin-bottom: 0;
 }
 
-section > header > a.details-link {
-    margin: 0 1em;
+section > header > a {
+    margin: 0 0.75em;
     text-decoration: none;
+}
+
+section > header > a.direct-link {
+    padding: 0.2em 0.3em;
+    border: thin solid;
+    opacity: 0.5;
+}
+
+section > header > a.direct-link:hover {
+    opacity: 1;
+    background: #FFCC99;
+    border-color: black;
+}
+
+section > header > a.details-link {
     padding: 0.5em;
     border: thin solid green;
     color: green;
@@ -187,6 +202,8 @@ section > header > a.details-link:hover {
     background: green;
     color: white;
 }
+
+
 
 
 
