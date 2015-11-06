@@ -144,45 +144,64 @@ header .description {
 
 
 .notice {
-    display: table;
-    clear: both;
-    position: relative;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
     max-width: 40em;
-    padding: 0;
+    padding: 0.2rem 0.4rem;
+    border: solid thick transparent;
     margin: 0.5em auto;
     text-align: center;
-    border: solid thick transparent;
+    clear: both;
 }
 
-.notice p {
+.notice > b {
+    flex: none;
+    font-size: 3em;
+    line-height: 1em;
+    text-align: center;
+    padding: 0.2rem 0.4rem;
+}
+
+.notice > div {
+    flex: 1 1 auto;
+    padding: 0.2rem 0.4rem;
+}
+
+.notice > div p {
     line-height: 1.4em;
-    margin-top: 0.6em;
-    margin-bottom: 0.6em;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
-.notice .prose {
-    text-align: justify;
-}
-
-.notice .debug {
-    position: absolute;
-    font-size: x-small;
-    margin-top: 0.1em;
-    margin-left: 0.1em;
+    padding: 0;
+    margin: 0.6em 0;
 }
 
 .notice.good-news {
     border-color: green;
 }
 
-.warning {
+.notice.good-news > b {
+    color: green;
+    font-weight: normal;
+}
+
+.notice.warning {
     border-color: orange;
 }
 
-.note {
+.notice.warning > b {
+    color: orange;
+}
+
+.notice.note {
     border-color: lightslategray;
+}
+
+.notice.note > b {
+    color: lightslategray;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 
