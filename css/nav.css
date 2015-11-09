@@ -256,6 +256,10 @@ ul.tabs > li > a.here:hover, ul.tabs > li > a.here:focus, ul.tabs > li > a.not-a
     text-decoration: none;
 }
 
+.navtable th.noa, .navtable td.noa {
+    padding: 0.4em 0.6em;
+}
+
 .navtable td a[href]:hover, .navtable td a[href]:focus {
     background: #ECE0A5;
 }
