@@ -5,6 +5,7 @@
 }
 
 .ancestors-nav .level-separator  {
+    display: none; /* Remove from markup later. */
     width: 65%;
     height: 0.2em;
     border: 3px solid black;
