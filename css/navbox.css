@@ -191,7 +191,7 @@
 .navbox-groups {
     display: flex;
     flex-flow: row wrap;
-    margin: 3em auto;
+    margin: 1.5em auto 3em;
     justify-content: center;
 }
 
@@ -222,14 +222,51 @@
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
+    justify-content: center;
     padding: 1em 0.5em 0;
     border: thin dashed #AAAAAA;
 }
 
-.navbox-groups > nav .body .navbox {
+.navbox-groups .navbox {
     width: auto;
     flex: none;
-    min-width: 10em;
+    min-width: 8em;
+}
+
+.navbox-groups .navbox h1 a {
+    padding: 0 0.5em;
+}
+
+.navbox-groups .navbox li {
+    display: flex;
+    flex-flow: row;
+}
+
+.navbox-groups .navbox li a {
+    flex: 1 0;
+}
+
+.navbox-groups.contains-direct-links .navbox li a.direct-link {
+    position: static;
+    flex: none;
+    display: flex;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbox-groups.contains-direct-links .navbox li a.direct-link > span {
+    position: static;
+    margin-top: 0;
+    align-self: center;
+}
+
+
+.navbox-groups.contains-direct-links .navbox li a {
+    padding-right: 0.2em;
+}
+
+.navbox-groups.contains-direct-links .navbox li.no-direct-link a {
+    padding-right: 0.5em;
 }
 
 .navbox-groups > nav.anonymous > .body {
