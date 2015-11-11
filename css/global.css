@@ -158,6 +158,10 @@ header .description {
     clear: both;
 }
 
+.notice + table {
+    margin-top: 2em;
+}
+
 .notice > b {
     flex: none;
     font-size: 3em;
