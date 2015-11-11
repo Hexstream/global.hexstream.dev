@@ -233,3 +233,28 @@ table tr > th:first-child {
 table tr > th.library-name {
     text-align: left;
 }
+
+
+table .chomp {
+    background-color: transparent;
+}
+
+table .chomp.top {
+    border-top: hidden;
+    border-bottom: solid 0.15em gray;
+}
+
+table .chomp.bottom {
+    border-top: solid 0.15em gray;
+    border-bottom: hidden;
+}
+
+table .chomp.left {
+    border-left: hidden;
+    border-right: solid 0.15em gray;
+}
+
+table .chomp.right {
+    border-left: solid 0.15em gray;
+    border-right: hidden;
+}
