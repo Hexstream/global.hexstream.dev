@@ -149,46 +149,30 @@ table th > ul:only-child, table th > ol:only-child, table td > ul:only-child, ta
     margin: 0;
 }
 
+
 table .link-cell {
     padding: 0;
-    width: 12em;
 }
 
-table .link-cell > div:only-child {
-    position: relative;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 3em; /* height: 100%; should work but it doesn't and I'm tired. */
-}
-
-table .link-cell > div:only-child a {
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-decoration: none;
+table .link-cell > a {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    padding: 0.4em 0.6em;
     text-align: center;
+    text-decoration: none;
 }
 
-table .link-cell a > div {
-    position: absolute;
-    width: inherit;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin-top: -0.6em;
+table .link-cell > a > span {
+    flex: 1 0;
 }
 
-/* disable for now because of height nonsense above.
-table .link-cell a:hover, table .link-cell a:focus {
-    background-color: #ECE0A5;
+table .link-cell a[href]:hover, table .link-cell a[href]:focus {
+    /*background-color: #ECE0A5;*/
+    text-decoration: underline;
     outline-style: none;
 }
-*/
+
 
 table > thead > tr > th.horizontal-grouping-header a,
 table > tbody > tr > th.horizontal-grouping-header a {
