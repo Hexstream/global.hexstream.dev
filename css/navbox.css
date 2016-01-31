@@ -184,6 +184,10 @@
     flex: 1 0;
 }
 
+.navbox-groups .navbox .item-count {
+    margin-left: -0.05em;
+}
+
 .navbox-groups.contains-direct-links .navbox li a.direct-link {
     position: static;
     flex: none;
