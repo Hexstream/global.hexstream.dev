@@ -4,7 +4,7 @@ section h1.breadcrumbs {
     flex-flow: row;
     align-items: stretch;
     white-space: nowrap;
-    font-size: large;
+    font-size: x-large;
     text-align: left;
     padding: 0 0.6em 0 1.9em;
     border: solid thin gray;
@@ -61,6 +61,7 @@ section h1.breadcrumbs .anchor {
     width: 1.2em;
     margin-left: 0.4em;
     text-align: center;
+    font-size: x-large;
 }
 
 section h1.breadcrumbs > .anchor {
