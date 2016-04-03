@@ -44,6 +44,14 @@
     padding: 0.175em 0.5em;
 }
 
+.navbox li.siblings {
+    display: table;
+}
+
+.navbox li.siblings a {
+    display: table-cell;
+}
+
 .navbox li a.direct-link {
     padding: 0;
     position: absolute;
