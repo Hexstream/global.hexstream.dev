@@ -1,6 +1,11 @@
 @import "nav.css";
 @import "cl.css";
 @import "table.css";
+@import "fonts.css";
+
+body {
+    font-family: "HexstreamSoft Main", serif;
+}
 
 dt {
     margin: 1.5em 1.8em 0;
