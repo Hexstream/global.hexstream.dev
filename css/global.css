@@ -4,7 +4,7 @@
 @import "fonts.css";
 
 body {
-    font-family: "HexstreamSoft Main", serif;
+    font-family: "Liberation Serif", serif;
 }
 
 dt {
@@ -117,7 +117,7 @@ header .description {
 #page-header {
     text-align: center;
     margin: 0 auto 1.75em;
-    font-family: sanvito-pro-display, serif;
+    font-family: "Kaushan Script", serif;
 }
 
 #page-header h1 {

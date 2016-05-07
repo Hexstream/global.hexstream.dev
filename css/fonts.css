@@ -1,23 +1,29 @@
 @font-face {
-    font-family: "HexstreamSoft Main";
-    src: local("Liberation Serif"), local("LiberationSerif"), url("../fonts/liberation/LiberationSerif-Regular.ttf") format("truetype");
+    font-family: "Kaushan Script";
+    src: url("../fonts/kaushan-script/KaushanScript-Regular.otf") format("opentype");
+}
+
+
+@font-face {
+    font-family: "Liberation Serif";
+    src: url("../fonts/liberation/LiberationSerif-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "HexstreamSoft Main";
+    font-family: "Liberation Serif";
     font-weight: bold;
-    src: local("Liberation Serif Bold"), local("LiberationSerif-Bold"), url("../fonts/liberation/LiberationSerif-Bold.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-Bold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "HexstreamSoft Main";
+    font-family: "Liberation Serif";
     font-style: italic;
-    src: local("Liberation Serif Italic"), local("LiberationSerif-Italic"), url("../fonts/liberation/LiberationSerif-Italic.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-Italic.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "HexstreamSoft Main";
+    font-family: "Liberation Serif";
     font-weight: bold;
     font-style: italic;
-    src: local("Liberation Serif Bold Italic"), local("LiberationSerif-BoldItalic"), url("../fonts/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
 }
