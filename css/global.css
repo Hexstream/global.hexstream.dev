@@ -203,6 +203,15 @@ header .description {
     color: orange;
 }
 
+.notice.error {
+    border-color: red;
+}
+
+.notice.error > b {
+    color: red;
+    font-family: "DejaVu Sans Mono", monospace;
+}
+
 .notice.note {
     border-color: lightslategray;
 }
