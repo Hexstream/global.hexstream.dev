@@ -261,5 +261,5 @@ ul.tabs > li > a.here:hover, ul.tabs > li > a.here:focus, ul.tabs > li > a.not-a
 }
 
 .navtable td a[href]:hover, .navtable td a[href]:focus {
-    background: #ECE0A5;
+    background-color: #ECE0A5;
 }
