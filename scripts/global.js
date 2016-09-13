@@ -2,6 +2,27 @@
 
 var HexstreamSoft = {};
 
+HexstreamSoft.forEachAddedNode = function (mutation_records, callback) {
+    Array.prototype.forEach.call(mutation_records, function (record) {
+        var added_nodes = record.addedNodes;
+        if (added_nodes)
+            Array.prototype.forEach.call(added_nodes, callback);
+    });
+};
+
+HexstreamSoft.nodeOrAncestorSatisfying = function (node, test) {
+    if (test(node))
+        return node;
+    else
+    {
+        var parent_element = node.parentElement;
+        if (parent_element)
+            return HexstreamSoft.nodeOrAncestorSatisfying(parent_element, test);
+        else
+            return undefined;
+    }
+};
+
 HexstreamSoft.arrowsMadnessObserver = (function () {
     var typeToClass =
         {
@@ -88,12 +109,12 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
     createMockNode(document.documentElement, null);
     var rootMockNode = realNodeToMockNode[""];
     return new MutationObserver(function (records, observer) {
-        forEachAddedNode(records, function (addedNode) {
+        HexstreamSoft.forEachAddedNode(records, function (addedNode) {
             if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.classList.contains("section-relative-nav"))
             {
                 var isSection = function (node) {return node.tagName === "SECTION";};
-                var thisSection = node_or_ancestor_satisfying(addedNode, isSection);
-                var parentSection = node_or_ancestor_satisfying(thisSection.parentNode, isSection);
+                var thisSection = HexstreamSoft.nodeOrAncestorSatisfying(addedNode, isSection);
+                var parentSection = HexstreamSoft.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
                 var toUpdate = createMockNode(thisSection, parentSection ? realNodeToMockNode[parentSection.id] : rootMockNode);
                 toUpdate.forEach(function (sectionToUpdate) {
                     var navToUpdate = sectionToUpdate.querySelector(".section-relative-nav");
