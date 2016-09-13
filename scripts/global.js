@@ -1,5 +1,121 @@
 "use strict";
 
+var HexstreamSoft = {};
+
+HexstreamSoft.arrowsMadnessObserver = (function () {
+    var typeToClass =
+        {
+            "⬉": "prev upwards",
+            "⬆": "prev",
+            "⬈": "prev downwards",
+            "⬋": "next upwards",
+            "⬇": "next",
+            "⬊": "next downwards",
+        };
+    var typesArray = Object.keys(typeToClass);
+    function makeLink (type, target) {
+        var link = document.createElement("a");
+        link.href = "#" + target;
+        link.className = typeToClass[type] + " generated";
+        link.textContent = type;
+        return link;
+    }
+    var realNodeToMockNode = {};
+    function createMockNode (realNode, parent) {
+        var node = {};
+        var toUpdate = [realNode];
+        realNodeToMockNode[realNode ? realNode.id : ""] = node;
+        node.realNode = realNode;
+        node["⬉"] = parent;
+        node["⬈"] = null;
+        node["⬊"] = null;
+        if (!parent)
+        {
+            node["⬋"] = null;
+            node["⬆"] = null;
+            node["⬇"] = null;
+            return toUpdate;
+        }
+        var siblings = (function () {
+            var prev = null;
+            var next = parent["⬊"];
+            while (next)
+            {
+                if (realNode.compareDocumentPosition(next.realNode) & Node.DOCUMENT_POSITION_FOLLOWING)
+                    return {prev: prev, next: next};
+                prev = next;
+                next = next["⬇"];
+            }
+            if (prev === null)
+            {
+                parent["⬊"] = node;
+                toUpdate.push(parent.realNode);
+            }
+            return {prev: prev, next: null};
+        })();
+        var prev = siblings.prev;
+        var next = siblings.next;
+        node["⬆"] = prev;
+        if (prev)
+        {
+            prev["⬇"] = node;
+            toUpdate.push(prev.realNode);
+            (function (nodePrev) {
+                var prev = null;
+                var next = nodePrev["⬊"];
+                while (next)
+                {
+                    next["⬋"] = node;
+                    toUpdate.push(next.realNode);
+                    prev = next;
+                    next = next["⬇"];
+                }
+                if (prev !== null)
+                {
+                    node["⬈"] = prev;
+                }
+            })(prev);
+        }
+        node["⬇"] = next;
+        if (next)
+        {
+            next["⬆"] = node;
+            toUpdate.push(next.realNode);
+        }
+        node["⬋"] = parent["⬇"];
+        return toUpdate;
+    }
+    createMockNode(document.documentElement, null);
+    var rootMockNode = realNodeToMockNode[""];
+    return new MutationObserver(function (records, observer) {
+        forEachAddedNode(records, function (addedNode) {
+            if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.classList.contains("section-relative-nav"))
+            {
+                var isSection = function (node) {return node.tagName === "SECTION";};
+                var thisSection = node_or_ancestor_satisfying(addedNode, isSection);
+                var parentSection = node_or_ancestor_satisfying(thisSection.parentNode, isSection);
+                var toUpdate = createMockNode(thisSection, parentSection ? realNodeToMockNode[parentSection.id] : rootMockNode);
+                toUpdate.forEach(function (sectionToUpdate) {
+                    var navToUpdate = sectionToUpdate.querySelector(".section-relative-nav");
+                    var mockNode = realNodeToMockNode[sectionToUpdate.id];
+                    var anchor = navToUpdate.querySelector(".anchor");
+                    Array.prototype.slice.call(navToUpdate.childNodes).forEach(function (child) {
+                        navToUpdate.removeChild(child);
+                    });
+                    typesArray.forEach(function (type) {
+                        var sibling = mockNode[type];
+                        if (sibling)
+                            navToUpdate.appendChild(makeLink(type, sibling.realNode.id));
+                        if (type === "⬈")
+                            navToUpdate.appendChild(anchor);
+                    });
+                });
+            }
+        });
+    }).observe(document, {childList: true, subtree: true});
+})();
+
+
 function toRelativeURLString (base, target) {
     if (typeof base === "string")
         base = new URL(base);
