@@ -108,7 +108,7 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
     }
     createMockNode(document.documentElement, null);
     var rootMockNode = realNodeToMockNode[""];
-    return new MutationObserver(function (records, observer) {
+    var observer = new MutationObserver(function (records, observer) {
         HexstreamSoft.forEachAddedNode(records, function (addedNode) {
             if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.classList.contains("section-relative-nav"))
             {
@@ -133,7 +133,9 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
                 });
             }
         });
-    }).observe(document, {childList: true, subtree: true});
+    });
+    observer.observe(document, {childList: true, subtree: true});
+    return observer;
 })();
 
 
