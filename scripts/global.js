@@ -144,10 +144,11 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
                 toUpdate.forEach(function (sectionToUpdate) {
                     var navToUpdate = sectionToUpdate.querySelector(".section-relative-nav");
                     var mockNode = realNodeToMockNode[sectionToUpdate.id];
-                    var anchor = navToUpdate.querySelector(".anchor");
-                    Array.prototype.slice.call(navToUpdate.childNodes).forEach(function (child) {
-                        navToUpdate.removeChild(child);
-                    });
+                    var anchor = navToUpdate.querySelector(".section-relative-nav > .anchor");
+                    navToUpdate.removeChild(anchor);
+                    Array.prototype.forEach.call(navToUpdate.querySelectorAll(".section-relative-nav > .generated"),
+                                                 navToUpdate.removeChild,
+                                                 navToUpdate);
                     directionNames.forEach(function (type) {
                         var sibling = mockNode[type];
                         if (sibling)
