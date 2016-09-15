@@ -24,34 +24,62 @@ HexstreamSoft.nodeOrAncestorSatisfying = function (node, test) {
 };
 
 HexstreamSoft.arrowsMadnessObserver = (function () {
-    var typeToClass =
+    var directions =
         {
-            "⬉": "prev upwards",
-            "⬆": "prev",
-            "⬈": "prev downwards",
-            "⬋": "next upwards",
-            "⬇": "next",
-            "⬊": "next downwards",
+            "⬉":
+            {
+                className: "prev upwards",
+                opposite: "⬊"
+            },
+            "⬆":
+            {
+                className: "prev",
+                opposite: "⬇",
+                downwards: "⬈",
+                upwards: "⬉"
+            },
+            "⬈":
+            {
+                className: "prev downwards",
+                opposite: "⬋"
+            },
+            "⬋":
+            {
+                className: "next upwards",
+                opposite: "⬈"
+            },
+            "⬇":
+            {
+                className: "next",
+                opposite: "⬆",
+                downwards: "⬊",
+                upwards: "⬋"
+            },
+            "⬊":
+            {
+                className: "next downwards",
+                opposite: "⬉"
+            },
         };
-    var typesArray = Object.keys(typeToClass);
-    function makeLink (type, target) {
+    var directionNames = Object.keys(directions);
+    function makeLink (direction, target) {
         var link = document.createElement("a");
         link.href = "#" + target;
-        link.className = typeToClass[type] + " generated";
-        link.textContent = type;
+        link.className = directions[direction].className + " generated";
+        link.textContent = direction;
         return link;
     }
     var realNodeToMockNode = {};
     function createMockNode (realNode, parent) {
         var node = {};
         var toUpdate = [realNode];
-        realNodeToMockNode[realNode ? realNode.id : ""] = node;
+        realNodeToMockNode[realNode.id] = node;
         node.realNode = realNode;
-        node["⬉"] = parent;
         node["⬈"] = null;
         node["⬊"] = null;
         if (!parent)
         {
+            node["⬉"] = null;
             node["⬋"] = null;
             node["⬆"] = null;
             node["⬇"] = null;
@@ -60,50 +88,47 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
         var siblings = (function () {
             var prev = null;
             var next = parent["⬊"];
-            while (next)
+            body: while (next)
             {
                 if (realNode.compareDocumentPosition(next.realNode) & Node.DOCUMENT_POSITION_FOLLOWING)
-                    return {prev: prev, next: next};
+                    break body;
                 prev = next;
                 next = next["⬇"];
             }
-            if (prev === null)
-            {
-                parent["⬊"] = node;
-                toUpdate.push(parent.realNode);
-            }
-            return {prev: prev, next: null};
+            return {prev: prev, next: next};
         })();
+        function updateLink (thisNode, otherNode, forward, isReciprocal, whichToUpdate) {
+            thisNode[forward] = otherNode;
+            if (whichToUpdate === "this")
+                toUpdate.push(thisNode.realNode);
+            if (otherNode && isReciprocal)
+            {
+                var backwards = directions[forward].opposite;
+                otherNode[backwards] = thisNode;
+                if (whichToUpdate === "other")
+                    toUpdate.push(otherNode.realNode);
+            }
+        }
+        function updateLinks (sibling, forward) {
+            var backwards = directions[forward].opposite;
+            var backwardsDownwards = directions[backwards].downwards;
+            var backwardsUpwards = directions[backwards].upwards;
+            updateLink(node, sibling, forward, true, "other");
+            var currentChild = sibling ? sibling[backwardsDownwards] : null;
+            while (currentChild)
+            {
+                var nextChild = currentChild[backwards];
+                var currentChildIsLastChild = nextChild === null;
+                updateLink(currentChild, node, backwardsUpwards, currentChildIsLastChild, "this");
+                currentChild = currentChildIsLastChild ? currentChild[backwardsDownwards] : nextChild;
+            }
+        }
         var prev = siblings.prev;
         var next = siblings.next;
-        node["⬆"] = prev;
-        if (prev)
-        {
-            prev["⬇"] = node;
-            toUpdate.push(prev.realNode);
-            (function (nodePrev) {
-                var prev = null;
-                var next = nodePrev["⬊"];
-                while (next)
-                {
-                    next["⬋"] = node;
-                    toUpdate.push(next.realNode);
-                    prev = next;
-                    next = next["⬇"];
-                }
-                if (prev !== null)
-                {
-                    node["⬈"] = prev;
-                }
-            })(prev);
-        }
-        node["⬇"] = next;
-        if (next)
-        {
-            next["⬆"] = node;
-            toUpdate.push(next.realNode);
-        }
-        node["⬋"] = parent["⬇"];
+        updateLink(node, parent, "⬉", prev === null, "other");
+        updateLink(node, parent["⬇"], "⬋", next === null, "other");
+        updateLinks(prev, "⬆");
+        updateLinks(next, "⬇");
         return toUpdate;
     }
     createMockNode(document.documentElement, null);
@@ -123,7 +148,7 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
                     Array.prototype.slice.call(navToUpdate.childNodes).forEach(function (child) {
                         navToUpdate.removeChild(child);
                     });
-                    typesArray.forEach(function (type) {
+                    directionNames.forEach(function (type) {
                         var sibling = mockNode[type];
                         if (sibling)
                             navToUpdate.appendChild(makeLink(type, sibling.realNode.id));
