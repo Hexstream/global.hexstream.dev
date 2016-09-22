@@ -244,7 +244,7 @@ HexstreamSoft.modules.ensure = function (moduleNames) {
         var moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
         if (!moduleInfo.isInitialized)
         {
-            moduleInfo.initFunction();
+            moduleInfo.ensureFunction();
             moduleInfo.isInitialized = true;
         }
     });
