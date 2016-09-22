@@ -249,3 +249,388 @@ HexstreamSoft.modules.ensure = function (moduleNames) {
         }
     });
 };
+
+
+
+HexstreamSoft.modules.register("StateDomain", function () {
+    function StateDomainSchema (properties) {
+        var schema = this;
+        var keys = Object.keys(properties);
+        schema.properties = properties;
+        schema.keys = keys;
+        schema.varyingRelevanceKeys = schema.keys.filter(function (key) {return !schema.isAlwaysRelevant(key)});
+    }
+
+    StateDomainSchema.prototype.defaultValue = function (key) {
+        var schema = this;
+        var defaultValue = schema.properties[key].defaultValue;
+        if (defaultValue)
+            return defaultValue;
+        else
+            throw Error("No key named " + key + " in schema " + schema + ".");
+    };
+
+    StateDomainSchema.prototype.possibleValues = function (key) {
+        var schema = this;
+        return schema.properties[key].possibleValues;
+    };
+
+    StateDomainSchema.prototype.isAcceptableValue = function (key, value) {
+        var schema = this;
+        return schema.possibleValues(key).indexOf(value) >= 0;
+    };
+
+    StateDomainSchema.prototype.isAlwaysRelevant = function (key) {
+        var schema = this;
+        return schema.properties[key].computeRelevance ? false : true;
+    };
+
+
+    function StateDomain (schema) {
+        var domain = this;
+        function propagateRelevance () {
+            var varyingRelevanceKeys = schema.varyingRelevanceKeys;
+            var propagationProgressed = true;
+            var propagatedSomething = false;
+            while (propagationProgressed)
+            {
+                propagationProgressed = false;
+                varyingRelevanceKeys.forEach(function (key) {
+                    var domainKeyProperties = domain.properties[key];
+                    var oldRelevance = domainKeyProperties.relevant;
+                    var newRelevance = schema.properties[key].computeRelevance(domain);
+                    if (newRelevance !== oldRelevance)
+                    {
+                        domainKeyProperties.relevant = newRelevance;
+                        propagationProgressed = true;
+                        propagatedSomething = true;
+                    }
+                });
+            }
+            if (propagatedSomething)
+                window.dispatchEvent(new CustomEvent("HexstreamSoft.relevance",
+                                                     {
+                                                         bubbles: false,
+                                                         cancelable: false,
+                                                         detail: {storage: domain}
+                                                     }));
+        }
+        domain.schema = schema;
+        domain.properties = {};
+        schema.keys.forEach(function (key) {
+            domain.properties[key] = {value: schema.defaultValue(key),
+                                      relevant: schema.isAlwaysRelevant(key) ? true : false};
+            Object.defineProperty(domain, key,
+                                  {
+                                      set: function (newValue) {
+                                          if (schema.isAcceptableValue(key, newValue))
+                                          {
+                                              var oldValue = domain.properties[key].value;
+                                              if (oldValue !== newValue)
+                                              {
+                                                  domain.properties[key].value = newValue;
+                                                  propagateRelevance();
+                                                  window.dispatchEvent(new CustomEvent("HexstreamSoft.storage",
+                                                                                       {
+                                                                                           cancelable: false,
+                                                                                           bubbles: false,
+                                                                                           detail:
+                                                                                           {
+                                                                                               storage: domain,
+                                                                                               key: key,
+                                                                                               oldValue: oldValue,
+                                                                                               newValue: newValue,
+                                                                                           }
+                                                                                       }));
+                                              }
+                                          }
+                                          else
+                                              throw Error("Value \"" + newValue + "\" is not acceptable for key \"" + key
+                                                          + "\".\n\nAcceptable values:\n" + schema.possibleValues(key).join("\n"));
+                                      },
+                                      get: function () {
+                                          return domain.properties[key].value;
+                                      },
+                                      enumerable: true
+                                  });
+        });
+        propagateRelevance();
+    }
+
+    StateDomain.prototype.forEach = function (callback, thisArg) {
+        var domain = this;
+        var keys = domain.schema.keys;
+        keys.forEach(function (key) {
+            callback.call(thisArg, key, domain[key]);
+        });
+    }
+
+    StateDomain.prototype.isRelevant = function (key) {
+        var domain = this;
+        return domain.properties[key].relevant;
+    };
+
+    StateDomain.prototype.reset = function (key) {
+        var domain = this;
+        var schema = domain.schema;
+        var defaultValue = schema.defaultValue(key);
+        domain[key] = defaultValue;
+        return defaultValue;
+    };
+
+    StateDomain.prototype.resetAll = function () {
+        this.schema.keys.forEach(this.reset, this);
+    };
+
+    HexstreamSoft.StateDomainSchema = StateDomainSchema;
+    HexstreamSoft.StateDomain = StateDomain;
+
+});
+
+
+HexstreamSoft.modules.register("EventBinding", function () {
+    window.addEventListener("storage", function (event) {
+        window.dispatchEvent(new CustomEvent("HexstreamSoft.storage",
+                                             {
+                                                 cancelable: false,
+                                                 bubbles: false,
+                                                 detail: {
+                                                     storage: event.storageArea,
+                                                     key: event.key,
+                                                     oldValue: event.oldValue,
+                                                     newValue: event.newValue,
+                                                 }
+                                             }));
+    });
+
+    var EventBinding = {};
+
+    EventBinding.types = {};
+
+    EventBinding.defineType = function (from, to, definition) {
+        var toTable = EventBinding.types[from];
+        if (!toTable)
+            toTable = EventBinding.types[from] = {};
+        if (toTable[to])
+            throw Error("Duplicate EventBinding type definition.");
+        toTable[to] = definition;
+        definition.bindings = [];
+    };
+
+    EventBinding.Binding = function (parent) {
+        var binding = this;
+        binding.parent = parent || null;
+        if (parent)
+            parent.children.push(binding);
+    };
+
+    EventBinding.defineType("storage", "storage", (function () {
+        var Binding = function (sourceStorage, destinationStorage, keys) {
+            var binding = this;
+            binding.sourceStorage = sourceStorage;
+            binding.destinationStorage = destinationStorage;
+            binding.keys = keys;
+            binding.listener = function (event) {
+                if (event.detail.storage === sourceStorage)
+                    binding.incrementalSync(event.detail.key);
+            };
+            binding.hookup = function () {
+                window.addEventListener("HexstreamSoft.storage", binding.listener);
+            };
+            binding.initialSync = function () {
+                binding.keys.forEach(binding.incrementalSync, binding);
+            };
+            binding.incrementalSync = function (key) {
+                var sourceValue = binding.sourceStorage[key];
+                if (sourceValue !== undefined)
+                    binding.destinationStorage[key] = sourceValue;
+            };
+        };
+        return {
+            bind: function (spec) {
+                return [new Binding(spec.sourceStorage, spec.destinationStorage, spec.keys)];
+            },
+        }
+    })());
+    EventBinding.defineType("storage", "document", (function () {
+        var Binding = function (storage, document, stateDomainName) {
+            var binding = this;
+            binding.storage = storage;
+            binding.document = document;
+            binding.stateDomainName = stateDomainName;
+            binding.registeredNodes = [];
+            binding.keyToNodes = {};
+            binding.storageListener = function (event) {
+                if (event.detail.storage === storage)
+                    binding.incrementalSync(event.detail.key);
+            };
+            binding.relevanceListener = function (event) {
+                if (event.detail.storage === storage)
+                    binding.initialSync();
+            };
+            binding.hookup = function () {
+                window.addEventListener("HexstreamSoft.storage", binding.storageListener);
+                window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
+                binding.observer = new MutationObserver(function (records, observer) {
+                    HexstreamSoft.forEachAddedNode(records, function (node) {
+                        if (node.tagName !== "INPUT")
+                            return;
+                        var node_type = node.getAttribute("type");
+                        if ((node_type === "radio" || node_type === "checkbox")
+                            && node.dataset.stateValue
+                            && nodeStateDomainName(node) === stateDomainName)
+                        {
+                            binding.registeredNodes.push(node);
+                            var key = node.dataset.stateKey;
+                            var keyNodes = binding.keyToNodes[key];
+                            if (!keyNodes)
+                            {
+                                keyNodes = [];
+                                binding.keyToNodes[key] = keyNodes;
+                            }
+                            keyNodes.push(node);
+                            binding.incrementalSyncNode(node);
+                        }
+                    });
+                });
+                binding.observer.observe(document, {childList: true, subtree: true});
+            };
+            binding.initialSync = function () {
+                binding.registeredNodes.forEach(function (node) {
+                    binding.incrementalSyncNode(node);
+                });
+            };
+            binding.incrementalSyncNode = function (node) {
+                var key = node.dataset.stateKey;
+                node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
+                var sourceValue = storage[key];
+                if (sourceValue !== undefined)
+                    node.checked = sourceValue === node.dataset.stateValue;
+            };
+            binding.incrementalSync = function (key) {
+                (binding.keyToNodes[key] || []).forEach(binding.incrementalSyncNode, binding);
+            };
+        };
+        return {
+            bind: function (spec) {
+                return [new Binding(spec.storage, spec.document, spec.stateDomainName)];
+            },
+        }
+    })());
+
+
+    function nodeStateDomainName (node) {
+        function nodeStateDomain (node) {
+            return node.dataset.stateDomain;
+        }
+        var domain_node = HexstreamSoft.nodeOrAncestorSatisfying(node, nodeStateDomain);
+        var value = domain_node ? nodeStateDomain(domain_node) : undefined;
+        return value;
+    }
+
+
+    EventBinding.defineType("document", "storage", (function () {
+        var Binding = function (document, stateDomainName, storage) {
+            var binding = this;
+            binding.document = document;
+            binding.stateDomainName = stateDomainName;
+            binding.storage = storage;
+            binding.registeredNodes = [];
+            binding.clickListener = function (event) {
+                binding.incrementalSync(event.target);
+            };
+            binding.hookup = function () {
+                binding.observer = new MutationObserver(function (records, observer) {
+                    HexstreamSoft.forEachAddedNode(records, function (node) {
+                        if (node.tagName !== "INPUT")
+                            return;
+                        var node_type = node.getAttribute("type");
+                        if ((node_type === "radio" || node_type === "checkbox")
+                            && node.dataset.stateValue
+                            && nodeStateDomainName(node) === stateDomainName)
+                        {
+                            binding.registeredNodes.push(node);
+                            binding.incrementalSync(node);
+                            node.addEventListener("click", binding.clickListener);
+                        }
+                    });
+                });
+                binding.observer.observe(document, {childList: true, subtree: true})
+            };
+            binding.initialSync = function () {
+            };
+            binding.incrementalSync = function (node) {
+                var dataset = node.dataset;
+                var key = dataset.stateKey;
+                if (node.checked || dataset.stateAntivalue)
+                    storage[key] = node.checked ? dataset.stateValue : dataset.stateAntivalue;
+            };
+        };
+        return {
+            bind: function (spec) {
+                return [new Binding(spec.document, spec.stateDomainName, spec.storage)];
+            },
+        }
+    })());
+
+
+    EventBinding.defineType("storage", "classList", (function () {
+        var Binding = function (storage, keys, document, nodeSelector) {
+            var binding = this;
+            binding.storage = storage;
+            binding.keys = keys;
+            binding.document = document;
+            binding.nodeSelector = nodeSelector;
+            binding.storageListener = function (event) {
+                if (event.detail.storage === storage && window.document.body)
+                    binding.incrementalSync(window.document.body);
+            };
+            binding.hookup = function () {
+                window.addEventListener("HexstreamSoft.storage", binding.storageListener);
+                binding.observer = new MutationObserver(function (records, observer) {
+                    HexstreamSoft.forEachAddedNode(records, function (node) {
+                        if (node.tagName && node.tagName.toLowerCase() === binding.nodeSelector)
+                        {
+                            observer.disconnect();
+                            binding.incrementalSync(node);
+                        }
+                    });
+                });
+                binding.observer.observe(document, {childList: true, subtree: true})
+            };
+            binding.initialSync = function () {
+                if (window.document.body)
+                    binding.incrementalSync(window.document.body);
+            };
+            binding.incrementalSync = function (node) {
+                node.className = "";
+                var classes = node.classList;
+                keys.forEach(function (key) {
+                    if (storage.isRelevant(key))
+                        classes.add(key + "=" + storage[key]);
+                });
+            };
+        };
+        return {
+            bind: function (spec) {
+                return [new Binding(spec.storage, spec.keys, spec.document, spec.nodeSelector)];
+            },
+        }
+    })());
+
+
+    EventBinding.bind = function (from, to, spec) {
+        var typeDefinition = EventBinding.types[from][to];
+        var bindings = typeDefinition.bindings;
+        typeDefinition.bind(spec).forEach(function (newBinding) {
+            bindings.push(newBinding);
+            if (newBinding.hookup)
+                newBinding.hookup();
+            if (newBinding.initialSync)
+                newBinding.initialSync();
+        });
+    };
+
+    HexstreamSoft.EventBinding = EventBinding;
+
+});
