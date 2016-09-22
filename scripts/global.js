@@ -214,3 +214,38 @@ if (document.location.protocol === "file:")
     fix_links_observer = new MutationObserver(fix_links_callback);
     fix_links_observer.observe(document.documentElement, {childList: true, subtree: true});
 }
+
+
+
+HexstreamSoft.modules = {};
+HexstreamSoft.modules.registeredModules = {};
+
+HexstreamSoft.modules.moduleInfo = function (moduleName, options) {
+    var moduleInfo = HexstreamSoft.modules.registeredModules[moduleName];
+    if (moduleInfo)
+        return moduleInfo;
+    else
+        if (!options || options.mustExist)
+            throw Error("Unknown module name \"" + moduleName + "\".");
+};
+
+HexstreamSoft.modules.register = function (moduleName, ensureFunction) {
+    var existingModule = HexstreamSoft.modules.moduleInfo(moduleName, {mustExist: false});
+    if (existingModule)
+        throw Error("Module \"" + moduleName + "\" has already been registered.");
+    var moduleInfo = {};
+    moduleInfo.ensureFunction = ensureFunction;
+    moduleInfo.isInitialized = false;
+    HexstreamSoft.modules.registeredModules[moduleName] = moduleInfo;
+};
+
+HexstreamSoft.modules.ensure = function (moduleNames) {
+    moduleNames.forEach(function (moduleName) {
+        var moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
+        if (!moduleInfo.isInitialized)
+        {
+            moduleInfo.initFunction();
+            moduleInfo.isInitialized = true;
+        }
+    });
+};
