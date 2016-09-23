@@ -388,6 +388,7 @@ HexstreamSoft.modules.register("StateDomain", function () {
 });
 
 
+
 HexstreamSoft.modules.register("EventBinding", function () {
     window.addEventListener("storage", function (event) {
         window.dispatchEvent(new CustomEvent("HexstreamSoft.storage",
@@ -425,7 +426,7 @@ HexstreamSoft.modules.register("EventBinding", function () {
     };
 
     EventBinding.defineType("storage", "storage", (function () {
-        var Binding = function (sourceStorage, destinationStorage, keys) {
+        var Binding = function (sourceStorage, keys, destinationStorage) {
             var binding = this;
             binding.sourceStorage = sourceStorage;
             binding.destinationStorage = destinationStorage;
@@ -447,8 +448,8 @@ HexstreamSoft.modules.register("EventBinding", function () {
             };
         };
         return {
-            bind: function (spec) {
-                return [new Binding(spec.sourceStorage, spec.destinationStorage, spec.keys)];
+            bind: function (fromSpec, toSpec) {
+                return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.storage)];
             },
         }
     })());
@@ -512,8 +513,8 @@ HexstreamSoft.modules.register("EventBinding", function () {
             };
         };
         return {
-            bind: function (spec) {
-                return [new Binding(spec.storage, spec.document, spec.stateDomainName)];
+            bind: function (fromSpec, toSpec) {
+                return [new Binding(fromSpec.storage, toSpec.document, toSpec.stateDomainName)];
             },
         }
     })());
@@ -567,8 +568,8 @@ HexstreamSoft.modules.register("EventBinding", function () {
             };
         };
         return {
-            bind: function (spec) {
-                return [new Binding(spec.document, spec.stateDomainName, spec.storage)];
+            bind: function (fromSpec, toSpec) {
+                return [new Binding(fromSpec.document, fromSpec.stateDomainName, toSpec.storage)];
             },
         }
     })());
@@ -612,23 +613,66 @@ HexstreamSoft.modules.register("EventBinding", function () {
             };
         };
         return {
-            bind: function (spec) {
-                return [new Binding(spec.storage, spec.keys, spec.document, spec.nodeSelector)];
+            bind: function (fromSpec, toSpec) {
+                return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.document, toSpec.nodeSelector)];
             },
         }
     })());
 
+    function shallowCopy (object) {
+        var copy = {};
+        Object.keys(object).forEach(function (key) {
+            copy[key] = object[key];
+        });
+        return copy;
+    }
 
-    EventBinding.bind = function (from, to, spec) {
-        var typeDefinition = EventBinding.types[from][to];
+    function compose (main, bothSpec, endpointSpec) {
+        var composed = shallowCopy(main);
+        [bothSpec || {}, endpointSpec || {}].forEach(function (extra) {
+            Object.keys(extra).forEach(function (key) {
+                if (composed.hasOwnProperty(key))
+                    throw Error("Clash for property \"" + key + "\".\n" + {main: main, bothSpec: bothSpec, endpointSpec: endpointSpec});
+                else
+                    composed[key] = extra[key];
+            });
+        });
+        return composed;
+    };
+
+    function unibind (fromType, toType, fromSpec, toSpec, bothSpec, sourceSpec, destinationSpec) {
+        var typeDefinition = EventBinding.types[fromType][toType];
         var bindings = typeDefinition.bindings;
-        typeDefinition.bind(spec).forEach(function (newBinding) {
+        var combinedFromSpec = compose(fromSpec, bothSpec, sourceSpec);
+        var combinedToSpec = compose(toSpec, bothSpec, destinationSpec);
+        typeDefinition.bind(combinedFromSpec, combinedToSpec).forEach(function (newBinding) {
             bindings.push(newBinding);
             if (newBinding.hookup)
                 newBinding.hookup();
             if (newBinding.initialSync)
                 newBinding.initialSync();
         });
+    }
+
+    EventBinding.bind = function (endpoint1Type, direction, endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec) {
+        switch (direction)
+        {
+            case ">":
+            var bothSpec = sharedSpec["both"];
+            unibind(endpoint1Type, endpoint2Type,
+                    endpoint1Spec, endpoint2Spec,
+                    bothSpec, sharedSpec["source"], sharedSpec["destination"]);
+            break;
+
+            case "=":
+            //TODO: Return one binding which has 2 child bindings instead.
+            EventBinding.bind(endpoint1Type, ">", endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec);
+            EventBinding.bind(endpoint2Type, ">", endpoint1Type, endpoint2Spec, sharedSpec, endpoint1Spec);
+            break;
+
+            default:
+            throw Error("Invalid direction \"" + direction + "\".");
+        }
     };
 
     HexstreamSoft.EventBinding = EventBinding;
