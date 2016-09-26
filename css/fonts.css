@@ -27,3 +27,28 @@
     font-style: italic;
     src: url("../fonts/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
 }
+
+
+@font-face {
+    font-family: "DejaVu Sans";
+    src: url("../fonts/dejavu/ttf/DejaVuSans.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DejaVu Sans";
+    font-weight: bold;
+    src: url("../fonts/dejavu/ttf/DejaVuSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DejaVu Sans";
+    font-style: italic;
+    src: url("../fonts/dejavu/ttf/DejaVuSans-Oblique.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "DejaVu Sans";
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/dejavu/ttf/DejaVuSans-BoldOblique.ttf") format("truetype");
+}
