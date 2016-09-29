@@ -242,3 +242,40 @@ table .chomp.right {
     border-left: solid 0.15em gray;
     border-right: hidden;
 }
+
+
+
+.navtable {
+    font-size: larger;
+    border: 0.15em solid black;
+}
+
+.navtable.contains-main-colgroup {
+    border: none;
+}
+
+.navtable colgroup.main {
+    border: 0.15em solid black;
+}
+
+.navtable thead th {
+    padding: 0.4em 0.6em;
+}
+
+.navtable th, .navtable td {
+    padding: 0;
+}
+
+.navtable th a, .navtable td a {
+    display: block;
+    padding: 0.4em 0.6em;
+    text-decoration: none;
+}
+
+.navtable th.noa, .navtable td.noa {
+    padding: 0.4em 0.6em;
+}
+
+.navtable td a[href]:hover, .navtable td a[href]:focus {
+    background-color: #ECE0A5;
+}
