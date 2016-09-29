@@ -243,6 +243,16 @@ table .chomp.right {
     border-right: hidden;
 }
 
+table .chomp.top.bottom {
+    border-top: hidden;
+    border-bottom: hidden;
+}
+
+table .chomp.left.right {
+    border-left: hidden;
+    border-right: hidden;
+}
+
 
 
 .navtable {
@@ -278,4 +288,21 @@ table .chomp.right {
 
 .navtable td a[href]:hover, .navtable td a[href]:focus {
     background-color: #ECE0A5;
+}
+
+
+.navtable .chomp.top {
+    border-bottom: 0.15em solid black;
+}
+
+.navtable .chomp.left {
+    border-right: 0.15em solid black;
+}
+
+.navtable .chomp.bottom {
+    border-top: 0.15em solid black;
+}
+
+.navtable .chomp.right {
+    border-left: 0.15em solid black;
 }
