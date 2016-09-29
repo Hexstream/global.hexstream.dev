@@ -225,21 +225,21 @@ table .chomp {
 
 table .chomp.top {
     border-top: hidden;
-    border-bottom: solid 0.15em gray;
+    border-bottom: 0.15em solid gray;
 }
 
 table .chomp.bottom {
-    border-top: solid 0.15em gray;
+    border-top: 0.15em solid gray;
     border-bottom: hidden;
 }
 
 table .chomp.left {
     border-left: hidden;
-    border-right: solid 0.15em gray;
+    border-right: 0.15em solid gray;
 }
 
 table .chomp.right {
-    border-left: solid 0.15em gray;
+    border-left: 0.15em solid gray;
     border-right: hidden;
 }
 
