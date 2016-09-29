@@ -80,7 +80,7 @@ table th a[href]:hover, table th a[href]:focus {
 
 table.sparse, colgroup.sparse {
     background-color: #ECECEC;
-    background-image: url("../images/not-applicable.svg");
+    background-image: url("images/not-applicable.svg");
     background-position: top left;
     background-attachment: scroll;
 }
