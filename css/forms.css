@@ -1,0 +1,36 @@
+input.replaced {
+    display: none;
+}
+
+input.replaced + label {
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: 50% 50%;
+    background-size: 1em;
+}
+
+input[type="radio"].replaced + label {
+    background-image: url("images/unchecked-radio-button.svg");
+}
+
+input[type="radio"].replaced:checked + label {
+    background-image: url("images/checked-radio-button.svg");
+}
+
+input[type="checkbox"].replaced + label {
+    background-image: url("images/unchecked-checkbox.svg");
+}
+
+input[type="checkbox"].replaced:checked + label {
+    background-image: url("images/checked-checkbox.svg");
+}
+
+
+.navtable td label:hover, .navtable td label:focus {
+    background-color: #ECE0A5;
+}
+
+.navtable td input.replaced + label {
+    display: block;
+    padding: 0.4em 0.6em;
+}
