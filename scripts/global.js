@@ -2,28 +2,120 @@
 
 var HexstreamSoft = {};
 
-HexstreamSoft.forEachAddedNode = function (mutation_records, callback) {
-    Array.prototype.forEach.call(mutation_records, function (record) {
-        var added_nodes = record.addedNodes;
-        if (added_nodes)
-            Array.prototype.forEach.call(added_nodes, callback);
+HexstreamSoft.modules = {};
+HexstreamSoft.modules.registeredModules = {};
+
+HexstreamSoft.modules.moduleInfo = function (moduleName, options) {
+    var moduleInfo = HexstreamSoft.modules.registeredModules[moduleName];
+    if (moduleInfo)
+        return moduleInfo;
+    else
+        if (!options || options.mustExist)
+            throw Error("Unknown module name \"" + moduleName + "\".");
+};
+
+HexstreamSoft.modules.register = function (moduleName, ensureFunction) {
+    var existingModule = HexstreamSoft.modules.moduleInfo(moduleName, {mustExist: false});
+    if (existingModule)
+        throw Error("Module \"" + moduleName + "\" has already been registered.");
+    var moduleInfo = {};
+    moduleInfo.ensureFunction = ensureFunction;
+    moduleInfo.isInitialized = false;
+    HexstreamSoft.modules.registeredModules[moduleName] = moduleInfo;
+};
+
+HexstreamSoft.modules.ensure = function (moduleNames) {
+    moduleNames.forEach(function (moduleName) {
+        var moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
+        if (!moduleInfo.isInitialized)
+        {
+            moduleInfo.ensureFunction();
+            moduleInfo.isInitialized = true;
+        }
     });
 };
 
-HexstreamSoft.nodeOrAncestorSatisfying = function (node, test) {
-    if (test(node))
-        return node;
-    else
-    {
-        var parent_element = node.parentElement;
-        if (parent_element)
-            return HexstreamSoft.nodeOrAncestorSatisfying(parent_element, test);
-        else
-            return undefined;
-    }
-};
 
-HexstreamSoft.arrowsMadnessObserver = (function () {
+
+HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
+    function forEachAddedNode (mutationRecords, callback) {
+        Array.prototype.forEach.call(mutationRecords, function (record) {
+            var addedNodes = record.addedNodes;
+            if (addedNodes)
+                Array.prototype.forEach.call(addedNodes, callback);
+        });
+    };
+
+    function nodeOrAncestorSatisfying (node, test) {
+        if (test(node))
+            return node;
+        else
+        {
+            var parent_element = node.parentElement;
+            if (parent_element)
+                return nodeOrAncestorSatisfying(parent_element, test);
+            else
+                return undefined;
+        }
+    };
+
+    HexstreamSoft.dom = {};
+    HexstreamSoft.dom.forEachAddedNode = forEachAddedNode;
+    HexstreamSoft.dom.nodeOrAncestorSatisfying = nodeOrAncestorSatisfying;
+});
+
+
+
+HexstreamSoft.modules.register("HexstreamSoft.FixLinks", function () {
+    function toRelativeURLString (base, target) {
+        if (typeof base === "string")
+            base = new URL(base);
+        if (typeof target === "string")
+            target = new URL(target);
+        if (base.origin !== target.origin)
+            return target.toString();
+        var relativePath = [];
+        var queryHash = String.prototype.concat.call(target.search || "", target.hash || "");
+        base = base.pathname.split("/");
+        target = target.pathname.split("/");
+        var shortestLength = Math.min(base.length, target.length)
+        for (var firstDifferent = 0; firstDifferent < shortestLength; firstDifferent++)
+            if (base[firstDifferent] !== target[firstDifferent])
+                break;
+        var extraBaseComponents = base.length - firstDifferent - 1;
+        for (var i = 0; i < extraBaseComponents; i++)
+            relativePath.push("..")
+        relativePath = relativePath.concat(target.slice(firstDifferent));
+        return relativePath.join("/").concat(queryHash);
+    }
+
+    var baseURIURL = new URL(document.baseURI);
+
+    var observer = new MutationObserver(function (records) {
+        HexstreamSoft.dom.forEachAddedNode(records, function (addedNode) {
+            if (addedNode.tagName === "A")
+            {
+                var url = new URL(addedNode.getAttribute("href"), document.baseURI);
+                if (url.protocol === "file:" && url.pathname.slice(-1) === "/")
+                {
+                    url.pathname = url.pathname + "index.html";
+                    addedNode.setAttribute("href", toRelativeURLString(baseURIURL, url));
+                }
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, {childList: true, subtree: true});
+
+    HexstreamSoft.FixLinks = {};
+    HexstreamSoft.FixLinks.observer = observer;
+
+});
+
+
+
+HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
+
     var directions =
         {
             "⬉":
@@ -61,7 +153,9 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
                 opposite: "⬉"
             },
         };
+
     var directionNames = Object.keys(directions);
+
     function makeLink (direction, target) {
         var link = document.createElement("a");
         link.href = "#" + target;
@@ -69,7 +163,9 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
         link.textContent = direction;
         return link;
     }
+
     var realNodeToMockNode = {};
+
     function createMockNode (realNode, parent) {
         var node = {};
         var toUpdate = [realNode];
@@ -97,6 +193,7 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
             }
             return {prev: prev, next: next};
         })();
+
         function updateLink (thisNode, otherNode, forward, isReciprocal, whichToUpdate) {
             thisNode[forward] = otherNode;
             if (whichToUpdate === "this")
@@ -109,6 +206,7 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
                     toUpdate.push(otherNode.realNode);
             }
         }
+
         function updateLinks (sibling, forward) {
             var backwards = directions[forward].opposite;
             var backwardsDownwards = directions[backwards].downwards;
@@ -123,6 +221,7 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
                 currentChild = currentChildIsLastChild ? currentChild[backwardsDownwards] : nextChild;
             }
         }
+
         var prev = siblings.prev;
         var next = siblings.next;
         updateLink(node, parent, "⬉", prev === null, "other");
@@ -131,15 +230,17 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
         updateLinks(next, "⬇");
         return toUpdate;
     }
+
     createMockNode(document.documentElement, null);
     var rootMockNode = realNodeToMockNode[""];
+
     var observer = new MutationObserver(function (records, observer) {
-        HexstreamSoft.forEachAddedNode(records, function (addedNode) {
+        HexstreamSoft.dom.forEachAddedNode(records, function (addedNode) {
             if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.classList.contains("section-relative-nav"))
             {
                 var isSection = function (node) {return node.tagName === "SECTION";};
-                var thisSection = HexstreamSoft.nodeOrAncestorSatisfying(addedNode, isSection);
-                var parentSection = HexstreamSoft.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
+                var thisSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(addedNode, isSection);
+                var parentSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
                 var toUpdate = createMockNode(thisSection, parentSection ? realNodeToMockNode[parentSection.id] : rootMockNode);
                 toUpdate.forEach(function (sectionToUpdate) {
                     var navToUpdate = sectionToUpdate.querySelector(".section-relative-nav");
@@ -160,95 +261,11 @@ HexstreamSoft.arrowsMadnessObserver = (function () {
             }
         });
     });
-    observer.observe(document, {childList: true, subtree: true});
-    return observer;
-})();
+    observer.observe(document.documentElement, {childList: true, subtree: true});
 
-
-function toRelativeURLString (base, target) {
-    if (typeof base === "string")
-        base = new URL(base);
-    if (typeof target === "string")
-        target = new URL(target);
-    if (base.origin !== target.origin)
-        return target.toString();
-    var relative_path = [];
-    var query_hash = String.prototype.concat.call(target.search || "", target.hash || "");
-    base = base.pathname.split("/");
-    target = target.pathname.split("/");
-    var shortest_length = Math.min(base.length, target.length)
-    for (var first_different = 0; first_different < shortest_length; first_different++)
-        if (base[first_different] !== target[first_different])
-            break;
-    var extra_base_components = base.length - first_different - 1;
-    for (var i = 0; i < extra_base_components; i++)
-        relative_path.push("..")
-    relative_path = relative_path.concat(target.slice(first_different));
-    return relative_path.join("/").concat(query_hash);
-}
-
-var baseURIURL = new URL(document.baseURI);
-
-function fix_links_callback (mutation_records) {
-    Array.prototype.forEach.call(mutation_records, function (record) {
-        var added_nodes = record.addedNodes;
-        if (added_nodes)
-            Array.prototype.forEach.call(added_nodes, function (added_node) {
-                if (added_node.tagName === "A")
-                {
-                    var url = new URL(added_node.getAttribute("href"), document.baseURI);
-                    if (url.protocol === "file:" && url.pathname.slice(-1) === "/")
-                    {
-                        url.pathname = url.pathname + "index.html";
-                        added_node.setAttribute("href", toRelativeURLString(baseURIURL, url));
-                    }
-                }
-            });
-    });
-}
-
-var fix_links_observer;
-
-if (document.location.protocol === "file:")
-{
-    fix_links_observer = new MutationObserver(fix_links_callback);
-    fix_links_observer.observe(document.documentElement, {childList: true, subtree: true});
-}
-
-
-
-HexstreamSoft.modules = {};
-HexstreamSoft.modules.registeredModules = {};
-
-HexstreamSoft.modules.moduleInfo = function (moduleName, options) {
-    var moduleInfo = HexstreamSoft.modules.registeredModules[moduleName];
-    if (moduleInfo)
-        return moduleInfo;
-    else
-        if (!options || options.mustExist)
-            throw Error("Unknown module name \"" + moduleName + "\".");
-};
-
-HexstreamSoft.modules.register = function (moduleName, ensureFunction) {
-    var existingModule = HexstreamSoft.modules.moduleInfo(moduleName, {mustExist: false});
-    if (existingModule)
-        throw Error("Module \"" + moduleName + "\" has already been registered.");
-    var moduleInfo = {};
-    moduleInfo.ensureFunction = ensureFunction;
-    moduleInfo.isInitialized = false;
-    HexstreamSoft.modules.registeredModules[moduleName] = moduleInfo;
-};
-
-HexstreamSoft.modules.ensure = function (moduleNames) {
-    moduleNames.forEach(function (moduleName) {
-        var moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
-        if (!moduleInfo.isInitialized)
-        {
-            moduleInfo.ensureFunction();
-            moduleInfo.isInitialized = true;
-        }
-    });
-};
+    HexstreamSoft.ArrowsMadness = {};
+    HexstreamSoft.ArrowsMadness.observer = observer;
+});
 
 
 
@@ -473,7 +490,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 window.addEventListener("HexstreamSoft.storage", binding.storageListener);
                 window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
                 binding.observer = new MutationObserver(function (records, observer) {
-                    HexstreamSoft.forEachAddedNode(records, function (node) {
+                    HexstreamSoft.dom.forEachAddedNode(records, function (node) {
                         if (node.tagName !== "INPUT")
                             return;
                         var node_type = node.getAttribute("type");
@@ -524,7 +541,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         function nodeStateDomain (node) {
             return node.dataset.stateDomain;
         }
-        var domain_node = HexstreamSoft.nodeOrAncestorSatisfying(node, nodeStateDomain);
+        var domain_node = HexstreamSoft.dom.nodeOrAncestorSatisfying(node, nodeStateDomain);
         var value = domain_node ? nodeStateDomain(domain_node) : undefined;
         return value;
     }
@@ -542,7 +559,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             };
             binding.hookup = function () {
                 binding.observer = new MutationObserver(function (records, observer) {
-                    HexstreamSoft.forEachAddedNode(records, function (node) {
+                    HexstreamSoft.dom.forEachAddedNode(records, function (node) {
                         if (node.tagName !== "INPUT")
                             return;
                         var node_type = node.getAttribute("type");
@@ -589,7 +606,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.hookup = function () {
                 window.addEventListener("HexstreamSoft.storage", binding.storageListener);
                 binding.observer = new MutationObserver(function (records, observer) {
-                    HexstreamSoft.forEachAddedNode(records, function (node) {
+                    HexstreamSoft.dom.forEachAddedNode(records, function (node) {
                         if (node.tagName && node.tagName.toLowerCase() === binding.nodeSelector)
                         {
                             observer.disconnect();
@@ -678,3 +695,12 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     HexstreamSoft.EventBinding = EventBinding;
 
 });
+
+
+
+HexstreamSoft.modules.ensure(["HexstreamSoft.dom", "HexstreamSoft.ArrowsMadness"]);
+
+if (document.location.protocol === "file:")
+{
+    HexstreamSoft.modules.ensure("HexstreamSoft.FixLinks");
+}
