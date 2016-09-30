@@ -7,6 +7,22 @@
 
   <title>Unchecked radio button</title>
 
-  <circle cx="5" cy="5" r="4.5" stroke-width="1" fill="none" stroke="gray"/>
+  <defs>
+    <style>
+      <![CDATA[
+               svg .form-control-outline {
+               fill: none;
+               stroke: gray;
+               }
+
+               svg .form-control-checked-interior {
+               fill: forestgreen;
+               }
+      ]]>
+    </style>
+  </defs>
+
+  <circle class="form-control-outline"
+          cx="5" cy="5" r="4.5" stroke-width="1"/>
 
 </svg>

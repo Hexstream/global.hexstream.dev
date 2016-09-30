@@ -7,8 +7,25 @@
 
   <title>Checked checkbox</title>
 
-  <rect x="0.5" y="0.5" width="9" height="9" fill="none" stroke="gray" stroke-width="1"/>
+  <defs>
+    <style>
+      <![CDATA[
+               svg .form-control-outline {
+               fill: none;
+               stroke: gray;
+               }
 
-  <rect x="2" y="2" width="6" height="6" fill="green"/>
+               svg .form-control-checked-interior {
+               fill: forestgreen;
+               }
+      ]]>
+    </style>
+  </defs>
+
+  <rect class="form-control-outline"
+        x="0.5" y="0.5" width="9" height="9" stroke-width="1"/>
+
+  <rect class="form-control-checked-interior"
+        x="2" y="2" width="6" height="6"/>
 
 </svg>
