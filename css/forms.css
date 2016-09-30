@@ -6,11 +6,11 @@ input.replaced + label {
     background-repeat: no-repeat;
     background-origin: content-box;
     background-position: 50% 50%;
-    background-size: 1em;
 }
 
 input[type="radio"].replaced + label {
     background-image: url("images/unchecked-radio-button.svg");
+    background-size: 1em;
 }
 
 input[type="radio"].replaced:checked + label {
@@ -19,6 +19,9 @@ input[type="radio"].replaced:checked + label {
 
 input[type="checkbox"].replaced + label {
     background-image: url("images/unchecked-checkbox.svg");
+    background-size: 0.886226925454em;
+    /* Radio buttons (circles) and checkboxes (squares) are made to have the same area,
+       else checkboxes look (and actually are) bigger. */
 }
 
 input[type="checkbox"].replaced:checked + label {
