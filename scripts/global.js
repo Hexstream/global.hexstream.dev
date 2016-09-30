@@ -252,7 +252,7 @@ HexstreamSoft.modules.ensure = function (moduleNames) {
 
 
 
-HexstreamSoft.modules.register("StateDomain", function () {
+HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
     function StateDomainSchema (properties) {
         var schema = this;
         var keys = Object.keys(properties);
@@ -389,7 +389,7 @@ HexstreamSoft.modules.register("StateDomain", function () {
 
 
 
-HexstreamSoft.modules.register("EventBinding", function () {
+HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     window.addEventListener("storage", function (event) {
         window.dispatchEvent(new CustomEvent("HexstreamSoft.storage",
                                              {
