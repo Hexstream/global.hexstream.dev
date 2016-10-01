@@ -24,7 +24,8 @@ HexstreamSoft.modules.register = function (moduleName, ensureFunction) {
     HexstreamSoft.modules.registeredModules[moduleName] = moduleInfo;
 };
 
-HexstreamSoft.modules.ensure = function (moduleNames) {
+HexstreamSoft.modules.ensure = function () {
+    var moduleNames = Array.prototype.slice.call(arguments);
     moduleNames.forEach(function (moduleName) {
         var moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
         if (!moduleInfo.isInitialized)
@@ -698,7 +699,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
 
 
-HexstreamSoft.modules.ensure(["HexstreamSoft.dom", "HexstreamSoft.ArrowsMadness"]);
+HexstreamSoft.modules.ensure("HexstreamSoft.dom", "HexstreamSoft.ArrowsMadness");
 
 if (document.location.protocol === "file:")
 {
