@@ -38,6 +38,27 @@ HexstreamSoft.modules.ensure = function () {
 
 
 
+HexstreamSoft.modules.register("HexstreamSoft.misc", function () {
+    function identity (value) {
+        return value;
+    }
+
+    var upgradeReasonsAlreadyGiven = [];
+
+    function pleaseUpgrade (reason) {
+        if (upgradeReasonsAlreadyGiven.indexOf(reason) < 0)
+        {
+            upgradeReasonsAlreadyGiven.push(reason);
+            throw Error("[" + reason + "]" + " Please upgrade to a modern standards-compliant browser such as Google Chrome.");
+        }
+    }
+
+    HexstreamSoft.misc = {};
+    HexstreamSoft.misc.identity = identity;
+    HexstreamSoft.misc.pleaseUpgrade = pleaseUpgrade;
+});
+
+
 HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
     function forEachAddedNode (mutationRecords, callback) {
         Array.prototype.forEach.call(mutationRecords, function (record) {
@@ -60,9 +81,26 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
         }
     };
 
+    function parseTokens (tokensString) {
+        return tokensString.split(" ").filter(HexstreamSoft.misc.identity);
+    }
+
+    function matches (node, selectors) {
+        // I'm searching on the specific node instead of pre-computing
+        // because I worry the method returned might be different for different node types.
+        if (node.nodeType !== Node.ELEMENT_NODE)
+            return false;
+        var matches = node.matches || node.matchesSelector || node.webkitMatchesSelector || node.msMatchesSelector;
+        if (!matches)
+            HexstreamSoft.meta.pleaseUpgrade("matches");
+        return matches.call(node, selectors);
+    };
+
     HexstreamSoft.dom = {};
     HexstreamSoft.dom.forEachAddedNode = forEachAddedNode;
     HexstreamSoft.dom.nodeOrAncestorSatisfying = nodeOrAncestorSatisfying;
+    HexstreamSoft.dom.parseTokens = parseTokens;
+    HexstreamSoft.dom.matches = matches;
 });
 
 
@@ -701,7 +739,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
 
 
-HexstreamSoft.modules.ensure("HexstreamSoft.dom", "HexstreamSoft.ArrowsMadness");
+HexstreamSoft.modules.ensure("HexstreamSoft.misc", "HexstreamSoft.dom", "HexstreamSoft.ArrowsMadness");
 
 if (document.location.protocol === "file:")
 {
