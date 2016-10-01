@@ -622,6 +622,8 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                     binding.incrementalSync(window.document.body);
             };
             binding.incrementalSync = function (node) {
+                if (keys.length === 0)
+                    return;
                 node.className = "";
                 var classes = node.classList;
                 keys.forEach(function (key) {
