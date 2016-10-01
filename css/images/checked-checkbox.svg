@@ -17,7 +17,13 @@
 
                svg .form-control-checked-interior {
                fill: forestgreen;
+               font-family: "DejaVu Sans"
                }
+
+@font-face {
+font-family: "DejaVu Sans";
+src: url("../../fonts/dejavu/ttf/DejaVuSans.ttf") format("truetype");
+}
       ]]>
     </style>
   </defs>
