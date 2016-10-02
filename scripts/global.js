@@ -96,11 +96,52 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
         return matches.call(node, selectors);
     };
 
+
+    var TokenList = (function () {
+        function TokenList (node, attributeName) {
+            var tokenList = this;
+            tokenList.node = node;
+            tokenList.attributeName = attributeName;
+            tokenList.tokens = parseTokens(node.getAttribute(attributeName) || "");
+        };
+
+        TokenList.prototype.contains = function (token) {
+            this.tokens.indexOf(token) >= 0;
+        };
+
+        TokenList.prototype.add = function (token) {
+            if (!this.contains(token))
+                this.tokens.push(token);
+            syncTokensToAttribute(this);
+        };
+
+        TokenList.prototype.remove = function (token) {
+            var index = this.tokens.indexOf(token);
+            if (index >= 0)
+                this.tokens.splice(index, 1);
+            syncTokensToAttribute(this);
+        };
+
+        TokenList.prototype.forEach = function (callback, thisValue) {
+            this.tokens.forEach(callback, thisValue);
+        };
+
+        function syncTokensToAttribute (tokenList) {
+            if (tokenList.tokens.length > 0)
+                tokenList.node.setAttribute(tokenList.attributeName, tokenList.tokens.join(" "));
+            else
+                tokenList.node.removeAttribute(tokenList.attributeName);
+        }
+        return TokenList;
+    })();
+
+
     HexstreamSoft.dom = {};
     HexstreamSoft.dom.forEachAddedNode = forEachAddedNode;
     HexstreamSoft.dom.nodeOrAncestorSatisfying = nodeOrAncestorSatisfying;
     HexstreamSoft.dom.parseTokens = parseTokens;
     HexstreamSoft.dom.matches = matches;
+    HexstreamSoft.dom.TokenList = TokenList;
 });
 
 
