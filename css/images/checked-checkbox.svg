@@ -17,23 +17,25 @@
 
                svg .form-control-checked-interior {
                fill: forestgreen;
-               font-family: "DejaVu Sans"
                }
-
-@font-face {
-font-family: "DejaVu Sans";
-src: url("../../fonts/dejavu/ttf/DejaVuSans.ttf") format("truetype");
-}
       ]]>
     </style>
+
   </defs>
 
   <rect class="form-control-outline"
         x="0.5" y="0.5" width="9" height="9" stroke-width="1"/>
 
+  <!--
   <text class="form-control-checked-interior"
         x="5" y="5" font-size="10" transform="translate(0,0.5)"
         text-anchor="middle" dominant-baseline="central">✔</text>
+  -->
+
+  <!-- Bake DejaVu Sans "✔" as path data to avoid problems. -->
+  <svg x="1.97" y="2.08" width="6.05" height="6.05" viewBox="0 0 10 10">
+    <path class="form-control-checked-interior" transform="translate(0,-1042.3622)" d="m 1.7419358,1047.3945 c 0.2096736,0 0.3682755,0.1721 0.4758064,0.5161 0.2150495,0.6452 0.3682751,0.9678 0.4596775,0.9678 0.069888,0 0.1424683,-0.054 0.2177419,-0.1613 1.5107463,-2.2204 2.9085943,-3.8011 4.1935482,-4.742 0.5430012,-0.3978 1.0725706,-0.5967 1.5887097,-0.5967 0.6827844,0 1.0940743,0.021 1.2338709,0.064 0.059128,0.016 0.088698,0.083 0.08871,0.2016 -1.18e-5,0.097 -0.06184,0.2178 -0.1854838,0.3629 -3.4569974,3.9678 -5.5161351,6.5484 -6.1774192,7.7419 -0.2258117,0.4086 -0.7473166,0.6129 -1.564516,0.6129 -0.2688209,0 -0.5510787,-0.07 -0.8467742,-0.2096 -0.1236589,-0.064 -0.33871247,-0.4758 -0.64516128,-1.2339 C 0.19354666,1049.9617 -1.5313107e-6,1049.123 3.7997961e-7,1048.4026 -1.5313107e-6,1048.1391 0.18817032,1047.9214 0.56451649,1047.7493 c 0.51612601,-0.2365 0.90322241,-0.3548 1.16129031,-0.3548 l 0.016129,0"/>
+  </svg>
 
   <!--
       <rect class="form-control-checked-interior"
