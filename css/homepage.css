@@ -28,6 +28,6 @@ body {
     line-height: 1em;
 }
 
-main + #footer > div {
+#footer > div {
     margin-left: 1.5em;
 }

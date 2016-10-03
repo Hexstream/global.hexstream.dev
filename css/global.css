@@ -86,12 +86,6 @@ main {
     z-index: 2;
 }
 
-main + #footer > div {
-    margin-left: 12.5em;
-    margin-right: 1.5em;
-    border: medium solid transparent;
-}
-
 h1 a {
     text-decoration: none;
 }
@@ -246,6 +240,12 @@ p {
     margin-top: 2em;
     padding: 0.8em 0;
     border-top: dashed medium #DDDDDD;
+}
+
+#footer > div {
+    margin-left: 12.5em;
+    margin-right: 1.5em;
+    border: medium solid transparent;
 }
 
 .page-badge {
