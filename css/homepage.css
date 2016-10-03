@@ -27,3 +27,7 @@ body {
     word-spacing: 0.12em;
     line-height: 1em;
 }
+
+main + #footer > div {
+    margin-left: 1.5em;
+}
