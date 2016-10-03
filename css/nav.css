@@ -147,7 +147,7 @@ nav.breadcrumbs a.here:hover, nav.breadcrumbs a.here:focus {
 .back-to-top {
     display: block;
     text-align: center;
-    margin: 1em 0.5em;
+    margin: 0.8em 0.5em;
     width: 10em;
     background: #FFCC99;
     border: medium solid black;
