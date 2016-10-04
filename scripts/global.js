@@ -361,7 +361,7 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
     StateDomainSchema.prototype.defaultValue = function (key) {
         var schema = this;
         var defaultValue = schema.properties[key].defaultValue;
-        if (defaultValue)
+        if (defaultValue !== undefined)
             return defaultValue;
         else
             throw Error("No key named " + key + " in schema " + schema + ".");
@@ -372,9 +372,15 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
         return schema.properties[key].possibleValues;
     };
 
+    StateDomainSchema.prototype.valueValidator = function (key) {
+        var schema = this;
+        return schema.properties[key].valueValidator;
+    };
+
     StateDomainSchema.prototype.isAcceptableValue = function (key, value) {
         var schema = this;
-        return schema.possibleValues(key).indexOf(value) >= 0;
+        var possibleValues = schema.possibleValues(key);
+        return possibleValues ? possibleValues.indexOf(value) >= 0 : (schema.valueValidator(key))(value);
     };
 
     StateDomainSchema.prototype.isAlwaysRelevant = function (key) {
@@ -442,8 +448,10 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
                                               }
                                           }
                                           else
-                                              throw Error("Value \"" + newValue + "\" is not acceptable for key \"" + key
-                                                          + "\".\n\nAcceptable values:\n" + schema.possibleValues(key).join("\n"));
+                                              throw Error("Value \"" + newValue + "\" is not acceptable for key \"" + key + "\"."
+                                                          + (schema.possibleValues(key)
+                                                             ? "\n\nAcceptable values:\n" + schema.possibleValues(key).join("\n")
+                                                             : ""));
                                       },
                                       get: function () {
                                           return domain.properties[key].value;
