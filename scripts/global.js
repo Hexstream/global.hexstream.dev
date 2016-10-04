@@ -571,10 +571,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
                 binding.observer = new MutationObserver(function (records, observer) {
                     HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (node.tagName !== "INPUT")
-                            return;
-                        var node_type = node.getAttribute("type");
-                        if ((node_type === "radio" || node_type === "checkbox")
+                        if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox]")
                             && node.dataset.stateValue
                             && nodeStateDomainName(node) === stateDomainName)
                         {
@@ -640,10 +637,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.hookup = function () {
                 binding.observer = new MutationObserver(function (records, observer) {
                     HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (node.tagName !== "INPUT")
-                            return;
-                        var node_type = node.getAttribute("type");
-                        if ((node_type === "radio" || node_type === "checkbox")
+                        if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox]")
                             && node.dataset.stateValue
                             && nodeStateDomainName(node) === stateDomainName)
                         {
