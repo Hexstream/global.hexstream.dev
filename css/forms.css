@@ -13,8 +13,18 @@ input[type="radio"].replaced + label {
     background-size: 1em;
 }
 
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"] + label {
+    background-image: url("images/unchecked-radio-button.svg"), url("images/related-radio-button.svg");
+    background-size: 1em, 2.1em 1em;
+}
+
 input[type="radio"].replaced:checked + label {
     background-image: url("images/checked-radio-button.svg");
+}
+
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked + label {
+    background-image: url("images/checked-radio-button.svg"), url("images/related-radio-button.svg");
+    background-size: 1em, 2.1em 1em;
 }
 
 input[type="checkbox"].replaced + label {
