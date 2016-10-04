@@ -28,11 +28,11 @@
   </defs>
 
   <path class="related-outline"
-        transform="translate(5) translate(1.5)"
+        transform="translate(6.5)"
         d="M 5 3 L 8 5 L 5 7"/>
 
   <path class="related-outline"
-        transform="translate(5) scale(-1 1) translate(1.5)"
-        d="M 5 3 L 8 5 L 5 7"/>
+        transform="translate(-6.5)"
+        d="M 5 3 L 2 5 L 5 7"/>
 
 </svg>
