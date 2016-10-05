@@ -579,8 +579,8 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
                 binding.observer = new MutationObserver(function (records, observer) {
                     HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox]")
-                            && node.dataset.stateValue
+                        if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox], var, span, td")
+                            && node.dataset.stateKey
                             && nodeStateDomainName(node) === stateDomainName)
                         {
                             binding.registeredNodes.push(node);
@@ -605,10 +605,17 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             };
             binding.incrementalSyncNode = function (node) {
                 var key = node.dataset.stateKey;
-                node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
                 var sourceValue = storage[key];
-                if (sourceValue !== undefined)
-                    node.checked = sourceValue === node.dataset.stateValue;
+                if (node.tagName === "INPUT")
+                {
+                    node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
+                    if (sourceValue !== undefined)
+                        node.checked = sourceValue === node.dataset.stateValue;
+                }
+                else
+                    if (sourceValue !== undefined)
+                        node.textContent = sourceValue;
+
             };
             binding.incrementalSync = function (key) {
                 (binding.keyToNodes[key] || []).forEach(binding.incrementalSyncNode, binding);
