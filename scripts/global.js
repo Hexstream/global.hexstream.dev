@@ -559,6 +559,13 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         }
     })());
     EventBinding.defineType("storage", "document", (function () {
+        var selector = "input[type=radio], input[type=checkbox], var, span, td";
+        function isInteresting (knownToMatchSelector, document, node, stateDomainName) {
+            return (knownToMatchSelector
+                    || HexstreamSoft.dom.matches(node, selector))
+                && node.dataset.stateKey
+                && nodeStateDomainName(node) === stateDomainName;
+        }
         var Binding = function (storage, document, stateDomainName) {
             var binding = this;
             binding.storage = storage;
@@ -574,31 +581,33 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 if (event.detail.storage === storage)
                     binding.initialSync();
             };
+            binding.registerNode = function (node) {
+                binding.registeredNodes.push(node);
+                var key = node.dataset.stateKey;
+                var keyNodes = binding.keyToNodes[key];
+                if (!keyNodes)
+                {
+                    keyNodes = [];
+                    binding.keyToNodes[key] = keyNodes;
+                }
+                keyNodes.push(node);
+                binding.incrementalSyncNode(node);
+            };
             binding.hookup = function () {
                 window.addEventListener("HexstreamSoft.storage", binding.storageListener);
                 window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
                 binding.observer = new MutationObserver(function (records, observer) {
                     HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox], var, span, td")
-                            && node.dataset.stateKey
-                            && nodeStateDomainName(node) === stateDomainName)
-                        {
-                            binding.registeredNodes.push(node);
-                            var key = node.dataset.stateKey;
-                            var keyNodes = binding.keyToNodes[key];
-                            if (!keyNodes)
-                            {
-                                keyNodes = [];
-                                binding.keyToNodes[key] = keyNodes;
-                            }
-                            keyNodes.push(node);
-                            binding.incrementalSyncNode(node);
-                        }
+                        if (isInteresting(false, document, node, stateDomainName))
+                            binding.registerNode(node);
                     });
                 });
                 binding.observer.observe(document, {childList: true, subtree: true});
             };
             binding.initialSync = function () {
+                Array.prototype.forEach.call(document.querySelectorAll(selector), function (potentiallyInteresting) {
+                    if (isInteresting(true, document, potentiallyInteresting, stateDomainName))
+                        binding.registerNode(potentiallyInteresting)});
                 binding.registeredNodes.forEach(function (node) {
                     binding.incrementalSyncNode(node);
                 });
