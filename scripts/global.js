@@ -531,7 +531,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     };
 
     EventBinding.defineType("storage", "storage", (function () {
-        var Binding = function (sourceStorage, keys, destinationStorage) {
+        function Binding (sourceStorage, keys, destinationStorage) {
             var binding = this;
             binding.sourceStorage = sourceStorage;
             binding.destinationStorage = destinationStorage;
@@ -540,17 +540,17 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 if (event.detail.storage === sourceStorage)
                     binding.incrementalSync(event.detail.key);
             };
-            binding.hookup = function () {
-                window.addEventListener("HexstreamSoft.storage", binding.listener);
-            };
-            binding.initialSync = function () {
-                binding.keys.forEach(binding.incrementalSync, binding);
-            };
-            binding.incrementalSync = function (key) {
-                var sourceValue = binding.sourceStorage[key];
-                if (sourceValue !== undefined)
-                    binding.destinationStorage[key] = sourceValue;
-            };
+        }
+        Binding.prototype.hookup = function () {
+            window.addEventListener("HexstreamSoft.storage", this.listener);
+        };
+        Binding.prototype.initialSync = function () {
+            this.keys.forEach(this.incrementalSync, this);
+        };
+        Binding.prototype.incrementalSync = function (key) {
+            var sourceValue = this.sourceStorage[key];
+            if (sourceValue !== undefined)
+                this.destinationStorage[key] = sourceValue;
         };
         return {
             bind: function (fromSpec, toSpec) {
@@ -566,7 +566,19 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 && node.dataset.stateKey
                 && nodeStateDomainName(node) === stateDomainName;
         }
-        var Binding = function (storage, document, stateDomainName) {
+        function registerNode (binding, node) {
+            binding.registeredNodes.push(node);
+            var key = node.dataset.stateKey;
+            var keyNodes = binding.keyToNodes[key];
+            if (!keyNodes)
+            {
+                keyNodes = [];
+                binding.keyToNodes[key] = keyNodes;
+            }
+            keyNodes.push(node);
+            binding.incrementalSyncNode(node);
+        }
+        function Binding (storage, document, stateDomainName) {
             var binding = this;
             binding.storage = storage;
             binding.document = document;
@@ -581,54 +593,45 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 if (event.detail.storage === storage)
                     binding.initialSync();
             };
-            binding.registerNode = function (node) {
-                binding.registeredNodes.push(node);
-                var key = node.dataset.stateKey;
-                var keyNodes = binding.keyToNodes[key];
-                if (!keyNodes)
-                {
-                    keyNodes = [];
-                    binding.keyToNodes[key] = keyNodes;
-                }
-                keyNodes.push(node);
+        }
+        Binding.prototype.hookup = function () {
+            var binding = this;
+            window.addEventListener("HexstreamSoft.storage", binding.storageListener);
+            window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
+            binding.observer = new MutationObserver(function (records, observer) {
+                HexstreamSoft.dom.forEachAddedNode(records, function (node) {
+                    if (isInteresting(false, document, node, binding.stateDomainName))
+                        registerNode(binding, node);
+                });
+            });
+            binding.observer.observe(document, {childList: true, subtree: true});
+        };
+        Binding.prototype.initialSync = function () {
+            var binding = this;
+            Array.prototype.forEach.call(document.querySelectorAll(selector), function (potentiallyInteresting) {
+                if (isInteresting(true, document, potentiallyInteresting, binding.stateDomainName))
+                    registerNode(binding, potentiallyInteresting)});
+            binding.registeredNodes.forEach(function (node) {
                 binding.incrementalSyncNode(node);
-            };
-            binding.hookup = function () {
-                window.addEventListener("HexstreamSoft.storage", binding.storageListener);
-                window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
-                binding.observer = new MutationObserver(function (records, observer) {
-                    HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (isInteresting(false, document, node, stateDomainName))
-                            binding.registerNode(node);
-                    });
-                });
-                binding.observer.observe(document, {childList: true, subtree: true});
-            };
-            binding.initialSync = function () {
-                Array.prototype.forEach.call(document.querySelectorAll(selector), function (potentiallyInteresting) {
-                    if (isInteresting(true, document, potentiallyInteresting, stateDomainName))
-                        binding.registerNode(potentiallyInteresting)});
-                binding.registeredNodes.forEach(function (node) {
-                    binding.incrementalSyncNode(node);
-                });
-            };
-            binding.incrementalSyncNode = function (node) {
-                var key = node.dataset.stateKey;
-                var sourceValue = storage[key];
-                if (node.tagName === "INPUT")
-                {
-                    node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
-                    if (sourceValue !== undefined)
-                        node.checked = sourceValue === node.dataset.stateValue;
-                }
-                else
-                    if (sourceValue !== undefined)
-                        node.textContent = sourceValue;
+            });
+        };
+        Binding.prototype.incrementalSyncNode = function (node) {
+            var storage = this.storage;
+            var key = node.dataset.stateKey;
+            var sourceValue = storage[key];
+            if (node.tagName === "INPUT")
+            {
+                node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
+                if (sourceValue !== undefined)
+                    node.checked = sourceValue === node.dataset.stateValue;
+            }
+            else
+                if (sourceValue !== undefined)
+                    node.textContent = sourceValue;
 
-            };
-            binding.incrementalSync = function (key) {
-                (binding.keyToNodes[key] || []).forEach(binding.incrementalSyncNode, binding);
-            };
+        };
+        Binding.prototype.incrementalSync = function (key) {
+            (this.keyToNodes[key] || []).forEach(this.incrementalSyncNode, this);
         };
         return {
             bind: function (fromSpec, toSpec) {
@@ -649,7 +652,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
 
     EventBinding.defineType("document", "storage", (function () {
-        var Binding = function (document, stateDomainName, storage) {
+        function Binding (document, stateDomainName, storage) {
             var binding = this;
             binding.document = document;
             binding.stateDomainName = stateDomainName;
@@ -658,29 +661,30 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.clickListener = function (event) {
                 binding.incrementalSync(event.target);
             };
-            binding.hookup = function () {
-                binding.observer = new MutationObserver(function (records, observer) {
-                    HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox]")
-                            && node.dataset.stateValue
-                            && nodeStateDomainName(node) === stateDomainName)
-                        {
-                            binding.registeredNodes.push(node);
-                            binding.incrementalSync(node);
-                            node.addEventListener("click", binding.clickListener);
-                        }
-                    });
+        }
+        Binding.prototype.hookup = function () {
+            var binding = this;
+            binding.observer = new MutationObserver(function (records, observer) {
+                HexstreamSoft.dom.forEachAddedNode(records, function (node) {
+                    if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox]")
+                        && node.dataset.stateValue
+                        && nodeStateDomainName(node) === binding.stateDomainName)
+                    {
+                        binding.registeredNodes.push(node);
+                        binding.incrementalSync(node);
+                        node.addEventListener("click", binding.clickListener);
+                    }
                 });
-                binding.observer.observe(document, {childList: true, subtree: true})
-            };
-            binding.initialSync = function () {
-            };
-            binding.incrementalSync = function (node) {
-                var dataset = node.dataset;
-                var key = dataset.stateKey;
-                if (node.checked || dataset.stateAntivalue)
-                    storage[key] = node.checked ? dataset.stateValue : dataset.stateAntivalue;
-            };
+            });
+            binding.observer.observe(document, {childList: true, subtree: true});
+        };
+        Binding.prototype.initialSync = function () {
+        };
+        Binding.prototype.incrementalSync = function (node) {
+            var dataset = node.dataset;
+            var key = dataset.stateKey;
+            if (node.checked || dataset.stateAntivalue)
+                this.storage[key] = node.checked ? dataset.stateValue : dataset.stateAntivalue;
         };
         return {
             bind: function (fromSpec, toSpec) {
@@ -691,7 +695,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
 
     EventBinding.defineType("storage", "classList", (function () {
-        var Binding = function (storage, keys, document, nodeSelector) {
+        function Binding (storage, keys, document, nodeSelector) {
             var binding = this;
             binding.storage = storage;
             binding.keys = keys;
@@ -701,33 +705,36 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 if (event.detail.storage === storage && window.document.body)
                     binding.incrementalSync(window.document.body);
             };
-            binding.hookup = function () {
-                window.addEventListener("HexstreamSoft.storage", binding.storageListener);
-                binding.observer = new MutationObserver(function (records, observer) {
-                    HexstreamSoft.dom.forEachAddedNode(records, function (node) {
-                        if (node.tagName && node.tagName.toLowerCase() === binding.nodeSelector)
-                        {
-                            observer.disconnect();
-                            binding.incrementalSync(node);
-                        }
-                    });
+        }
+        Binding.prototype.hookup = function () {
+            var binding = this;
+            window.addEventListener("HexstreamSoft.storage", binding.storageListener);
+            binding.observer = new MutationObserver(function (records, observer) {
+                HexstreamSoft.dom.forEachAddedNode(records, function (node) {
+                    if (node.tagName && node.tagName.toLowerCase() === binding.nodeSelector)
+                    {
+                        observer.disconnect();
+                        binding.incrementalSync(node);
+                    }
                 });
-                binding.observer.observe(document, {childList: true, subtree: true})
-            };
-            binding.initialSync = function () {
-                if (window.document.body)
-                    binding.incrementalSync(window.document.body);
-            };
-            binding.incrementalSync = function (node) {
-                if (keys.length === 0)
-                    return;
-                node.className = "";
-                var classes = node.classList;
-                keys.forEach(function (key) {
-                    if (storage.isRelevant(key))
-                        classes.add(key + "=" + storage[key]);
-                });
-            };
+            });
+            binding.observer.observe(document, {childList: true, subtree: true});
+        };
+        Binding.prototype.initialSync = function () {
+            if (window.document.body)
+                this.incrementalSync(window.document.body);
+        };
+        Binding.prototype.incrementalSync = function (node) {
+            var storage = this.storage;
+            var keys = this.keys;
+            if (keys.length === 0)
+                return;
+            node.className = "";
+            var classes = node.classList;
+            keys.forEach(function (key) {
+                if (storage.isRelevant(key))
+                    classes.add(key + "=" + storage[key]);
+            });
         };
         return {
             bind: function (fromSpec, toSpec) {
