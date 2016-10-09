@@ -732,7 +732,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             node.className = "";
             var classes = node.classList;
             keys.forEach(function (key) {
-                if (storage.isRelevant(key))
+                if (!storage.isRelevant || storage.isRelevant(key))
                     classes.add(key + "=" + storage[key]);
             });
         };
