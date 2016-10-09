@@ -448,10 +448,14 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
                                               }
                                           }
                                           else
-                                              throw Error("Value \"" + newValue + "\" is not acceptable for key \"" + key + "\"."
-                                                          + (schema.possibleValues(key)
-                                                             ? "\n\nAcceptable values:\n" + schema.possibleValues(key).join("\n")
-                                                             : ""));
+                                          {
+                                              var defaultValue = domain.reset(key);
+                                              console.warn("Value \"" + newValue + "\" is not acceptable for key \"" + key + "\"."
+                                                           + "\nThe key has been reset to its default value, \"" + defaultValue + "\"."
+                                                           + (schema.possibleValues(key)
+                                                              ? "\n\nAcceptable values:\n" + schema.possibleValues(key).join("\n")
+                                                              : ""));
+                                          }
                                       },
                                       get: function () {
                                           return domain.properties[key].value;
