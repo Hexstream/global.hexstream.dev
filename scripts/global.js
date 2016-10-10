@@ -705,6 +705,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.keys = keys;
             binding.document = document;
             binding.nodeSelector = nodeSelector;
+            binding.keyToLastValue = {};
             binding.storageListener = function (event) {
                 if (event.detail.storage === storage && window.document.body)
                     binding.incrementalSync(window.document.body);
@@ -729,15 +730,23 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 this.incrementalSync(window.document.body);
         };
         Binding.prototype.incrementalSync = function (node) {
-            var storage = this.storage;
-            var keys = this.keys;
+            var binding = this;
+            var storage = binding.storage;
+            var keys = binding.keys;
             if (keys.length === 0)
                 return;
-            node.className = "";
             var classes = node.classList;
             keys.forEach(function (key) {
                 if (!storage.isRelevant || storage.isRelevant(key))
-                    classes.add(key + "=" + storage[key]);
+                {
+                    var keyToLastValue = binding.keyToLastValue;
+                    var lastValue = keyToLastValue[key];
+                    if (lastValue !== undefined)
+                        classes.remove(key + "=" + lastValue);
+                    var newValue = storage[key];
+                    keyToLastValue[key] = newValue;
+                    classes.add(key + "=" + newValue);
+                }
             });
         };
         return {
