@@ -64,7 +64,12 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
         Array.prototype.forEach.call(mutationRecords, function (record) {
             var addedNodes = record.addedNodes;
             if (addedNodes)
-                Array.prototype.forEach.call(addedNodes, callback);
+                Array.prototype.forEach.call(addedNodes, function (addedNode) {
+                    if (addedNode.nodeType === Node.ELEMENT_NODE)
+                        Array.prototype.forEach.call(addedNode.querySelectorAll("*"), callback);
+                    else
+                        callback(addedNode);
+                });
         });
     };
 
