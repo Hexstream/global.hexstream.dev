@@ -325,6 +325,8 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
             {
                 var isSection = function (node) {return node.tagName === "SECTION";};
                 var thisSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(addedNode, isSection);
+                if (realNodeToMockNode[thisSection.id])
+                    return;
                 var parentSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
                 var toUpdate = createMockNode(thisSection, parentSection ? realNodeToMockNode[parentSection.id] : rootMockNode);
                 toUpdate.forEach(function (sectionToUpdate) {
