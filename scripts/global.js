@@ -43,6 +43,18 @@ HexstreamSoft.modules.register("HexstreamSoft.misc", function () {
         return value;
     }
 
+    function forEachOwnValues (object, callback, thisValue) {
+        Object.keys(object).forEach(function (key) {
+            callback.call(thisValue, object[key]);
+        });
+    }
+
+    function forEachOwnKeysAndValues (object, callback, thisValue) {
+        Object.keys(object).forEach(function (key) {
+            callback.call(thisValue, key, object[key]);
+        });
+    }
+
     var upgradeReasonsAlreadyGiven = [];
 
     function pleaseUpgrade (reason) {
@@ -55,6 +67,8 @@ HexstreamSoft.modules.register("HexstreamSoft.misc", function () {
 
     HexstreamSoft.misc = {};
     HexstreamSoft.misc.identity = identity;
+    HexstreamSoft.misc.forEachOwnValues = forEachOwnValues;
+    HexstreamSoft.misc.forEachOwnKeysAndValues = forEachOwnKeysAndValues;
     HexstreamSoft.misc.pleaseUpgrade = pleaseUpgrade;
 });
 
