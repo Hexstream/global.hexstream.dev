@@ -200,17 +200,20 @@ HexstreamSoft.modules.register("HexstreamSoft.FixLinks", function () {
 
 
 HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
-
     var directions =
         {
             "⬉":
             {
                 className: "prev upwards",
+                previousDirection: null,
+                nextDirection: "⬆",
                 opposite: "⬊"
             },
             "⬆":
             {
                 className: "prev",
+                previousDirection: "⬉",
+                nextDirection: "⬈",
                 opposite: "⬇",
                 downwards: "⬈",
                 upwards: "⬉"
@@ -218,16 +221,28 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
             "⬈":
             {
                 className: "prev downwards",
+                previousDirection: "⬆",
+                nextDirection: "⚓",
                 opposite: "⬋"
+            },
+            "⚓":
+            {
+                className: "anchor",
+                previousDirection: "⬈",
+                nextDirection: "⬋"
             },
             "⬋":
             {
                 className: "next upwards",
+                previousDirection: "⚓",
+                nextDirection: "⬇",
                 opposite: "⬈"
             },
             "⬇":
             {
                 className: "next",
+                previousDirection: "⬋",
+                nextDirection: "⬊",
                 opposite: "⬆",
                 downwards: "⬊",
                 upwards: "⬋"
@@ -235,89 +250,166 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
             "⬊":
             {
                 className: "next downwards",
+                previousDirection: "⬇",
+                nextDirection: null,
                 opposite: "⬉"
             },
         };
 
     var directionNames = Object.keys(directions);
 
-    function makeLink (direction, target) {
+    function NavSet (mockNode) {
+        var navset = this;
+        navset.mockNode = mockNode;
+        navset.nav = mockNode.realNode.querySelector(".section-relative-nav");
+        navset.records = {"⚓": {
+            targetMockNode: mockNode,
+            linkElement: mockNode.realNode.querySelector(".section-relative-nav > .anchor")
+        }};
+    }
+
+    NavSet.makeLink = function (direction, target) {
         var link = document.createElement("a");
         link.href = "#" + target;
-        link.className = directions[direction].className + " generated";
+        var className = directions[direction].className;
+        if (!className)
+            throw Error("Invalid direction \"" + direction + "\".");
+        link.className = className + " generated";
         link.textContent = direction;
         return link;
     }
 
-    var realNodeToMockNode = {};
-
-    function createMockNode (realNode, parent) {
-        var node = {};
-        var toUpdate = [realNode];
-        realNodeToMockNode[realNode.id] = node;
-        node.realNode = realNode;
-        node["⬈"] = null;
-        node["⬊"] = null;
-        if (!parent)
+    NavSet.prototype.nextNavLinkElement = function (direction) {
+        direction = directions[direction].nextDirection;
+        var navset = this;
+        var records = navset.records;
+        var record;
+        while (direction)
         {
-            node["⬉"] = null;
-            node["⬋"] = null;
-            node["⬆"] = null;
-            node["⬇"] = null;
-            return toUpdate;
+            record = records[direction];
+            if (record)
+                return record.linkElement;
+            else
+                direction = directions[direction].nextDirection;
         }
-        var siblings = (function () {
-            var prev = null;
-            var next = parent["⬊"];
-            body: while (next)
-            {
-                if (realNode.compareDocumentPosition(next.realNode) & Node.DOCUMENT_POSITION_FOLLOWING)
-                    break body;
-                prev = next;
-                next = next["⬇"];
-            }
-            return {prev: prev, next: next};
-        })();
+        return null;
+    };
 
-        function updateLink (thisNode, otherNode, forward, isReciprocal, whichToUpdate) {
-            thisNode[forward] = otherNode;
-            if (whichToUpdate === "this")
-                toUpdate.push(thisNode.realNode);
-            if (otherNode && isReciprocal)
+    NavSet.prototype.setDirectionTarget = function (direction, targetMockNode) {
+        var navset = this;
+        var record = navset.records[direction];
+        if (record)
+        {
+            if (targetMockNode)
             {
-                var backwards = directions[forward].opposite;
-                otherNode[backwards] = thisNode;
-                if (whichToUpdate === "other")
-                    toUpdate.push(otherNode.realNode);
+                record.targetMockNode = targetMockNode;
+                record.linkElement.href = targetMockNode.realNode.id;
+            }
+            else
+            {
+                delete navset.records[direction];
+                navset.nav.removeChild(record.linkElement);
             }
         }
-
-        function updateLinks (sibling, forward) {
-            var backwards = directions[forward].opposite;
-            var backwardsDownwards = directions[backwards].downwards;
-            var backwardsUpwards = directions[backwards].upwards;
-            updateLink(node, sibling, forward, true, "other");
-            var currentChild = sibling ? sibling[backwardsDownwards] : null;
-            while (currentChild)
-            {
-                var nextChild = currentChild[backwards];
-                var currentChildIsLastChild = nextChild === null;
-                updateLink(currentChild, node, backwardsUpwards, currentChildIsLastChild, "this");
-                currentChild = currentChildIsLastChild ? currentChild[backwardsDownwards] : nextChild;
-            }
+        else if (targetMockNode)
+        {
+            var linkElement = NavSet.makeLink(direction, targetMockNode.realNode.id);
+            record = {
+                targetMockNode: targetMockNode,
+                linkElement: linkElement
+            };
+            navset.records[direction] = record;
+            navset.nav.insertBefore(linkElement, navset.nextNavLinkElement(direction));
         }
+    };
 
-        var prev = siblings.prev;
-        var next = siblings.next;
-        updateLink(node, parent, "⬉", prev === null, "other");
-        updateLink(node, parent["⬇"], "⬋", next === null, "other");
-        updateLinks(prev, "⬆");
-        updateLinks(next, "⬇");
-        return toUpdate;
+
+    function MockNode (realNode, parent) {
+        var mockNode = this;
+        mockNode.parent = parent;
+        MockNode.realNodeToMockNode[realNode.id] = mockNode;
+        mockNode.realNode = realNode;
+        mockNode["⬈"] = null;
+        mockNode["⬊"] = null;
+        if (parent)
+        {
+            mockNode.navset = new NavSet(mockNode);
+            var siblings = mockNode.determineSiblings();
+            var prev = siblings.prev;
+            var next = siblings.next;
+            mockNode.updateLink(parent, "⬉", prev === null);
+            mockNode.updateLink(parent["⬇"], "⬋", next === null);
+            mockNode.updateLinks(prev, "⬆");
+            mockNode.updateLinks(next, "⬇");
+        }
+        else
+        {
+            mockNode["⬉"] = null;
+            mockNode["⬋"] = null;
+            mockNode["⬆"] = null;
+            mockNode["⬇"] = null;
+        }
     }
 
-    createMockNode(document.documentElement, null);
-    var rootMockNode = realNodeToMockNode[""];
+    MockNode.realNodeToMockNode = {};
+
+    MockNode.prototype.determineSiblings = function () {
+        var mockNode = this;
+        var realNode = mockNode.realNode;
+        var parent = mockNode.parent;
+        var prev = null;
+        var next = parent["⬊"];
+        while (next)
+        {
+            if (realNode.compareDocumentPosition(next.realNode) & Node.DOCUMENT_POSITION_FOLLOWING)
+                break;
+            prev = next;
+            next = next["⬇"];
+        }
+        return {prev: prev, next: next};
+    };
+
+    MockNode.prototype.updateLink = function (otherNode, forward, isReciprocal) {
+        var thisNode = this;
+        if (!otherNode)
+            return;
+        function doUpdate (thisNode, otherNode, direction) {
+            thisNode[direction] = otherNode;
+            var navset = thisNode.navset;
+            if (navset)
+                navset.setDirectionTarget(direction, otherNode);
+        }
+        doUpdate(thisNode, otherNode, forward);
+        if (isReciprocal)
+            doUpdate(otherNode, thisNode, directions[forward].opposite);
+    };
+
+    MockNode.prototype.updateLinks = function (sibling, forward) {
+        var mockNode = this;
+        var backwards = directions[forward].opposite;
+        var backwardsDownwards = directions[backwards].downwards;
+        var backwardsUpwards = directions[backwards].upwards;
+        mockNode.updateLink(sibling, forward, true);
+        var currentChild = sibling ? sibling[backwardsDownwards] : null;
+        while (currentChild)
+        {
+            var nextChild = currentChild[backwards];
+            if (nextChild)
+            {
+                currentChild.updateLink(mockNode, backwardsUpwards, false);
+                currentChild = nextChild;
+            }
+            else
+            {
+                var downwardsChild = currentChild[backwardsDownwards];
+                currentChild.updateLink(mockNode, backwardsUpwards, !downwardsChild);
+                currentChild = downwardsChild;
+            }
+        }
+    };
+
+    new MockNode(document.documentElement, null);
+    var rootMockNode = MockNode.realNodeToMockNode[""];
 
     var observer = new MutationObserver(function (records, observer) {
         HexstreamSoft.dom.forEachAddedNode(records, function (addedNode) {
@@ -325,26 +417,10 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
             {
                 var isSection = function (node) {return node.tagName === "SECTION";};
                 var thisSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(addedNode, isSection);
-                if (realNodeToMockNode[thisSection.id])
+                if (MockNode.realNodeToMockNode[thisSection.id])
                     return;
                 var parentSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
-                var toUpdate = createMockNode(thisSection, parentSection ? realNodeToMockNode[parentSection.id] : rootMockNode);
-                toUpdate.forEach(function (sectionToUpdate) {
-                    var navToUpdate = sectionToUpdate.querySelector(".section-relative-nav");
-                    var mockNode = realNodeToMockNode[sectionToUpdate.id];
-                    var anchor = navToUpdate.querySelector(".section-relative-nav > .anchor");
-                    navToUpdate.removeChild(anchor);
-                    Array.prototype.forEach.call(navToUpdate.querySelectorAll(".section-relative-nav > .generated"),
-                                                 navToUpdate.removeChild,
-                                                 navToUpdate);
-                    directionNames.forEach(function (type) {
-                        var sibling = mockNode[type];
-                        if (sibling)
-                            navToUpdate.appendChild(makeLink(type, sibling.realNode.id));
-                        if (type === "⬈")
-                            navToUpdate.appendChild(anchor);
-                    });
-                });
+                new MockNode(thisSection, parentSection ? MockNode.realNodeToMockNode[parentSection.id] : rootMockNode)
             }
         });
     });
