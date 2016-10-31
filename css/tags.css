@@ -16,9 +16,6 @@ main .tags .tag {
     color: black;
     margin-left: 0.175em;
     margin-right: 0.175em;
-}
-
-main .gallery article > .tags .tag {
     opacity: 0.5;
 }
 
@@ -38,7 +35,7 @@ main .tags .tag.filesize {
     padding-left: 1.2em;
 }
 
-main .tags:hover .tag, main .gallery article:target > .tags .tag {
+main .tags:hover .tag, main article:target .tags .tag {
     opacity: 1;
 }
 
