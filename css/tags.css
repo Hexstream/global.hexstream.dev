@@ -1,0 +1,51 @@
+main .tags {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: -0.2em;
+}
+
+main .tags .tag {
+    padding: 0.1em 0.2em;
+    border: thin solid black;
+    white-space: nowrap;
+    text-decoration: none;
+    margin-top: 0.35em;
+    margin-right: 0.35em;
+    color: black;
+    margin-left: 0.175em;
+    margin-right: 0.175em;
+}
+
+main .gallery article > .tags .tag {
+    opacity: 0.5;
+}
+
+main .tags .tag.artist {
+    background-image: url("images/paintbrush.png");
+    background-repeat: no-repeat;
+    background-position: 0% center;
+    background-size: auto 75%;
+    padding-left: 1.2em;
+}
+
+main .tags .tag.filesize {
+    background-image: url("images/weight-trapeze.png");
+    background-repeat: no-repeat;
+    background-position: 0.2em 37.5%;
+    background-size: auto 65%;
+    padding-left: 1.2em;
+}
+
+main .tags:hover .tag, main .gallery article:target > .tags .tag {
+    opacity: 1;
+}
+
+main .tags a.tag:hover {
+    text-decoration: underline;
+}
+
+main .tags .separator {
+    display: none;
+}
