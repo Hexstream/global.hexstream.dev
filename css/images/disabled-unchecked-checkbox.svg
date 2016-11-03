@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     viewBox="0 0 10 10">
+
+  <title>Disabled unchecked checkbox</title>
+
+  <defs>
+    <style>
+      <![CDATA[
+               svg .form-control-outline {
+               fill: none;
+               stroke: gray;
+               }
+
+               svg .form-control-checked-interior {
+               fill: forestgreen;
+               }
+      ]]>
+    </style>
+  </defs>
+
+  <rect class="form-control-outline"
+        x="0.5" y="0.5" width="9" height="9" stroke-width="1"/>
+
+  <line class="form-control-outline"
+        x1="9.5" y1="0.5" x2="0.5" y2="9.5" stroke-width="1"/>
+
+</svg>

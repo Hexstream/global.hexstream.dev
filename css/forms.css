@@ -13,18 +13,34 @@ input[type="radio"].replaced + label {
     background-size: 1em;
 }
 
+input[type="radio"].replaced:disabled + label {
+    background-image: url("images/disabled-unchecked-radio-button.svg");
+}
+
 input[type="radio"].replaced[data-dynamic-context~="related-radio-button"] + label {
     background-image: url("images/unchecked-radio-button.svg"), url("images/related-radio-button.svg");
     background-size: 1em, 2.1em 1em;
+}
+
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:disabled + label {
+    background-image: url("images/disabled-unchecked-radio-button.svg"), url("images/related-radio-button.svg");
 }
 
 input[type="radio"].replaced:checked + label {
     background-image: url("images/checked-radio-button.svg");
 }
 
+input[type="radio"].replaced:checked:disabled + label {
+    background-image: url("images/disabled-checked-radio-button.svg");
+}
+
 input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked + label {
     background-image: url("images/checked-radio-button.svg"), url("images/related-radio-button.svg");
     background-size: 1em, 2.1em 1em;
+}
+
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked:disabled + label {
+    background-image: url("images/disabled-checked-radio-button.svg"), url("images/related-radio-button.svg");
 }
 
 input[type="checkbox"].replaced + label {
@@ -34,8 +50,16 @@ input[type="checkbox"].replaced + label {
        else checkboxes look (and actually are) bigger. */
 }
 
+input[type="checkbox"].replaced:disabled + label {
+    background-image: url("images/disabled-unchecked-checkbox.svg");
+}
+
 input[type="checkbox"].replaced:checked + label {
     background-image: url("images/checked-checkbox.svg");
+}
+
+input[type="checkbox"].replaced:checked:disabled + label {
+    background-image: url("images/disabled-checked-checkbox.svg");
 }
 
 
