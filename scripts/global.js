@@ -796,21 +796,21 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
 
     EventBinding.defineType("storage", "classList", (function () {
-        function Binding (storage, keys, document, nodeSelector) {
+        function Binding (storage, keys, document) {
             var binding = this;
             binding.storage = storage;
             binding.keys = keys;
             binding.document = document;
-            binding.nodeSelector = nodeSelector;
             binding.keyToLastValue = {};
             binding.storageListener = function (event) {
-                if (event.detail.storage === storage && window.document.body)
-                    binding.incrementalSync(window.document.body);
+                if (event.detail.storage === storage)
+                    binding.incrementalSync(binding.document);
             };
         }
         Binding.prototype.hookup = function () {
             var binding = this;
             window.addEventListener("HexstreamSoft.storage", binding.storageListener);
+            /*
             binding.observer = new MutationObserver(function (records, observer) {
                 HexstreamSoft.dom.forEachAddedNode(records, function (node) {
                     if (node.tagName && node.tagName.toLowerCase() === binding.nodeSelector)
@@ -820,11 +820,11 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                     }
                 });
             });
-            binding.observer.observe(document, {childList: true, subtree: true});
+            binding.observer.observe(binding.document.documentElement, {childList: true, subtree: true});
+            */
         };
         Binding.prototype.initialSync = function () {
-            if (window.document.body)
-                this.incrementalSync(window.document.body);
+            this.incrementalSync(this.document);
         };
         Binding.prototype.incrementalSync = function (node) {
             var binding = this;
@@ -848,7 +848,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         };
         return {
             bind: function (fromSpec, toSpec) {
-                return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.document, toSpec.nodeSelector)];
+                return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.document)];
             },
         }
     })());
