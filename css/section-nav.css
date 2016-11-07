@@ -156,13 +156,6 @@ section h1.breadcrumbs .section-relative-nav .downwards {
 }
 
 
-section h1.breadcrumbs .section-relative-nav .of:hover {
-    background: transparent;
-    border: thin solid transparent;
-    opacity: 0.25;
-}
-
-
 section > header {
     display: flex;
     flex-flow: row;
