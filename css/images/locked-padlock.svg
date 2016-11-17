@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     viewBox="0 0 3 4"
+     overflow="hidden">
+
+  <title>Locked padlock</title>
+
+  <defs>
+    <style>
+      <![CDATA[
+               #padlock-body {
+               fill: gray;
+               stroke: none;
+               }
+
+               #padlock-bolt {
+               fill: none;
+               stroke: gray;
+               stroke-width: 0.5;
+               stroke-linecap: square;
+               }
+      ]]>
+    </style>
+  </defs>
+
+  <rect id="padlock-body"
+        x="0" y="2" width="3" height="2" rx="0.4" ry="0.4"/>
+
+  <path id="padlock-bolt"
+        d="M 0.6 2 l 0 -0.6 a 0.5 0.5 0 1 1 1.8 0 l 0 0.6"/>
+
+</svg>
