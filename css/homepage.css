@@ -4,6 +4,14 @@ body {
     overflow-x: hidden;
 }
 
+#site-nav {
+    z-index: 3;
+}
+
+.breadcrumbs-and-extras {
+    background: initial;
+}
+
 main {
     margin: 3em 1.5em 0;
 }
