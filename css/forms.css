@@ -76,3 +76,10 @@ input.replaced:disabled + label + label {
     display: block;
     padding: 0.4em 0.6em;
 }
+
+
+.action-button {
+    display: block;
+    padding: 0.2em 0.5em;
+    margin: 1em auto;
+}
