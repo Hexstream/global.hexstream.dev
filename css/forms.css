@@ -63,6 +63,11 @@ input[type="checkbox"].replaced:checked:disabled + label {
 }
 
 
+input.replaced:disabled + label + label {
+    opacity: 0.6;
+}
+
+
 .navtable td label:hover, .navtable td label:focus {
     background-color: #ECE0A5;
 }
