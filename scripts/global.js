@@ -70,6 +70,7 @@ HexstreamSoft.modules.register("HexstreamSoft.misc", function () {
     HexstreamSoft.misc.forEachOwnValues = forEachOwnValues;
     HexstreamSoft.misc.forEachOwnKeysAndValues = forEachOwnKeysAndValues;
     HexstreamSoft.misc.pleaseUpgrade = pleaseUpgrade;
+    HexstreamSoft.misc.baseURIURL = new URL(document.baseURI);
 });
 
 
@@ -188,8 +189,6 @@ HexstreamSoft.modules.register("HexstreamSoft.FixLinks", function () {
         return relativePath.join("/").concat(queryHash);
     }
 
-    var baseURIURL = new URL(document.baseURI);
-
     var observer = new MutationObserver(function (records) {
         HexstreamSoft.dom.forEachAddedNode(records, function (addedNode) {
             if (addedNode.tagName === "A")
@@ -198,7 +197,7 @@ HexstreamSoft.modules.register("HexstreamSoft.FixLinks", function () {
                 if (url.protocol === "file:" && url.pathname.slice(-1) === "/")
                 {
                     url.pathname = url.pathname + "index.html";
-                    addedNode.setAttribute("href", toRelativeURLString(baseURIURL, url));
+                    addedNode.setAttribute("href", toRelativeURLString(HexstreamSoft.misc.baseURIURL, url));
                 }
             }
         });

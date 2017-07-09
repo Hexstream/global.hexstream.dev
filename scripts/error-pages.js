@@ -9,6 +9,7 @@ function enhance_breadcrumbs_callback (mutation_records, observer) {
                 {
                     observer.disconnect();
                     //"file:" protocol special case to ease local debugging.
+                    var baseURIURL = HexstreamSoft.misc.baseURIURL;
                     var path = baseURIURL.protocol === "file:" ? baseURIURL.hash.slice(1) : baseURIURL.pathname;
                     var most_specific_breadcrumbs = added_node;
                     var longest_match = -1;
