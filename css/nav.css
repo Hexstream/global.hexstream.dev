@@ -195,6 +195,44 @@ main dt .anchor {
 }
 
 
+/* New slightly improved tabs markup. Now the <ul> is wrapped in a <nav>. */
+
+.tabs ul {
+    display: table;
+    border-collapse: collapse;
+    margin: -0.5em auto 0;
+    background: #FFCC99;
+    border: medium solid black;
+}
+
+.tabs ul > li {
+    display: table-cell;
+    border: thin solid grey;
+}
+
+.tabs ul > li > a {
+    display: block;
+    position: relative;
+    padding: 0.35em 1em;
+    text-decoration: none;
+}
+
+.tabs ul > li > a.here {
+    text-decoration: underline;
+}
+
+.tabs ul > li > a:hover, .tabs ul > li > a:focus {
+    background: #FFDD99;
+    outline-style: none;
+}
+
+.tabs ul > li > a.here:hover, .tabs ul > li > a.here:focus, .tabs ul > li > a.not-available:hover, .tabs ul > li > a.not-available:focus {
+    background: transparent;
+}
+
+
+/* LEGACY tabs markup, which will be removed when nothing uses it anymore. */
+
 ul.tabs {
     display: table;
     border-collapse: collapse;
