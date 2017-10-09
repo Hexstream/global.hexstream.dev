@@ -1,0 +1,213 @@
+:root {
+    --breadcrumbs-link-vertical-padding: 0.2em;
+    --breadcrumbs-link-horizontal-padding: 0.25em;
+}
+
+.breadcrumbs {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+}
+
+.breadcrumbs .ellipsis {
+    position: relative;
+}
+
+.breadcrumbs .ellipsis sub {
+    position: absolute;
+    font-size: medium;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 0.25em;
+}
+
+@media (max-width: 24em) {
+    .breadcrumbs .ellipsis sub {
+        font-size: small;
+    }
+}
+
+.breadcrumbs > .crumb {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+}
+
+.breadcrumbs > .crumb > * {
+    padding: var(--breadcrumbs-link-vertical-padding) var(--breadcrumbs-link-horizontal-padding);
+}
+
+.breadcrumbs > .crumb > .s {
+    font-weight: bold;
+}
+
+
+.breadcrumbs .related-group {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0 0.3em;
+    border: none;
+}
+
+.breadcrumbs .related-group > a {
+    border: thin solid;
+    padding: 0.2em 0.3em;
+}
+
+.breadcrumbs .related-group > a + a {
+    margin-left: 0.3em;
+}
+
+
+#top-nav .breadcrumbs {
+    padding-left: var(--breadcrumbs-link-horizontal-padding);
+}
+
+#top-nav .breadcrumbs > a:first-child {
+    padding-left: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
+    margin-left: calc(var(--breadcrumbs-link-horizontal-padding) * -1);
+}
+
+#top-nav .breadcrumbs > .crumb:last-child > a {
+    padding-right: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
+}
+
+
+#top-nav > .main .breadcrumbs.mothership a:last-of-type {
+    padding-right: 0.5em;
+}
+
+#top-nav > .main .breadcrumbs.mothership > span:last-child {
+    position: absolute;
+    left: 100%;
+    border-left: solid medium transparent;
+}
+
+
+section {
+    --section-relative-nav-safety-margin: 0.55em;
+}
+
+.breadcrumbs-bar {
+    --breadcrumbs-link-horizontal-padding: 0.2em;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    font-size: x-large;
+    text-align: left;
+    padding: 0.4em 0.5em 0.4em 0;
+    border: solid thin gray;
+    margin: 0 0 1em var(--section-relative-nav-safety-margin);
+    background-color: #ECECEC;
+}
+
+@media (max-width: 24em) {
+    .breadcrumbs-bar {
+        font-size: large;
+    }
+}
+
+.breadcrumbs-bar .breadcrumbs {
+    --breadcrumbs-continuation-lines-indentation: 1.2em;
+    padding-left: var(--breadcrumbs-continuation-lines-indentation);
+}
+
+.breadcrumbs-bar .breadcrumbs > a:first-child {
+    margin-left: calc(var(--breadcrumbs-link-horizontal-padding) - var(--breadcrumbs-continuation-lines-indentation));
+}
+
+.breadcrumbs-bar .breadcrumbs > .crumb > .s {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+    border: thin solid transparent;
+    margin-top: -1px;
+}
+
+.breadcrumbs-bar a, .breadcrumbs-bar .breadcrumbs > .crumbs .s, .breadcrumbs-bar .breadcrumbs > .crumb > .helper {
+    padding: var(--breadcrumbs-link-vertical-padding) var(--breadcrumbs-link-horizontal-padding);
+    border: thin solid transparent;
+}
+
+
+.breadcrumbs-bar a {
+    opacity: 0.5;
+}
+
+.breadcrumbs-bar .breadcrumbs .here {
+    opacity: 1;
+}
+
+.breadcrumbs-bar a[href]:hover, .breadcrumbs-bar a[href]:focus {
+    background: var(--nav-background-color);
+    border: thin solid black;
+    opacity: 1;
+}
+
+
+.breadcrumbs-bar .section-relative-nav {
+    position: relative;
+    margin-left: 0.5em;
+    text-align: center;
+}
+
+.breadcrumbs-bar .section-relative-nav > * {
+    width: 1.2em;
+    z-index: 1;
+}
+
+.breadcrumbs-bar .section-relative-nav > .anchor {
+    display: block;
+    font-size: inherit;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.breadcrumbs-bar .section-relative-nav > :not(.anchor) {
+    position: absolute;
+    padding: 0;
+    left: 50%;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+    line-height: 1em;
+    opacity: 0.25;
+}
+
+.breadcrumbs-bar .section-relative-nav > .prev.upwards {
+    transform: translate(-1.15em, -1.3em);
+}
+
+.breadcrumbs-bar .section-relative-nav > .prev {
+    transform: translate(0, -1.3em);
+}
+
+.breadcrumbs-bar .section-relative-nav > .prev.downwards {
+    transform: translate(1.15em, -1.3em);
+}
+
+.breadcrumbs-bar .section-relative-nav > .next.upwards {
+    transform: translate(-1.15em, 1.15em);
+}
+
+.breadcrumbs-bar .section-relative-nav > .next {
+    transform: translate(0, 1.25em);
+}
+
+.breadcrumbs-bar .section-relative-nav > .next.downwards {
+    transform: translate(1.15em, 1.15em);
+}
+
+
+@media (max-width: 12.5em) {
+    section h1.breadcrumbs, section h1.breadcrumbs .anchor {
+        font-size: medium;
+    }
+}

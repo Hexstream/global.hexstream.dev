@@ -1,23 +1,7 @@
-.ancestors-nav {
-    position: relative;
-    background: white;
-    float: left;
-}
-
-.ancestors-nav .level-separator  {
-    display: none; /* Remove from markup later. */
-    width: 65%;
-    height: 0.2em;
-    border: 3px solid black;
-    margin: -0.5em auto 0.5em;
-    background: #FFCC99;
-}
-
 .navbox {
     margin: 0 0.5em 1em;
-    background: #FFCC99;
+    background: var(--nav-background-color);
     border: medium solid black;
-    width: 10em;
 }
 
 .navbox > ul + ul {
@@ -107,12 +91,12 @@
 }
 
 .navbox a:hover, .navbox a:focus {
-    background: #FFDD99;
+    background: var(--nav-background-highlight-color);
     outline-style: none;
 }
 
 .navbox a.direct-link:hover, .navbox a.direct-link:focus {
-    background: #FFDD99;
+    background: var(--nav-background-highlight-color);
     outline-style: none;
     opacity: 1;
 }
@@ -177,10 +161,6 @@
     width: auto;
     flex: none;
     min-width: 8em;
-}
-
-.navbox-groups .navbox h1 a {
-    padding: 0 0.5em;
 }
 
 .navbox-groups .navbox li {
@@ -256,6 +236,7 @@
 }
 
 .navbox h1 a {
+    padding: 0 0.5em;
     color: inherit;
 }
 
@@ -304,40 +285,6 @@
 
 .navbox .inlined-nodes .item-count > span {
     font-size: x-small;
-}
-
-.navbox-next {
-    display: block;
-    text-align: center;
-    margin: -1em 0.5em 1em;
-    width: 10em;
-    border: medium solid transparent;
-    border-top: none;
-    text-decoration: none;
-    opacity: 0.25;
-}
-
-.navbox-next:hover {
-    border-color: black;
-    background: #FFCC99;
-    opacity: 1;
-}
-
-.navbox-previous {
-    display: block;
-    text-align: center;
-    margin: 1em 0.5em 0em;
-    width: 10em;
-    border: medium solid transparent;
-    border-bottom: none;
-    text-decoration: none;
-    opacity: 0.25;
-}
-
-.navbox-previous:hover {
-    border-color: black;
-    background: #FFCC99;
-    opacity: 1;
 }
 
 #page-header + nav.navbox > h1 {

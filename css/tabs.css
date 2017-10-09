@@ -1,0 +1,153 @@
+.tab-groups {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.tab-groups .tabs {
+    max-width: initial;
+    margin-left: initial;
+    margin-right: initial;
+}
+
+.tabs {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: baseline;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    margin: 0.25em auto;
+}
+
+.tabs.contains-title {
+    flex-flow: row wrap;
+}
+
+.tabs.contains-title > h1 {
+    flex: none;
+    font-size: medium;
+    border: medium solid transparent;
+    margin: 0 -0.25em -0.4em 0.5em;
+    white-space: nowrap;
+}
+
+.tabs.contains-title > h1 > a {
+    display: block;
+    padding: 0.2em 0.25em;
+}
+
+.tabs.contains-title > h1 > a:hover {
+    text-decoration: underline;
+}
+
+.tabs.contains-groups > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+}
+
+.tabs ul {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0.25em;
+    background: var(--nav-background-color);
+    border: medium solid black;
+}
+
+.tabs ul > li {
+    flex: 1 1 auto;
+    text-align: center;
+    border: thin solid grey;
+}
+
+.tabs ul > li.contains-children {
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+}
+
+.tabs ul > li.contains-children > * {
+    flex: none;
+}
+
+.tabs ul > li.contains-children > ul {
+    font-size: smaller;
+    margin-top: 0;
+}
+
+.tabs ul .contains-direct-link {
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+}
+
+.tabs ul .contains-direct-link > a:not(.direct-link) {
+    flex: 1 0;
+    padding-right: 0.2em;
+}
+
+.tabs ul .contains-direct-link > a.direct-link {
+    flex: none;
+    display: flex;
+    align-items: center;
+    padding-left: 0.2em;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0.3;
+}
+
+.tabs ul .contains-direct-link > a.direct-link:hover,
+.tabs ul .contains-direct-link > a.direct-link:focus {
+    opacity: 1;
+}
+
+
+.tabs ul > li + li {
+    margin-top: 0;
+}
+
+.tabs ul > li li {
+    margin-bottom: 0;
+}
+
+.tabs ul > li > a, .tabs ul > li > .contains-direct-link a {
+    display: block;
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+}
+
+.tabs ul > li > a.here, .tabs ul > li > a.ancestor {
+    text-decoration: underline;
+}
+
+.tabs ul > li > a:hover, .tabs ul > li > a:focus {
+    background: var(--nav-background-highlight-color);
+    outline-style: none;
+}
+
+.tabs ul > li > a.here:hover, .tabs ul > li > a.here:focus,
+.tabs ul > li > a.not-available:hover, .tabs ul > li > a.not-available:focus {
+    background: transparent;
+}
+
+
+
+#top-nav > .main > .tabs {
+    border: none;
+}
+
+#top-nav > .main > .tabs ul {
+    margin: 0;
+}
+
+#top-nav > .main > .tabs > ul > li > a {
+    padding: 0.175em 0.5em;
+}
+
+#top-nav > .main > .tabs > ul > li > a.here {
+    text-decoration: underline;
+}

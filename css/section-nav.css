@@ -1,93 +1,8 @@
-section h1.breadcrumbs {
-    position: relative;
-    display: flex;
-    flex-flow: row;
-    align-items: stretch;
-    white-space: nowrap;
-    font-size: x-large;
-    text-align: left;
-    padding: 0 0.6em 0 1.9em;
-    border: solid thin gray;
-    margin: 0 0 1em 0;
-    background-color: #ECECEC;
-}
-
-section h1.breadcrumbs > a, section h1.breadcrumbs > .separator, section h1.breadcrumbs > .related-group {
-    padding: 0.2em;
-    margin: 0.4em 0;
-    border: thin solid transparent;
-    flex: none;
-}
-
-section h1.breadcrumbs > .separator {
-    padding-left: 0.1em;
-    padding-right: 0.1em;
-}
-
-section h1.breadcrumbs .related-group {
-    display: flex;
-    padding: 0 0.3em;
-    border: none;
-}
-
-section h1.breadcrumbs .related-group > a {
-    border: thin solid;
-    padding: 0.2em 0.3em;
-}
-
-section h1.breadcrumbs .related-group > a + a {
-    margin-left: 0.3em;
-}
-
-section h1.breadcrumbs a {
-    opacity: 0.5;
-}
-
-section h1.breadcrumbs .here {
-    opacity: 1;
-}
-
-section h1.breadcrumbs a[href]:hover, section h1.breadcrumbs a[href]:focus {
-    background: #FFCC99;
-    border: thin solid black;
-    opacity: 1;
-}
-
-section h1.breadcrumbs .anchor {
-    position: absolute;
-    top: 50%;
-    margin-top: -0.85em;
-    left: 0;
-    width: 1.2em;
-    margin-left: 0.4em;
-    text-align: center;
-    font-size: x-large;
-}
-
-section h1.breadcrumbs > .anchor {
-    margin-left: 0.5em;
-    padding-left: 0;
-    padding-right: 0;
-}
-
 section.item-section h1 {
     border: dashed thin gray;
 }
 
-section h1.breadcrumbs .section-relative-nav {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 2em;
-    text-align: center;
-}
-
-section h1.breadcrumbs .section-relative-nav .anchor {
-    padding: 0.2em 0;
-}
-
-section h1.breadcrumbs .section-relative-nav .of {
+section .breadcrumbs-bar .section-relative-nav .of {
     position: absolute;
     left: auto;
     right: 100%;
@@ -100,62 +15,30 @@ section h1.breadcrumbs .section-relative-nav .of {
     opacity: 0.25;
 }
 
-section h1.breadcrumbs .section-relative-nav .of.tight {
+section .breadcrumbs-bar .section-relative-nav .of.tight {
     margin-right: 0.1em;
 }
 
-section h1.breadcrumbs .section-relative-nav .of:hover {
+section .breadcrumbs-bar .section-relative-nav .of:hover {
     opacity: 1;
 }
 
-section h1.breadcrumbs .section-relative-nav > * {
-    position: absolute;
-    z-index: 1;
-    left: 0;
-    right: 0;
-    width: 1.2em;
-    border: thin solid transparent;
-    margin: 0;
-    left: 50%;
-    margin-left: -0.6em;
+section .description-and-last-updated {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    margin-top: -1.2em;
 }
 
-section h1.breadcrumbs .section-relative-nav > .anchor {
-    margin-top: -0.85em;
+section .description-and-last-updated .last-updated {
+    margin-top: 0.25em;
+    margin-left: auto;
+    margin-bottom: -0.5em;
 }
 
-section h1.breadcrumbs .section-relative-nav .prev {
-    bottom: 100%;
-    margin-bottom: -0.6em;
-    opacity: 0.25;
-}
-
-section h1.breadcrumbs .section-relative-nav .next {
-    top: 100%;
-    margin-top: -0.5em;
-    opacity: 0.25;
-}
-
-section h1.breadcrumbs .section-relative-nav > .next.upwards {
-    margin-top: -0.6em;
-}
-
-section h1.breadcrumbs .section-relative-nav > .next.downwards {
-    margin-top: -0.6em;
-}
-
-section h1.breadcrumbs .section-relative-nav .upwards {
-    left: auto;
-    right: 100%;
-    margin-right: -0.6em;
-}
-
-section h1.breadcrumbs .section-relative-nav .downwards {
-    left: 100%;
-    margin-left: -0.6em;
-}
-
-section > h1 + .description {
+section > h1 +                               .description,
+section > h1 + .description-and-last-updated .description {
+    flex: 0 1 auto;
     display: table;
     margin: -1.2em 0 0 2.2em;
     padding: 0.2em;
@@ -163,34 +46,49 @@ section > h1 + .description {
     opacity: 0.6;
 }
 
+section > h1 + .description-and-last-updated .description {
+    margin-top: 0;
+}
+
 
 section > header {
     display: flex;
-    flex-flow: row;
+    flex-flow: row wrap;
     align-items: center;
     margin: 0 auto 1em;
-    white-space: nowrap;
 }
 
-section > header > h1.breadcrumbs {
+section > header > .breadcrumbs-bar {
     margin-top: 0;
     margin-bottom: 0;
 }
 
 section > header > a {
-    margin: 0 0.75em;
+    margin: 0.75em;
     text-decoration: none;
 }
 
-section > header > a.direct-link {
+section > :first-child a.direct-link {
+    font-size: medium;
     padding: 0.2em 0.3em;
     border: thin solid;
     opacity: 0.5;
+    align-self: center;
 }
 
-section > header > a.direct-link:hover {
+@media (max-width: 24em) {
+    section > :first-child a.direct-link {
+        font-size: small;
+    }
+}
+
+section > :first-child .breadcrumbs a.direct-link {
+    margin-left: 0.25em;
+}
+
+section > :first-child a.direct-link:hover {
     opacity: 1;
-    background: #FFCC99;
+    background: var(--nav-background-color);
     border-color: black;
 }
 
@@ -204,44 +102,6 @@ section > header > a.details-link:hover {
     background: green;
     color: white;
 }
-
-
-
-.section-nav {
-    position: relative;
-    left: auto;
-}
-
-.section-nav .navbox {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-nav .navbox-next {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-nav .navbox-previous {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.section-nav:first-child {
-    position: absolute;
-    left: -12.5em;
-    z-index: 1;
-}
-
-.section-nav:first-child .navbox {
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-}
-
-.section-nav:first-child a:first-child.navbox-previous {
-    margin-top: -1.4em;
-}
-
 
 .end-of-section-indicator {
     font-size: smaller;

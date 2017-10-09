@@ -1,33 +1,20 @@
 @import "news.css";
 
-body {
-    overflow-x: hidden;
-}
-
-#site-nav {
-    z-index: 3;
-}
-
-.breadcrumbs-and-extras {
-    background: initial;
-}
-
 main {
-    margin: 3em 1.5em 0;
+    margin-top: 0;
 }
 
 #page-header {
-    margin: 1.5em auto 2em;
+    margin: 0 auto 2em;
 }
 
 #page-header h1 {
-    font-size: 3.5em;
     letter-spacing: 0.1em;
 }
 
 #page-header .description {
     font-size: large;
-    margin-top: -0.2em;
+    margin-top: 0.5em;
     line-height: 1.2em;
     word-spacing: 0.1em;
     letter-spacing: 0.025em;
@@ -41,5 +28,6 @@ main {
 }
 
 #footer > div {
-    margin-left: 1.5em;
+    margin-left: 0;
+    margin-right: 0;
 }

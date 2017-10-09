@@ -2,100 +2,53 @@
 @import "table.css";
 @import "fonts.css";
 
+:root {
+    --nav-background-color: #FFCC99;
+    --nav-background-highlight-color: #FFDD99;
+}
+
+html {
+    height: 100%;
+}
+
 body {
+    display: flex;
+    flex-flow: column;
+    min-height: 100%;
     font-family: "Liberation Serif", "DejaVu Sans", serif;
 }
 
-dt {
-    margin: 1.5em 1.8em 0;
-    font-size: large;
+video, audio {
+    max-width: 100%;
+    max-height: 100%;
 }
 
-dt + dt {
-    margin-top: 0.5em;
+.scroll {
+    overflow: auto;
 }
 
-dt a {
-    text-decoration: none;
+.scroll.contains-table {
+    margin-left: 1em;
 }
 
-dd {
-    margin-left: 2em;
-    margin-right: 2em;
+.scroll.contains-table > table {
+    margin: 0;
 }
 
-dd p:first-child {
-    margin-top: 0.25em;
-}
-
-
-dd p {
-    margin: 0.8em 1.5em;
-}
-
-dd ul, dd ol {
-    margin: 0.8em 3.5em;
-}
-
-dd ul li, dd ol li {
-    margin-top: 0.4em;
-    margin-bottom: 0.4em;
-}
-
-
-#last-updated {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0.5em 0.5em 1em;
-    line-height: 1.2em;
-    border: medium solid black;
-    background: #FFCC99;
-    text-decoration: none;
-}
-
-#last-updated > span {
-    display: none;
-}
-
-#last-updated > time {
-    display: block;
-    padding: 0.175em 0.5em;
-}
-
-#last-updated:after {
-    content: "Page last updated on";
-    position: absolute;
-    right: 0;
-    top: 100%;
-    font-size: smaller;
-    text-align: right;
-    margin-top: 0.1em;
+.nowrap {
     white-space: nowrap;
 }
 
-#last-updated:hover {
-    z-index: 2;
+.fit-content {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-
-main {
-    margin: 4em 1.5em 1.5em 12.5em;
-    position: relative;
-    z-index: 2;
-}
-
-h1 a {
-    text-decoration: none;
-}
-
-ul {
-    margin: 1em 2em;
-}
-
 
 section {
-    margin: 3em auto;
+    max-width: 100%;
+    margin: 2.5em auto;
+    padding: 0.8em 0;
 }
 
 header h1 {
@@ -107,9 +60,15 @@ header .description {
     margin: -1.3em 0 0;
 }
 
+
+main {
+    position: relative;
+    margin: 3em 0 2.5em 0;
+}
+
 #page-header {
     text-align: center;
-    margin: 0 auto 1.75em;
+    margin: 0 auto 1em;
     font-family: "Kaushan Script", serif;
 }
 
@@ -118,8 +77,16 @@ header .description {
     padding: 0;
     font-weight: bolder;
     font-size: 3em;
+    line-height: 1.2em;
     letter-spacing: 0.05em;
     word-spacing: 0.1em;
+}
+
+@media (max-width: 16em) {
+    #page-header h1 {
+        font-size: 16vw;
+        line-height: 1.2em;
+    }
 }
 
 #page-header h1 a {
@@ -138,6 +105,84 @@ header .description {
 
 #page-header .description {
     font-size: large;
+    margin-top: 0.5em;
+}
+
+
+@media (max-width: 24em) {
+    main {
+        margin-top: 1.5em;
+    }
+
+    #page-header h1 {
+        font-size: 16vw;
+    }
+
+    #page-header .description {
+        margin-top: 4vw;
+    }
+
+    .navtable th a, .navtable td a {
+        padding-left: 0.3em;
+        padding-right: 0.3em;
+    }
+
+    table.contains-direct-links th.direct-link a {
+        padding-left: 0;
+        padding-right: 0.2em;
+    }
+
+}
+
+
+dt {
+    margin: 1.5em 0 0 1.8em;
+    font-size: large;
+}
+
+dt + dt {
+    margin-top: 0.5em;
+}
+
+dt a {
+    text-decoration: none;
+}
+
+dd {
+    margin-left: 2em;
+}
+
+dd p:first-child {
+    margin-top: 0.25em;
+}
+
+dd p {
+    margin: 0.8em 1.5em;
+}
+
+@media (max-width: 36em) {
+    dd p {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+dd ul, dd ol {
+    margin: 0.8em 3.5em;
+}
+
+dd ul li, dd ol li {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
+
+h1 a {
+    text-decoration: none;
+}
+
+ul {
+    margin: 1em 2em;
 }
 
 
@@ -221,43 +266,15 @@ p {
     line-height: 1.4em;
 }
 
-
-.float-clear {
-    clear: both;
+main section p, main section pre, main section > * > li {
+    overflow-x: auto;
 }
+
 
 .panel {
     position: relative;
     border: solid medium #AAAAAA;
     background: #ECECEC;
-}
-
-
-#footer {
-    position: relative;
-    text-align: center;
-    margin-top: 2em;
-    padding: 0.8em 0;
-    border-top: dashed medium #DDDDDD;
-}
-
-#footer > div {
-    margin-left: 12.5em;
-    margin-right: 1.5em;
-    border: medium solid transparent;
-}
-
-.page-badge {
-    position: relative;
-    z-index: 2;
-    color: green;
-    margin: 0.5em;
-    text-decoration: none;
-}
-
-.page-badge a {
-    color: inherit;
-    text-decoration: inherit;
 }
 
 
@@ -279,7 +296,7 @@ li li {
     border: solid thin #CCCCCC;
     background-color: #EEEEEE;
     color: #444444;
-    padding: 0.3em;
+    padding: 0.2em 0.3em;
 }
 
 
@@ -330,4 +347,67 @@ a.tweet {
 
 .multiline-parentheses .multiline-parenthese {
     display: none;
+}
+
+
+p.status-indicator {
+    display: table;
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+    padding: 0.2em 0.5em;
+    border: thin solid;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.6;
+}
+
+.status-indicator.ready,
+.status-indicator.detailed {
+    color: green;
+}
+
+.status-indicator.incomplete,
+.status-indicator.outdated,
+.status-indicator.trivial,
+.status-indicator.raw {
+     color: orange;
+}
+
+.status-indicator.stub {
+    color: red;
+}
+
+
+html:before {
+    display: none;
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: black;
+    background-image: url("https://global.hexstreamsoft.com/css/images/owl-of-disapproval.png");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+    z-index: 1000;
+}
+p
+html:after {
+    display: none;
+    content: "Y U NO WIDER??";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 20vw;
+    line-height: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    background-color: black;
+    z-index: 1001;
 }

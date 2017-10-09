@@ -120,6 +120,12 @@ table th {
     white-space: nowrap;
 }
 
+@media (max-width: 34em) {
+    table th {
+        white-space: initial;
+    }
+}
+
 table th > a:only-child, table td > a:only-child {
     text-decoration: none;
 }
