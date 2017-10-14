@@ -655,8 +655,8 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         return {
             bind: function (fromSpec, toSpec) {
                 return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.storage)];
-            },
-        }
+            }
+        };
     })());
     EventBinding.defineType("storage", "document", (function () {
         var selector = "input[type=radio], input[type=checkbox], var, span, td";
@@ -887,25 +887,36 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         });
     }
 
-    EventBinding.bind = function (endpoint1Type, direction, endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec) {
+    function internalBind (endpoint1Type, direction, endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec) {
         switch (direction)
         {
             case ">":
-            var bothSpec = sharedSpec["both"];
             unibind(endpoint1Type, endpoint2Type,
                     endpoint1Spec, endpoint2Spec,
-                    bothSpec, sharedSpec["source"], sharedSpec["destination"]);
+                    sharedSpec["both"], sharedSpec["source"], sharedSpec["destination"]);
             break;
 
             case "=":
             //TODO: Return one binding which has 2 child bindings instead.
-            EventBinding.bind(endpoint1Type, ">", endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec);
-            EventBinding.bind(endpoint2Type, ">", endpoint1Type, endpoint2Spec, sharedSpec, endpoint1Spec);
+            internalBind(endpoint1Type, ">", endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec);
+            internalBind(endpoint2Type, ">", endpoint1Type, endpoint2Spec, sharedSpec, endpoint1Spec);
             break;
 
             default:
             throw Error("Invalid direction \"" + direction + "\".");
         }
+    }
+
+    EventBinding.bind = function (spec) {
+        internalBind(spec.endpoints[0].type,
+                     spec.combine,
+                     spec.endpoints[1].type,
+                     spec.endpoints[0], {
+                         both: spec.both,
+                         source: spec.source,
+                         destination: spec.destination
+                     },
+                    spec.endpoints[1]);
     };
 
     HexstreamSoft.EventBinding = EventBinding;
