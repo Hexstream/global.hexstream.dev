@@ -490,7 +490,7 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
         function propagateRelevance () {
             var varyingRelevanceKeys = schema.varyingRelevanceKeys;
             var propagationProgressed = true;
-            var propagatedSomething = false;
+            var changedRelevanceKeys = [];
             while (propagationProgressed)
             {
                 propagationProgressed = false;
@@ -502,16 +502,19 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
                     {
                         domainKeyProperties.relevant = newRelevance;
                         propagationProgressed = true;
-                        propagatedSomething = true;
+                        changedRelevanceKeys.push(key);
                     }
                 });
             }
-            if (propagatedSomething)
+            if (changedRelevanceKeys.length > 0)
                 window.dispatchEvent(new CustomEvent("HexstreamSoft.relevance",
                                                      {
                                                          bubbles: false,
                                                          cancelable: false,
-                                                         detail: {storage: domain}
+                                                         detail: {
+                                                             storage: domain,
+                                                             keys: changedRelevanceKeys
+                                                         }
                                                      }));
         }
         domain.schema = schema;
@@ -613,15 +616,33 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
     EventBinding.types = {};
 
-    EventBinding.defineType = function (from, to, definition) {
-        var toTable = EventBinding.types[from];
-        if (!toTable)
-            toTable = EventBinding.types[from] = {};
-        if (toTable[to])
+    EventBinding.defineType = function (types, definition) {
+        types = types.slice();
+        var table = EventBinding.types;
+        while (types.length > 1)
+        {
+            var type = types.shift();
+            var oldTable = table;
+            table = table[type];
+            if (table === undefined)
+                oldTable[type] = table = {};
+        }
+
+        var lastType = types[0];
+
+        if (table[lastType])
             throw Error("Duplicate EventBinding type definition.");
-        toTable[to] = definition;
+        table[lastType] = definition;
         definition.bindings = [];
     };
+
+    EventBinding.findType = function (types) {
+        var value = EventBinding.types;
+        types.forEach(function (type) {
+            value = value[type];
+        });
+        return value;
+    }
 
     EventBinding.Binding = function (parent) {
         var binding = this;
@@ -630,7 +651,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             parent.children.push(binding);
     };
 
-    EventBinding.defineType("storage", "storage", (function () {
+    EventBinding.defineType(["storage", "storage"], (function () {
         function Binding (sourceStorage, keys, destinationStorage) {
             var binding = this;
             binding.sourceStorage = sourceStorage;
@@ -654,11 +675,11 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         };
         return {
             bind: function (fromSpec, toSpec) {
-                return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.storage)];
+                return new Binding(fromSpec.storage, fromSpec.keys, toSpec.storage);
             }
         };
     })());
-    EventBinding.defineType("storage", "document", (function () {
+    EventBinding.defineType(["storage", "document"], (function () {
         var selector = "input[type=radio], input[type=checkbox], var, span, td";
         function isInteresting (knownToMatchSelector, document, node, stateDomainName) {
             return (knownToMatchSelector
@@ -735,8 +756,8 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         };
         return {
             bind: function (fromSpec, toSpec) {
-                return [new Binding(fromSpec.storage, toSpec.document, toSpec.stateDomainName)];
-            },
+                return new Binding(fromSpec.storage, toSpec.document, toSpec.stateDomainName);
+            }
         }
     })());
 
@@ -751,7 +772,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     }
 
 
-    EventBinding.defineType("document", "storage", (function () {
+    EventBinding.defineType(["document", "storage"], (function () {
         function Binding (document, stateDomainName, storage) {
             var binding = this;
             binding.document = document;
@@ -788,27 +809,85 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         };
         return {
             bind: function (fromSpec, toSpec) {
-                return [new Binding(fromSpec.document, fromSpec.stateDomainName, toSpec.storage)];
-            },
+                return new Binding(fromSpec.document, fromSpec.stateDomainName, toSpec.storage);
+            }
         }
     })());
 
 
-    EventBinding.defineType("storage", "classList", (function () {
-        function Binding (storage, keys, document) {
+    EventBinding.defineType(["storage", "classList"], (function () {
+        function KeyBinding (parent, key) {
+            var keyBinding = this;
+            var initialValue = parent.storage[key];
+            keyBinding.parent = parent;
+            keyBinding.key = key;
+            keyBinding.value = initialValue;
+            keyBinding.incrementalSyncValue(initialValue);
+        }
+        KeyBinding.prototype.incrementalSyncValue = function (newValue) {
+            var keyBinding = this;
+            var key = keyBinding.key;
+            var value = keyBinding.value;
+            var classes = keyBinding.parent.node.classList;
+            classes.remove(key + "=" + value);
+            keyBinding.value = newValue;
+            classes.add(key + "=" + newValue);
+        }
+        KeyBinding.prototype.incrementalSyncRelevance = function (newRelevance) {
+            var keyBinding = this;
+            var key = keyBinding.key;
+            var value = keyBinding.value;
+            var classes = keyBinding.parent.node.classList;
+            if (newRelevance)
+                classes.add(key + "=" + value);
+            else
+                classes.remove(key + "=" + value);
+        }
+        function Binding (storage, keys, node) {
             var binding = this;
             binding.storage = storage;
             binding.keys = keys;
-            binding.document = document;
-            binding.keyToLastValue = {};
-            binding.storageListener = function (event) {
-                if (event.detail.storage === storage)
-                    binding.incrementalSync(binding.document);
-            };
+            binding.node = node;
+            var children = {};
+            keys.forEach(function (key) {
+                children[key] = new KeyBinding(binding, key);
+            });
+            binding.children = children;
         }
         Binding.prototype.hookup = function () {
             var binding = this;
-            window.addEventListener("HexstreamSoft.storage", binding.storageListener);
+            var storageListener = function (event) {
+                var storage = binding.storage;
+                if (event.detail.storage === storage)
+                {
+                    var key = event.detail.key;
+                    if (key === null)
+                    {
+                        binding.children.forEach(function (child) {
+                            child.incrementalSyncValue(storage[child.key]);
+                        });
+                    }
+                    else
+                    {
+                        binding.children[key].incrementalSyncValue(event.detail.newValue);
+                    }
+                }
+            };
+            window.addEventListener("HexstreamSoft.storage", storageListener);
+            var relevanceListener = function (event) {
+                var storage = binding.storage;
+                if (event.detail.storage === storage)
+                {
+                    event.detail.keys.forEach(function (key) {
+                        var child = binding.children[key];
+                        if (child !== undefined)
+                            child.incrementalSyncRelevance(storage.isRelevant(key));
+                    });
+
+
+                }
+            };
+            window.addEventListener("HexstreamSoft.relevance", relevanceListener);
             /*
             binding.observer = new MutationObserver(function (records, observer) {
                 HexstreamSoft.dom.forEachAddedNode(records, function (node) {
@@ -822,33 +901,10 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.observer.observe(binding.document.documentElement, {childList: true, subtree: true});
             */
         };
-        Binding.prototype.initialSync = function () {
-            this.incrementalSync(this.document);
-        };
-        Binding.prototype.incrementalSync = function (node) {
-            var binding = this;
-            var storage = binding.storage;
-            var keys = binding.keys;
-            if (keys.length === 0)
-                return;
-            var classes = node.classList;
-            keys.forEach(function (key) {
-                if (!storage.isRelevant || storage.isRelevant(key))
-                {
-                    var keyToLastValue = binding.keyToLastValue;
-                    var lastValue = keyToLastValue[key];
-                    if (lastValue !== undefined)
-                        classes.remove(key + "=" + lastValue);
-                    var newValue = storage[key];
-                    keyToLastValue[key] = newValue;
-                    classes.add(key + "=" + newValue);
-                }
-            });
-        };
         return {
             bind: function (fromSpec, toSpec) {
-                return [new Binding(fromSpec.storage, fromSpec.keys, toSpec.document)];
-            },
+                return new Binding(fromSpec.storage, fromSpec.keys, toSpec.node);
+            }
         }
     })());
 
@@ -873,50 +929,66 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         return composed;
     };
 
-    function unibind (fromType, toType, fromSpec, toSpec, bothSpec, sourceSpec, destinationSpec) {
-        var typeDefinition = EventBinding.types[fromType][toType];
-        var bindings = typeDefinition.bindings;
-        var combinedFromSpec = compose(fromSpec, bothSpec, sourceSpec);
-        var combinedToSpec = compose(toSpec, bothSpec, destinationSpec);
-        typeDefinition.bind(combinedFromSpec, combinedToSpec).forEach(function (newBinding) {
+    EventBinding.defineType([">"], (function () {
+        function Binding (endpoints, sharedOptions) {
+            var binding = this;
+            sharedOptions = sharedOptions || {};
+            binding.endpoints = endpoints;
+            binding.sharedOptions = sharedOptions || {};
+            var types = endpoints.map(function (endpoint) {return endpoint.type});
+            var specs = endpoints;
+            var typeDefinition = EventBinding.findType(types);
+            var bindings = typeDefinition.bindings;
+            var combinedFromSpec = compose(specs[0], sharedOptions.both, sharedOptions.source);
+            var combinedToSpec = compose(specs[1], sharedOptions.both, sharedOptions.destination);
+            var newBinding = typeDefinition.bind(combinedFromSpec, combinedToSpec);
             bindings.push(newBinding);
             if (newBinding.hookup)
                 newBinding.hookup();
             if (newBinding.initialSync)
                 newBinding.initialSync();
-        });
-    }
+            binding.impl = newBinding;
+        }
+        return {
+            bind: function (endpoints, sharedOptions) {
+                return new Binding(endpoints, sharedOptions);
+            }
+        }
+    })());
 
-    function internalBind (endpoint1Type, direction, endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec) {
-        switch (direction)
+    var unibind = EventBinding.findType([">"]);
+
+    EventBinding.defineType(["="], (function () {
+        function Binding (endpoints, sharedOptions) {
+            var binding = this;
+            binding.endpoints = endpoints;
+            binding.sharedOptions = sharedOptions || {};
+            binding.impl0 = unibind.bind(endpoints, sharedOptions);
+            binding.impl1 = unibind.bind(endpoints.splice(0).reverse(), sharedOptions);
+        }
+        return {
+            bind: function (endpoints, sharedOptions) {
+                return new Binding(endpoints, sharedOptions);
+            }
+        }
+    })());
+
+    var bidibind = EventBinding.findType(["="]);
+
+    EventBinding.bind = function (combine, endpoints, sharedOptions) {
+        switch (combine)
         {
             case ">":
-            unibind(endpoint1Type, endpoint2Type,
-                    endpoint1Spec, endpoint2Spec,
-                    sharedSpec["both"], sharedSpec["source"], sharedSpec["destination"]);
+            return unibind.bind(endpoints, sharedOptions);
             break;
 
             case "=":
-            //TODO: Return one binding which has 2 child bindings instead.
-            internalBind(endpoint1Type, ">", endpoint2Type, endpoint1Spec, sharedSpec, endpoint2Spec);
-            internalBind(endpoint2Type, ">", endpoint1Type, endpoint2Spec, sharedSpec, endpoint1Spec);
+            return bidibind.bind(endpoints, sharedOptions);
             break;
 
             default:
-            throw Error("Invalid direction \"" + direction + "\".");
+            throw Error("Invalid combination type \"" + combine + "\".");
         }
-    }
-
-    EventBinding.bind = function (spec) {
-        internalBind(spec.endpoints[0].type,
-                     spec.combine,
-                     spec.endpoints[1].type,
-                     spec.endpoints[0], {
-                         both: spec.both,
-                         source: spec.source,
-                         destination: spec.destination
-                     },
-                    spec.endpoints[1]);
     };
 
     HexstreamSoft.EventBinding = EventBinding;
