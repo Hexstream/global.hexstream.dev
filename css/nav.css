@@ -2,7 +2,6 @@
 @import "section-nav.css";
 @import "tabs.css";
 @import "navlist.css";
-@import "navbox.css";
 
 :root {
     --top-nav-margin: 0.5em;
