@@ -2,12 +2,11 @@
 @import "table.css";
 @import "fonts.css";
 
-:root {
+html {
     --nav-background-color: #FFCC99;
     --nav-background-highlight-color: #FFDD99;
-}
-
-html {
+    --main_padding-left: 0.8rem;
+    --main_padding-right: 0.8rem;
     height: 100%;
 }
 
@@ -63,7 +62,10 @@ header .description {
 
 main {
     position: relative;
-    margin: 3em 0 2.5em 0;
+    padding-left: var(--main_padding-left);
+    padding-right: var(--main_padding-right);
+    margin-top: 3em;
+    margin-bottom: 2.5em;
 }
 
 #page-header {
@@ -110,6 +112,11 @@ main {
 
 
 @media (max-width: 24em) {
+    html {
+        --main_padding-left: 0.5rem;
+        --main_padding-right: 0.5rem;
+    }
+
     main {
         margin-top: 1.5em;
     }
@@ -262,7 +269,7 @@ ul {
 
 
 p {
-    margin: 1em;
+    margin: 1em 0;
     line-height: 1.4em;
 }
 

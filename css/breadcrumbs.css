@@ -89,11 +89,6 @@
     border-left: solid medium transparent;
 }
 
-
-section {
-    --section-relative-nav-safety-margin: 0.55em;
-}
-
 .breadcrumbs-bar {
     --breadcrumbs-link-horizontal-padding: 0.2em;
     display: flex;
@@ -103,7 +98,7 @@ section {
     text-align: left;
     padding: 0.4em 0.5em 0.4em 0;
     border: solid thin gray;
-    margin: 0 0 1em var(--section-relative-nav-safety-margin);
+    margin: 0 0 1em 0;
     background-color: #ECECEC;
 }
 

@@ -4,7 +4,7 @@
 
 pre.example {
     display: table;
-    margin: 1em;
+    margin: 1em 0;
     padding: 1em;
     border: thin solid lightgray;
     background: #ECECEC;

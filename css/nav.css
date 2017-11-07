@@ -48,6 +48,7 @@ article, section {
     top: 1.5em;
     margin-top: 0;
     right: 0;
+    margin-right: var(--main_padding-right);
 }
 
 @media (max-width: 48em) {
