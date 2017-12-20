@@ -1,12 +1,12 @@
 "use strict";
 
-var HexstreamSoft = {};
+const HexstreamSoft = {};
 
 HexstreamSoft.modules = {};
 HexstreamSoft.modules.registeredModules = {};
 
 HexstreamSoft.modules.moduleInfo = function (moduleName, options) {
-    var moduleInfo = HexstreamSoft.modules.registeredModules[moduleName];
+    const moduleInfo = HexstreamSoft.modules.registeredModules[moduleName];
     if (moduleInfo)
         return moduleInfo;
     else
@@ -15,19 +15,19 @@ HexstreamSoft.modules.moduleInfo = function (moduleName, options) {
 };
 
 HexstreamSoft.modules.register = function (moduleName, ensureFunction) {
-    var existingModule = HexstreamSoft.modules.moduleInfo(moduleName, {mustExist: false});
+    const existingModule = HexstreamSoft.modules.moduleInfo(moduleName, {mustExist: false});
     if (existingModule)
         throw Error("Module \"" + moduleName + "\" has already been registered.");
-    var moduleInfo = {};
+    const moduleInfo = {};
     moduleInfo.ensureFunction = ensureFunction;
     moduleInfo.isInitialized = false;
     HexstreamSoft.modules.registeredModules[moduleName] = moduleInfo;
 };
 
 HexstreamSoft.modules.ensure = function () {
-    var moduleNames = Array.prototype.slice.call(arguments);
+    const moduleNames = Array.prototype.slice.call(arguments);
     moduleNames.forEach(function (moduleName) {
-        var moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
+        const moduleInfo = HexstreamSoft.modules.moduleInfo(moduleName);
         if (!moduleInfo.isInitialized)
         {
             moduleInfo.ensureFunction();
@@ -55,7 +55,7 @@ HexstreamSoft.modules.register("HexstreamSoft.misc", function () {
         });
     }
 
-    var upgradeReasonsAlreadyGiven = [];
+    const upgradeReasonsAlreadyGiven = [];
 
     function pleaseUpgrade (reason) {
         if (upgradeReasonsAlreadyGiven.indexOf(reason) < 0)
@@ -77,7 +77,7 @@ HexstreamSoft.modules.register("HexstreamSoft.misc", function () {
 HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
     function forEachAddedNode (mutationRecords, callback) {
         Array.prototype.forEach.call(mutationRecords, function (record) {
-            var addedNodes = record.addedNodes;
+            const addedNodes = record.addedNodes;
             if (addedNodes)
                 Array.prototype.forEach.call(addedNodes, function (addedNode) {
                     if (addedNode.nodeType === Node.ELEMENT_NODE)
@@ -93,9 +93,9 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
             return node;
         else
         {
-            var parent_element = node.parentElement;
-            if (parent_element)
-                return nodeOrAncestorSatisfying(parent_element, test);
+            const parentElement = node.parentElement;
+            if (parentElement)
+                return nodeOrAncestorSatisfying(parentElement, test);
             else
                 return undefined;
         }
@@ -110,16 +110,16 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
         // because I worry the method returned might be different for different node types.
         if (node.nodeType !== Node.ELEMENT_NODE)
             return false;
-        var matches = node.matches || node.matchesSelector || node.webkitMatchesSelector || node.msMatchesSelector;
+        const matches = node.matches || node.matchesSelector || node.webkitMatchesSelector || node.msMatchesSelector;
         if (!matches)
             HexstreamSoft.meta.pleaseUpgrade("matches");
         return matches.call(node, selectors);
     };
 
 
-    var TokenList = (function () {
+    const TokenList = (function () {
         function TokenList (node, attributeName) {
-            var tokenList = this;
+            const tokenList = this;
             tokenList.node = node;
             tokenList.attributeName = attributeName;
             tokenList.tokens = parseTokens(node.getAttribute(attributeName) || "");
@@ -136,7 +136,7 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
         };
 
         TokenList.prototype.remove = function (token) {
-            var index = this.tokens.indexOf(token);
+            const index = this.tokens.indexOf(token);
             if (index >= 0)
                 this.tokens.splice(index, 1);
             syncTokensToAttribute(this);
@@ -174,26 +174,26 @@ HexstreamSoft.modules.register("HexstreamSoft.FixLinks", function () {
             target = new URL(target);
         if (base.origin !== target.origin)
             return target.toString();
-        var relativePath = [];
-        var queryHash = String.prototype.concat.call(target.search || "", target.hash || "");
+        const queryHash = String.prototype.concat.call(target.search || "", target.hash || "");
         base = base.pathname.split("/");
         target = target.pathname.split("/");
-        var shortestLength = Math.min(base.length, target.length)
+        const shortestLength = Math.min(base.length, target.length)
         for (var firstDifferent = 0; firstDifferent < shortestLength; firstDifferent++)
             if (base[firstDifferent] !== target[firstDifferent])
                 break;
-        var extraBaseComponents = base.length - firstDifferent - 1;
-        for (var i = 0; i < extraBaseComponents; i++)
+        const extraBaseComponents = base.length - firstDifferent - 1;
+        let relativePath = [];
+        for (let i = 0; i < extraBaseComponents; i++)
             relativePath.push("..")
         relativePath = relativePath.concat(target.slice(firstDifferent));
         return relativePath.join("/").concat(queryHash);
     }
 
-    var observer = new MutationObserver(function (records) {
+    const observer = new MutationObserver(function (records) {
         HexstreamSoft.dom.forEachAddedNode(records, function (addedNode) {
             if (addedNode.tagName === "A")
             {
-                var url = new URL(addedNode.getAttribute("href"), document.baseURI);
+                const url = new URL(addedNode.getAttribute("href"), document.baseURI);
                 if (url.protocol === "file:" && url.pathname.slice(-1) === "/")
                 {
                     url.pathname = url.pathname + "index.html";
@@ -213,7 +213,7 @@ HexstreamSoft.modules.register("HexstreamSoft.FixLinks", function () {
 
 
 HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
-    var directions =
+    const directions =
         {
             "⬉":
             {
@@ -266,13 +266,13 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
                 previousDirection: "⬇",
                 nextDirection: null,
                 opposite: "⬉"
-            },
+            }
         };
 
-    var directionNames = Object.keys(directions);
+    const directionNames = Object.keys(directions);
 
     function NavSet (mockNode) {
-        var navset = this;
+        const navset = this;
         navset.mockNode = mockNode;
         navset.nav = mockNode.realNode.querySelector(".section-relative-nav");
         navset.records = {"⚓": {
@@ -282,9 +282,9 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
     }
 
     NavSet.makeLink = function (direction, target) {
-        var link = document.createElement("a");
+        const link = document.createElement("a");
         link.href = "#" + target;
-        var className = directions[direction].className;
+        const className = directions[direction].className;
         if (!className)
             throw Error("Invalid direction \"" + direction + "\".");
         link.className = className + " generated";
@@ -294,9 +294,9 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
 
     NavSet.prototype.nextNavLinkElement = function (direction) {
         direction = directions[direction].nextDirection;
-        var navset = this;
-        var records = navset.records;
-        var record;
+        const navset = this;
+        const records = navset.records;
+        let record;
         while (direction)
         {
             record = records[direction];
@@ -309,8 +309,8 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
     };
 
     NavSet.prototype.setDirectionTarget = function (direction, targetMockNode) {
-        var navset = this;
-        var record = navset.records[direction];
+        const navset = this;
+        let record = navset.records[direction];
         if (record)
         {
             if (targetMockNode)
@@ -326,7 +326,7 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
         }
         else if (targetMockNode)
         {
-            var linkElement = NavSet.makeLink(direction, targetMockNode.realNode.id);
+            const linkElement = NavSet.makeLink(direction, targetMockNode.realNode.id);
             record = {
                 targetMockNode: targetMockNode,
                 linkElement: linkElement
@@ -338,7 +338,7 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
 
 
     function MockNode (realNode, parent) {
-        var mockNode = this;
+        const mockNode = this;
         mockNode.parent = parent;
         MockNode.realNodeToMockNode[realNode.id] = mockNode;
         mockNode.realNode = realNode;
@@ -347,9 +347,7 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
         if (parent)
         {
             mockNode.navset = new NavSet(mockNode);
-            var siblings = mockNode.determineSiblings();
-            var prev = siblings.prev;
-            var next = siblings.next;
+            const {prev, next} = mockNode.determineSiblings();
             mockNode.updateLink(parent, "⬉", prev === null);
             mockNode.updateLink(parent["⬇"], "⬋", next === null);
             mockNode.updateLinks(prev, "⬆");
@@ -367,11 +365,11 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
     MockNode.realNodeToMockNode = {};
 
     MockNode.prototype.determineSiblings = function () {
-        var mockNode = this;
-        var realNode = mockNode.realNode;
-        var parent = mockNode.parent;
-        var prev = null;
-        var next = parent["⬊"];
+        const mockNode = this;
+        const realNode = mockNode.realNode;
+        const parent = mockNode.parent;
+        let prev = null;
+        let next = parent["⬊"];
         while (next)
         {
             if (realNode.compareDocumentPosition(next.realNode) & Node.DOCUMENT_POSITION_FOLLOWING)
@@ -383,12 +381,12 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
     };
 
     MockNode.prototype.updateLink = function (otherNode, forward, isReciprocal) {
-        var thisNode = this;
+        const thisNode = this;
         if (!otherNode)
             return;
         function doUpdate (thisNode, otherNode, direction) {
             thisNode[direction] = otherNode;
-            var navset = thisNode.navset;
+            const navset = thisNode.navset;
             if (navset)
                 navset.setDirectionTarget(direction, otherNode);
         }
@@ -398,15 +396,15 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
     };
 
     MockNode.prototype.updateLinks = function (sibling, forward) {
-        var mockNode = this;
-        var backwards = directions[forward].opposite;
-        var backwardsDownwards = directions[backwards].downwards;
-        var backwardsUpwards = directions[backwards].upwards;
+        const mockNode = this;
+        const backwards = directions[forward].opposite;
+        const backwardsDownwards = directions[backwards].downwards;
+        const backwardsUpwards = directions[backwards].upwards;
         mockNode.updateLink(sibling, forward, true);
-        var currentChild = sibling ? sibling[backwardsDownwards] : null;
+        let currentChild = sibling ? sibling[backwardsDownwards] : null;
         while (currentChild)
         {
-            var nextChild = currentChild[backwards];
+            const nextChild = currentChild[backwards];
             if (nextChild)
             {
                 currentChild.updateLink(mockNode, backwardsUpwards, false);
@@ -414,7 +412,7 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
             }
             else
             {
-                var downwardsChild = currentChild[backwardsDownwards];
+                const downwardsChild = currentChild[backwardsDownwards];
                 currentChild.updateLink(mockNode, backwardsUpwards, !downwardsChild);
                 currentChild = downwardsChild;
             }
@@ -422,17 +420,17 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
     };
 
     new MockNode(document.documentElement, null);
-    var rootMockNode = MockNode.realNodeToMockNode[""];
+    const rootMockNode = MockNode.realNodeToMockNode[""];
 
-    var observer = new MutationObserver(function (records, observer) {
+    const observer = new MutationObserver(function (records, observer) {
         HexstreamSoft.dom.forEachAddedNode(records, function (addedNode) {
             if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.classList.contains("section-relative-nav"))
             {
-                var isSection = function (node) {return node.tagName === "SECTION";};
-                var thisSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(addedNode, isSection);
+                const isSection = function (node) {return node.tagName === "SECTION";};
+                const thisSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(addedNode, isSection);
                 if (MockNode.realNodeToMockNode[thisSection.id])
                     return;
-                var parentSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
+                const parentSection = HexstreamSoft.dom.nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
                 new MockNode(thisSection, parentSection ? MockNode.realNodeToMockNode[parentSection.id] : rootMockNode)
             }
         });
@@ -447,16 +445,16 @@ HexstreamSoft.modules.register("HexstreamSoft.ArrowsMadness", function () {
 
 HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
     function StateDomainSchema (properties) {
-        var schema = this;
-        var keys = Object.keys(properties);
+        const schema = this;
+        const keys = Object.keys(properties);
         schema.properties = properties;
         schema.keys = keys;
         schema.varyingRelevanceKeys = schema.keys.filter(function (key) {return !schema.isAlwaysRelevant(key)});
     }
 
     StateDomainSchema.prototype.defaultValue = function (key) {
-        var schema = this;
-        var defaultValue = schema.properties[key].defaultValue;
+        const schema = this;
+        const defaultValue = schema.properties[key].defaultValue;
         if (defaultValue !== undefined)
             return defaultValue;
         else
@@ -464,40 +462,40 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
     };
 
     StateDomainSchema.prototype.possibleValues = function (key) {
-        var schema = this;
+        const schema = this;
         return schema.properties[key].possibleValues;
     };
 
     StateDomainSchema.prototype.valueValidator = function (key) {
-        var schema = this;
+        const schema = this;
         return schema.properties[key].valueValidator;
     };
 
     StateDomainSchema.prototype.isAcceptableValue = function (key, value) {
-        var schema = this;
-        var possibleValues = schema.possibleValues(key);
+        const schema = this;
+        const possibleValues = schema.possibleValues(key);
         return possibleValues ? possibleValues.indexOf(value) >= 0 : (schema.valueValidator(key))(value);
     };
 
     StateDomainSchema.prototype.isAlwaysRelevant = function (key) {
-        var schema = this;
-        return schema.properties[key].computeRelevance ? false : true;
+        const schema = this;
+        return !schema.properties[key].computeRelevance;
     };
 
 
     function StateDomain (schema) {
-        var domain = this;
+        const domain = this;
         function propagateRelevance () {
-            var varyingRelevanceKeys = schema.varyingRelevanceKeys;
-            var propagationProgressed = true;
-            var changedRelevanceKeys = [];
+            const varyingRelevanceKeys = schema.varyingRelevanceKeys;
+            let propagationProgressed = true;
+            const changedRelevanceKeys = [];
             while (propagationProgressed)
             {
                 propagationProgressed = false;
                 varyingRelevanceKeys.forEach(function (key) {
-                    var domainKeyProperties = domain.properties[key];
-                    var oldRelevance = domainKeyProperties.relevant;
-                    var newRelevance = schema.properties[key].computeRelevance(domain);
+                    const domainKeyProperties = domain.properties[key];
+                    const oldRelevance = domainKeyProperties.relevant;
+                    const newRelevance = schema.properties[key].computeRelevance(domain);
                     if (newRelevance !== oldRelevance)
                     {
                         domainKeyProperties.relevant = newRelevance;
@@ -527,7 +525,7 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
                                       set: function (newValue) {
                                           if (schema.isAcceptableValue(key, newValue))
                                           {
-                                              var oldValue = domain.properties[key].value;
+                                              const oldValue = domain.properties[key].value;
                                               if (oldValue !== newValue)
                                               {
                                                   domain.properties[key].value = newValue;
@@ -548,7 +546,7 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
                                           }
                                           else
                                           {
-                                              var defaultValue = domain.reset(key);
+                                              const defaultValue = domain.reset(key);
                                               console.warn("Value \"" + newValue + "\" is not acceptable for key \"" + key + "\"."
                                                            + "\nThe key has been reset to its default value, \"" + defaultValue + "\"."
                                                            + (schema.possibleValues(key)
@@ -566,22 +564,22 @@ HexstreamSoft.modules.register("HexstreamSoft.StateDomain", function () {
     }
 
     StateDomain.prototype.forEach = function (callback, thisArg) {
-        var domain = this;
-        var keys = domain.schema.keys;
+        const domain = this;
+        const keys = domain.schema.keys;
         keys.forEach(function (key) {
             callback.call(thisArg, key, domain[key]);
         });
     }
 
     StateDomain.prototype.isRelevant = function (key) {
-        var domain = this;
+        const domain = this;
         return domain.properties[key].relevant;
     };
 
     StateDomain.prototype.reset = function (key) {
-        var domain = this;
-        var schema = domain.schema;
-        var defaultValue = schema.defaultValue(key);
+        const domain = this;
+        const schema = domain.schema;
+        const defaultValue = schema.defaultValue(key);
         domain[key] = defaultValue;
         return defaultValue;
     };
@@ -612,23 +610,23 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                                              }));
     });
 
-    var EventBinding = {};
+    const EventBinding = {};
 
     EventBinding.types = {};
 
     EventBinding.defineType = function (types, definition) {
         types = types.slice();
-        var table = EventBinding.types;
+        let table = EventBinding.types;
         while (types.length > 1)
         {
-            var type = types.shift();
-            var oldTable = table;
+            const type = types.shift();
+            const oldTable = table;
             table = table[type];
             if (table === undefined)
                 oldTable[type] = table = {};
         }
 
-        var lastType = types[0];
+        const lastType = types[0];
 
         if (table[lastType])
             throw Error("Duplicate EventBinding type definition.");
@@ -637,7 +635,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     };
 
     EventBinding.findType = function (types) {
-        var value = EventBinding.types;
+        let value = EventBinding.types;
         types.forEach(function (type) {
             value = value[type];
         });
@@ -645,7 +643,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     }
 
     EventBinding.Binding = function (parent) {
-        var binding = this;
+        const binding = this;
         binding.parent = parent || null;
         if (parent)
             parent.children.push(binding);
@@ -653,7 +651,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
     EventBinding.defineType(["storage", "storage"], (function () {
         function Binding (sourceStorage, keys, destinationStorage) {
-            var binding = this;
+            const binding = this;
             binding.sourceStorage = sourceStorage;
             binding.destinationStorage = destinationStorage;
             binding.keys = keys;
@@ -669,7 +667,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             this.keys.forEach(this.incrementalSync, this);
         };
         Binding.prototype.incrementalSync = function (key) {
-            var sourceValue = this.sourceStorage[key];
+            const sourceValue = this.sourceStorage[key];
             if (sourceValue !== undefined)
                 this.destinationStorage[key] = sourceValue;
         };
@@ -680,7 +678,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         };
     })());
     EventBinding.defineType(["storage", "document"], (function () {
-        var selector = "input[type=radio], input[type=checkbox], var, span, td";
+        const selector = "input[type=radio], input[type=checkbox], var, span, td";
         function isInteresting (knownToMatchSelector, document, node, stateDomainName) {
             return (knownToMatchSelector
                     || HexstreamSoft.dom.matches(node, selector))
@@ -689,8 +687,8 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         }
         function registerNode (binding, node) {
             binding.registeredNodes.push(node);
-            var key = node.dataset.stateKey;
-            var keyNodes = binding.keyToNodes[key];
+            const key = node.dataset.stateKey;
+            let keyNodes = binding.keyToNodes[key];
             if (!keyNodes)
             {
                 keyNodes = [];
@@ -700,7 +698,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.incrementalSyncNode(node);
         }
         function Binding (storage, document, stateDomainName) {
-            var binding = this;
+            const binding = this;
             binding.storage = storage;
             binding.document = document;
             binding.stateDomainName = stateDomainName;
@@ -716,7 +714,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             };
         }
         Binding.prototype.hookup = function () {
-            var binding = this;
+            const binding = this;
             window.addEventListener("HexstreamSoft.storage", binding.storageListener);
             window.addEventListener("HexstreamSoft.relevance", binding.relevanceListener);
             binding.observer = new MutationObserver(function (records, observer) {
@@ -728,7 +726,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             binding.observer.observe(document, {childList: true, subtree: true});
         };
         Binding.prototype.initialSync = function () {
-            var binding = this;
+            const binding = this;
             Array.prototype.forEach.call(document.querySelectorAll(selector), function (potentiallyInteresting) {
                 if (isInteresting(true, document, potentiallyInteresting, binding.stateDomainName))
                     registerNode(binding, potentiallyInteresting)});
@@ -737,9 +735,9 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             });
         };
         Binding.prototype.incrementalSyncNode = function (node) {
-            var storage = this.storage;
-            var key = node.dataset.stateKey;
-            var sourceValue = storage[key];
+            const storage = this.storage;
+            const key = node.dataset.stateKey;
+            const sourceValue = storage[key];
             if (node.tagName === "INPUT")
             {
                 node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
@@ -766,15 +764,14 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         function nodeStateDomain (node) {
             return node.dataset.stateDomain;
         }
-        var domain_node = HexstreamSoft.dom.nodeOrAncestorSatisfying(node, nodeStateDomain);
-        var value = domain_node ? nodeStateDomain(domain_node) : undefined;
-        return value;
+        const domainNode = HexstreamSoft.dom.nodeOrAncestorSatisfying(node, nodeStateDomain);
+        return domainNode ? nodeStateDomain(domainNode) : undefined;
     }
 
 
     EventBinding.defineType(["document", "storage"], (function () {
         function Binding (document, stateDomainName, storage) {
-            var binding = this;
+            const binding = this;
             binding.document = document;
             binding.stateDomainName = stateDomainName;
             binding.storage = storage;
@@ -784,7 +781,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
             };
         }
         Binding.prototype.hookup = function () {
-            var binding = this;
+            const binding = this;
             binding.observer = new MutationObserver(function (records, observer) {
                 HexstreamSoft.dom.forEachAddedNode(records, function (node) {
                     if (HexstreamSoft.dom.matches(node, "input[type=radio], input[type=checkbox]")
@@ -802,8 +799,8 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         Binding.prototype.initialSync = function () {
         };
         Binding.prototype.incrementalSync = function (node) {
-            var dataset = node.dataset;
-            var key = dataset.stateKey;
+            const dataset = node.dataset;
+            const key = dataset.stateKey;
             if (node.checked || dataset.stateAntivalue)
                 this.storage[key] = node.checked ? dataset.stateValue : dataset.stateAntivalue;
         };
@@ -817,50 +814,48 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
     EventBinding.defineType(["storage", "classList"], (function () {
         function KeyBinding (parent, key) {
-            var keyBinding = this;
-            var initialValue = parent.storage[key];
+            const keyBinding = this;
+            const initialValue = parent.storage[key];
             keyBinding.parent = parent;
             keyBinding.key = key;
             keyBinding.value = initialValue;
             keyBinding.incrementalSyncValue(initialValue);
         }
         KeyBinding.prototype.incrementalSyncValue = function (newValue) {
-            var keyBinding = this;
-            var key = keyBinding.key;
-            var value = keyBinding.value;
-            var classes = keyBinding.parent.node.classList;
+            const keyBinding = this;
+            const {key, value} = keyBinding;
+            const classes = keyBinding.parent.node.classList;
             classes.remove(key + "=" + value);
             keyBinding.value = newValue;
             classes.add(key + "=" + newValue);
         }
         KeyBinding.prototype.incrementalSyncRelevance = function (newRelevance) {
-            var keyBinding = this;
-            var key = keyBinding.key;
-            var value = keyBinding.value;
-            var classes = keyBinding.parent.node.classList;
+            const keyBinding = this;
+            const {key, value} = keyBinding;
+            const classes = keyBinding.parent.node.classList;
             if (newRelevance)
                 classes.add(key + "=" + value);
             else
                 classes.remove(key + "=" + value);
         }
         function Binding (storage, keys, node) {
-            var binding = this;
+            const binding = this;
             binding.storage = storage;
             binding.keys = keys;
             binding.node = node;
-            var children = {};
+            const children = {};
             keys.forEach(function (key) {
                 children[key] = new KeyBinding(binding, key);
             });
             binding.children = children;
         }
         Binding.prototype.hookup = function () {
-            var binding = this;
-            var storageListener = function (event) {
-                var storage = binding.storage;
+            const binding = this;
+            const storageListener = function (event) {
+                const storage = binding.storage;
                 if (event.detail.storage === storage)
                 {
-                    var key = event.detail.key;
+                    const key = event.detail.key;
                     if (key === null)
                     {
                         binding.children.forEach(function (child) {
@@ -874,12 +869,12 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
                 }
             };
             window.addEventListener("HexstreamSoft.storage", storageListener);
-            var relevanceListener = function (event) {
-                var storage = binding.storage;
+            const relevanceListener = function (event) {
+                const storage = binding.storage;
                 if (event.detail.storage === storage)
                 {
                     event.detail.keys.forEach(function (key) {
-                        var child = binding.children[key];
+                        const child = binding.children[key];
                         if (child !== undefined)
                             child.incrementalSyncRelevance(storage.isRelevant(key));
                     });
@@ -909,7 +904,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     })());
 
     function shallowCopy (object) {
-        var copy = {};
+        const copy = {};
         Object.keys(object).forEach(function (key) {
             copy[key] = object[key];
         });
@@ -917,7 +912,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     }
 
     function compose (main, bothSpec, endpointSpec) {
-        var composed = shallowCopy(main);
+        const composed = shallowCopy(main);
         [bothSpec || {}, endpointSpec || {}].forEach(function (extra) {
             Object.keys(extra).forEach(function (key) {
                 if (composed.hasOwnProperty(key))
@@ -931,17 +926,17 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
 
     EventBinding.defineType([">"], (function () {
         function Binding (endpoints, sharedOptions) {
-            var binding = this;
+            const binding = this;
             sharedOptions = sharedOptions || {};
             binding.endpoints = endpoints;
             binding.sharedOptions = sharedOptions || {};
-            var types = endpoints.map(function (endpoint) {return endpoint.type});
-            var specs = endpoints;
-            var typeDefinition = EventBinding.findType(types);
-            var bindings = typeDefinition.bindings;
-            var combinedFromSpec = compose(specs[0], sharedOptions.both, sharedOptions.source);
-            var combinedToSpec = compose(specs[1], sharedOptions.both, sharedOptions.destination);
-            var newBinding = typeDefinition.bind(combinedFromSpec, combinedToSpec);
+            const types = endpoints.map(function (endpoint) {return endpoint.type});
+            const specs = endpoints;
+            const typeDefinition = EventBinding.findType(types);
+            const bindings = typeDefinition.bindings;
+            const combinedFromSpec = compose(specs[0], sharedOptions.both, sharedOptions.source);
+            const combinedToSpec = compose(specs[1], sharedOptions.both, sharedOptions.destination);
+            const newBinding = typeDefinition.bind(combinedFromSpec, combinedToSpec);
             bindings.push(newBinding);
             if (newBinding.hookup)
                 newBinding.hookup();
@@ -956,11 +951,11 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         }
     })());
 
-    var unibind = EventBinding.findType([">"]);
+    const unibind = EventBinding.findType([">"]);
 
     EventBinding.defineType(["="], (function () {
         function Binding (endpoints, sharedOptions) {
-            var binding = this;
+            const binding = this;
             binding.endpoints = endpoints;
             binding.sharedOptions = sharedOptions || {};
             binding.impl0 = unibind.bind(endpoints, sharedOptions);
@@ -973,7 +968,7 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
         }
     })());
 
-    var bidibind = EventBinding.findType(["="]);
+    const bidibind = EventBinding.findType(["="]);
 
     EventBinding.bind = function (combine, endpoints, sharedOptions) {
         switch (combine)
