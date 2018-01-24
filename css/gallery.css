@@ -1,0 +1,106 @@
+@import "gallery-prefs.css";
+@import "tags.css";
+
+main .gallery {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: center;
+    max-width: 100%;
+}
+
+main .gallery.linear {
+    flex-flow: column;
+    align-items: center;
+}
+
+main .gallery article {
+    --gallery-article-padding-lr: 1em;
+    flex: 0 1 auto;
+    padding: var(--prefs_order_article_padding-top) var(--gallery-article-padding-lr) 0.5em;
+    display: flex;
+    flex-flow: column;
+    align-items: var(--prefs_align-left-center_align-items);
+    width: -moz-min-content;
+    width: min-content;
+    max-width: 100%;
+}
+
+main .gallery article:target {
+    background: beige;
+    outline: thin dashed gray;
+}
+
+main .gallery article > * {
+    flex: none;
+}
+
+main .gallery article > h1 {
+    margin: var(--prefs_order_article-title_margin);
+    white-space: nowrap;
+    text-align: var(--prefs_align-left-center_text-align);
+    font-size: larger;
+    font-weight: normal;
+}
+
+@media (max-width: 30em) {
+    main .gallery article {
+        flex: 1 1 auto;
+    }
+
+    main .gallery article > h1 {
+        white-space: initial;
+    }
+}
+
+main .gallery article > h1 > a:first-child {
+    color: black;
+}
+
+main .gallery article > h1 > a:first-child:hover {
+    text-decoration: underline;
+}
+
+main .gallery article > h1 .animation {
+    color: orange;
+}
+
+main .gallery article > a {
+    max-width: 100%;
+    overflow-x: auto;
+    order: var(--prefs_order_article-thumbnail_order);
+}
+
+main .gallery article > a > img {
+    display: block;
+    border: thin solid gray;
+    max-width: calc(100vw - var(--gallery-article-padding-lr) - var(--gallery-article-padding-lr) - 0.2em);
+}
+
+@media (max-width: 30em) {
+    main .gallery {
+        justify-content: space-around;
+    }
+
+    main .gallery article {
+        --gallery-article-padding-lr: 0.2em;
+    }
+}
+
+
+main .gallery article > a > img.noborder {
+    border-color: transparent;
+}
+
+
+main tr.alternate, main .gallery article.alternate {
+    display: none;
+}
+
+main tr.alternate:target {
+    display: table-row;
+}
+
+main .gallery article.alternate:target {
+    display: flex;
+}

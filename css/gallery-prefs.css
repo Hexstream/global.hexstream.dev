@@ -1,0 +1,75 @@
+html,
+html.align-left-center\=center {
+    --prefs_align-left-center_align-items: center;
+    --prefs_align-left-center_text-align: center;
+}
+
+html.align-left-center\=left {
+    --prefs_align-left-center_align-items: flex-start;
+    --prefs_align-left-center_text-align: left;
+    --prefs_align-left-center_tag_margin-left: 0;
+    --prefs_align-left-center_tag_margin-right: 0.35em;
+}
+
+html {
+    --prefs_align-left-center_tags_justify-content: var(--prefs_align-left-center_align-items);
+}
+
+
+html,
+html.order\=thumbnail-title {
+    --prefs_order_article_padding-top: 1em;
+    --prefs_order_article-thumbnail_order: -1;
+    --prefs_order_article-title_margin: 0.1em 0 0;
+}
+
+html.order\=title-thumbnail {
+    --prefs_order_article_padding-top: 0.1em;
+    --prefs_order_article-thumbnail_order: 0;
+    --prefs_order_article-title_margin: 0.1em 0;
+}
+
+
+html.title\.visibility\=hide main .gallery article > h1 {
+    display: none;
+}
+
+
+html.thumbnail\.visibility\=hide main .gallery article {
+    padding: 0.5em;
+}
+
+html.thumbnail\.visibility\=hide main .gallery article > a {
+    display: none;
+}
+
+html.thumbnail\.visibility\=hide main .gallery article > h1 {
+    margin-top: 0;
+}
+
+
+html.tags\.visibility\=hide main .tags,
+html.\/tags\/technical\/filesize\.visibility\=hide main .tags .tag.filesize,
+html.\/tags\/technical\/see-alt\.visibility\=hide main .tags .tag.see-alt {
+    display: none;
+}
+
+
+html.alternates\.visibility\=always main tr.alternate {
+    display: table-row;
+}
+
+html.alternates\.visibility\=always main .gallery article.alternate {
+    display: flex;
+}
+
+
+/* Combinations */
+
+html.order\=title-thumbnail.title\.visibility\=hide main .gallery article {
+    padding-top: 1em;
+}
+
+html.order\=title-thumbnail main .tags, html.title\.visibility\=hide main .tags {
+    margin-top: 0;
+}
