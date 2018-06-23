@@ -61,7 +61,7 @@ table.contains-direct-links th.direct-link a {
     padding-right: 0.4em;
 }
 
-table.contains-direct-links .direct-link a:hover {
+table.contains-direct-links .direct-link a[href]:hover {
     opacity: 1;
 }
 

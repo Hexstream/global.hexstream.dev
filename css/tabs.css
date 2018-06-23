@@ -38,7 +38,7 @@
     padding: 0.2em 0.25em;
 }
 
-.tabs.contains-title > h1 > a:hover {
+.tabs.contains-title > h1 > a[href]:hover {
     text-decoration: underline;
 }
 
@@ -124,7 +124,7 @@
     text-decoration: underline;
 }
 
-.tabs ul > li > a:hover, .tabs ul > li > a:focus {
+.tabs ul > li > a[href]:hover, .tabs ul > li > a[href]:focus {
     background: var(--nav-background-highlight-color);
     outline-style: none;
 }

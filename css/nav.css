@@ -132,8 +132,8 @@ article, section {
 }
 
 
-#top-nav > .main > nav a:hover, #top-nav > .main > nav a:focus,
-#top-nav > .main > .breadcrumbs a:hover, #top-nav > .main > .breadcrumbs a:focus{
+#top-nav > .main > nav a[href]:hover, #top-nav > .main > nav a[href]:focus,
+#top-nav > .main > .breadcrumbs a[href]:hover, #top-nav > .main > .breadcrumbs a[href]:focus{
     background: var(--nav-background-highlight-color);
     outline-style: none;
 }
@@ -260,7 +260,7 @@ article, section {
     opacity: 0.25;
 }
 
-#footer .back-to-top > a:hover, #footer .back-to-top > a:focus {
+#footer .back-to-top > a[href]:hover, #footer .back-to-top > a[href]:focus {
     background: var(--nav-background-highlight-color);
     outline-style: none;
     opacity: initial;

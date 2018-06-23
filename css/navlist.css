@@ -117,7 +117,7 @@
     padding: 0.25em 0.5em;
 }
 
-.navlist > h1 a:hover, .navlist > h1 a:focus {
+.navlist > h1 a[href]:hover, .navlist > h1 a[href]:focus {
     color: inherit;
 }
 
@@ -195,8 +195,8 @@
     }
 }
 
-.navlist section.contains-extras > .extras > li > a:hover,
-.navlist section.contains-extras > .extras > li > a:focus {
+.navlist section.contains-extras > .extras > li > a[href]:hover,
+.navlist section.contains-extras > .extras > li > a[href]:focus {
     background: #ECE0A5;
     outline-style: none;
     border-color: black;
