@@ -125,13 +125,13 @@
 }
 
 .tabs ul > li > a[href]:hover, .tabs ul > li > a[href]:focus {
-    background: var(--nav-background-highlight-color);
+    background-color: var(--nav-background-highlight-color);
     outline-style: none;
 }
 
 .tabs ul > li > a.here:hover, .tabs ul > li > a.here:focus,
 .tabs ul > li > a.not-available:hover, .tabs ul > li > a.not-available:focus {
-    background: transparent;
+    background-color: transparent;
 }
 
 

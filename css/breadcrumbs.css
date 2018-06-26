@@ -161,7 +161,7 @@ section .breadcrumbs-bar .breadcrumbs .here .hoisted .suffix {
 
 
 .breadcrumbs-bar a[href]:hover, .breadcrumbs-bar a[href]:focus {
-    background: var(--nav-background-color);
+    background-color: var(--nav-background-color);
     border: thin solid black;
     opacity: 1;
 }

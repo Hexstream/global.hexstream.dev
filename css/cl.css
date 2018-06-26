@@ -16,7 +16,7 @@ code a {
 
 code a[href]:hover {
     text-decoration: underline;
-    background: yellow;
+    background-color: yellow;
 }
 
 p code {

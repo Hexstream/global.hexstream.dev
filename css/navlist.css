@@ -94,7 +94,7 @@
 }
 
 .navlist section:hover, .navlist section:focus {
-    background: #ECE0A5;
+    background-color: #ECE0A5;
     outline-style: none;
 }
 
@@ -197,7 +197,7 @@
 
 .navlist section.contains-extras > .extras > li > a[href]:hover,
 .navlist section.contains-extras > .extras > li > a[href]:focus {
-    background: #ECE0A5;
+    background-color: #ECE0A5;
     outline-style: none;
     border-color: black;
     opacity: 1;

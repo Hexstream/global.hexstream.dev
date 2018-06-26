@@ -73,7 +73,7 @@ table th.name {
 
 
 table th a[href]:hover, table th a[href]:focus {
-    background: transparent;
+    background-color: transparent;
     text-decoration: underline;
 }
 

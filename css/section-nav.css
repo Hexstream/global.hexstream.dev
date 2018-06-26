@@ -88,7 +88,7 @@ section > :first-child .breadcrumbs a.direct-link {
 
 section > :first-child a.direct-link:hover {
     opacity: 1;
-    background: var(--nav-background-color);
+    background-color: var(--nav-background-color);
     border-color: black;
 }
 
@@ -99,7 +99,7 @@ section > header > a.details-link {
 }
 
 section > header > a.details-link:hover {
-    background: green;
+    background-color: green;
     color: white;
 }
 
