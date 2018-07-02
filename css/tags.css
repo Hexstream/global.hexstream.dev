@@ -48,6 +48,7 @@ main .tags a.tag:hover {
     text-decoration: underline;
 }
 
-main .tags .separator {
+main .tags .separator,
+main .tags .s {
     display: none;
 }
