@@ -1,3 +1,0 @@
-GIT_WORK_TREE=/home/public/ git checkout -f
-
-find /home/public/ -name '*.html-e' | xargs rm
