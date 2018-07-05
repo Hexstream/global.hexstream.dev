@@ -26,10 +26,6 @@ ol, ul {
     z-index: 1;
 }
 
-#meta-nav:empty {
-    opacity: 0;
-}
-
 article, section {
     position: relative;
 }
