@@ -52,3 +52,16 @@ main .tags .separator,
 main .tags .s {
     display: none;
 }
+
+
+main .tags.contains-groups {
+    flex-flow: column;
+    align-items: center;
+}
+
+main .tags.contains-groups > .group {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: inherit;
+    max-width: 100%;
+}
