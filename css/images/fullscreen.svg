@@ -8,33 +8,15 @@
   <title>Fullscreen</title>
 
   <defs>
-    <style>
-<![CDATA[
-svg {
-    color: black;
-}
-
-svg .outline {
-    fill: white;
-    stroke: currentColor;
-}
-svg .fill {
-    fill: currentColor;
-    stroke: none;
-}
-]]>
-    </style>
     <symbol id="corner-arrow" viewBox="0 0 10 10">
-      <path class="fill"
-            d="M 0 0 L 2.5 0 L 0 2.5 Z"
-            transform="translate(1.5 1.5)"/>
+      <path d="M 0 0 L 2.5 0 L 0 2.5 Z"
+            transform="translate(1.5 1.5)"
+            fill="black" stroke="none"/>
     </symbol>
   </defs>
 
-  <rect class="outline"
-        fill="black"
-        stroke="gray"
-        x="0.25" y="0.25" width="9.5" height="9.5" stroke-width="0.5"/>
+  <rect x="0.25" y="0.25" width="9.5" height="9.5" stroke-width="0.5"
+        fill="white" stroke="black"/>
 
 
   <use xlink:href="#corner-arrow"/>
