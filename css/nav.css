@@ -123,6 +123,64 @@ article, section {
     background-color: initial;
 }
 
+
+#meta-nav ul > li {
+    border-top: none;
+    border-bottom: none;
+}
+
+#meta-nav a {
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+}
+
+#meta-nav a:before {
+    content: "";
+    flex: none;
+    position: relative;
+    left: calc(var(--breadcrumbs-link-horizontal-padding) * -1);
+    width: 1em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
+
+#meta-nav .github:before {
+    background-image: url("https://non-free.hexstream.xyz/global.hexstreamsoft.com/images/logos/github.svg");
+}
+
+#meta-nav .canonical:before {
+    background-image: url("https://abc.hexstream.xyz/images/globe.svg");
+}
+
+@media (max-width: 34em) {
+    #meta-nav a > span {
+        display: none;
+    }
+    #meta-nav .github:after {
+        content: "GitHub";
+    }
+
+    #meta-nav .canonical:after {
+        content: "Web";
+    }
+}
+
+@media (max-width: 20em) {
+    #meta-nav a:before {
+        position: initial;
+    }
+    #meta-nav .github:after
+    {
+        content: "​"; /* Zero width space */
+    }
+    #meta-nav .canonical:after {
+        content: "​"; /* Zero width space */
+    }
+}
+
+
 #top-nav + main {
     margin-top: 0;
 }
