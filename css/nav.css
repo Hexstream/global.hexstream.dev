@@ -96,22 +96,6 @@ article, section {
     text-decoration: none;
 }
 
-#top-nav > .main > nav a span,
-#top-nav > .main > .breadcrumbs a span {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    width: 100%;
-    font-size: smaller;
-    margin-top: 0.2em;
-    height: var(--top-nav-margin);
-    white-space: pre;
-    margin-top: 0.2em;
-    text-align: center;
-    color: black;
-}
-
 #top-nav > .main > nav > a,
 #top-nav > .main > .breadcrumbs > a {
     padding: var(--breadcrumbs-link-vertical-padding) var(--breadcrumbs-link-horizontal-padding);
