@@ -996,10 +996,10 @@ HexstreamSoft.modules.ensure("HexstreamSoft.misc", "HexstreamSoft.dom", "Hexstre
 
 if (document.location.protocol === "file:")
 {
-    HexstreamSoft.modules.ensure("HexstreamSoft.FixLinks");
-}
+    document.documentElement.classList.add("browsing-locally");
 
-if (document.location.protocol === "file:") {
+    HexstreamSoft.modules.ensure("HexstreamSoft.FixLinks");
+
     const canonicalLinkNode = document.querySelector("link[rel=\"canonical\"]");
     if (canonicalLinkNode) {
         document.addEventListener("DOMContentLoaded", function () {
