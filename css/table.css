@@ -262,8 +262,13 @@ table .chomp.left.right {
 
 
 .navtable {
-    font-size: larger;
     border: 0.15em solid black;
+}
+
+@media (min-width: 48em) {
+    .navtable {
+        font-size: larger;
+    }
 }
 
 .navtable.contains-main-colgroup {
