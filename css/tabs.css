@@ -1,3 +1,13 @@
+#page-header + .tabs {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+#page-header + .tabs + section {
+    margin-top: 0;
+}
+
+
 .tab-groups {
     display: flex;
     flex-flow: row wrap;
