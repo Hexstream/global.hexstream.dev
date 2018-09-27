@@ -108,6 +108,16 @@
     }
 }
 
+.breadcrumbs-bar.centered {
+    justify-content: center;
+    max-width: -webkit-max-content;
+    max-width: -moz-max-content;
+    max-width: max-content;
+    padding-right: 0.6em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .breadcrumbs-bar .breadcrumbs {
     --breadcrumbs-continuation-lines-indentation: 1.2em;
     padding-left: var(--breadcrumbs-continuation-lines-indentation);
