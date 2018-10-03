@@ -24,6 +24,7 @@ main .gallery article {
     width: -moz-min-content;
     width: min-content;
     max-width: 100%;
+    overflow: hidden;
 }
 
 main .gallery article:target {
