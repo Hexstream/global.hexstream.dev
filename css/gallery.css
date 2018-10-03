@@ -74,6 +74,7 @@ main .gallery article > a > img {
     display: block;
     border: thin solid gray;
     max-width: calc(100vw - var(--gallery-article-padding-lr) * 2 - var(--main_padding-left) - var(--main_padding-right) - 0.2em);
+    height: auto;
 }
 
 @media (max-width: 30em) {
