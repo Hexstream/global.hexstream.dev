@@ -67,14 +67,13 @@ main .gallery article > h1 .animation {
 
 main .gallery article > a {
     max-width: 100%;
-    overflow-x: auto;
     order: var(--prefs_order_article-thumbnail_order);
 }
 
 main .gallery article > a > img {
     display: block;
     border: thin solid gray;
-    max-width: calc(100vw - var(--gallery-article-padding-lr) - var(--gallery-article-padding-lr) - 0.2em);
+    max-width: calc(100vw - var(--gallery-article-padding-lr) * 2 - var(--main_padding-left) - var(--main_padding-right) - 0.2em);
 }
 
 @media (max-width: 30em) {
