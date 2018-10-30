@@ -21,7 +21,8 @@ article.method.definition {
 }
 
 article.reader.definition > section.description,
-article.method.definition > section.description {
+article.method.definition > section.description,
+article.class.definition > section.description {
     margin-top: 0;
 }
 
@@ -52,12 +53,14 @@ article.definition .name {
 
 
 article.method.definition section.description h1,
-article.reader.generic-function.definition section.description h1 {
+article.reader.generic-function.definition section.description h1,
+article.class.definition section.description h1 {
     display: none;
 }
 
 article.method.definition section.description > *,
-article.reader.generic-function.definition section.description > * {
+article.reader.generic-function.definition section.description > *,
+article.class.definition section.description > * {
     margin-left: 1em;
 }
 
@@ -66,12 +69,15 @@ article.method.see-description-below h1 {
 }
 
 
-p.args-and-retvals {
+p.args-and-retvals,
+p.direct-superclasses,
+p.metaclass {
     margin-top: 0.25em;
     margin-left: 2em;
 }
 
-article.method.definition > p.args-and-retvals {
+article.method.definition > p.args-and-retvals,
+article.class.definition > p.direct-superclasses {
     margin-bottom: -0.2em;
 }
 
