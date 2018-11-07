@@ -47,6 +47,10 @@ article.definition .name {
     font-weight: bold;
 }
 
+article.definition + article.definition {
+    margin-top: 3em;
+}
+
 .type {
     font-weight: normal;
     font-style: italic;
