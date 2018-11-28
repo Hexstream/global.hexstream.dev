@@ -23,7 +23,8 @@ article.method.definition {
 article.reader.definition > section.description,
 article.method.definition > section.description,
 article.class.definition > section.description,
-article.package.definition > section.description {
+article.package.definition > section.description,
+article.variable.definition > section.description {
     margin-top: 0;
 }
 
@@ -60,14 +61,16 @@ article.definition + article.definition {
 article.method.definition section.description h1,
 article.reader.generic-function.definition section.description h1,
 article.class.definition section.description h1,
-article.package.definition section.description h1 {
+article.package.definition section.description h1,
+article.variable.definition section.description h1 {
     display: none;
 }
 
 article.method.definition section.description > *,
 article.reader.generic-function.definition section.description > *,
 article.class.definition section.description > *,
-article.package.definition section.description > * {
+article.package.definition section.description > *,
+article.variable.definition section.description > * {
     margin-left: 1em;
 }
 
