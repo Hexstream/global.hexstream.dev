@@ -418,3 +418,7 @@ html:after {
     background-color: black;
     z-index: 1001;
 }
+
+.emoji {
+    white-space: nowrap;
+}
