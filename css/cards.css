@@ -1,0 +1,42 @@
+.cards .card p {
+    overflow-x: initial;
+}
+
+
+.cards {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    margin-top: 1em;
+}
+
+.cards > li + li {
+    margin-top: 0;
+}
+
+.cards .card {
+    position: relative;
+    background: #ECECEC;
+    border: thin solid gray;
+    padding: 0.3em 0.5em 0;
+    margin: 2em 1em 1em;
+}
+
+.cards .card h1 {
+    font-size: xx-large;
+    margin-top: 0;
+    margin-bottom: -0.2rem;
+}
+
+.cards .card .hoisted {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 0.2em;
+    opacity: 0.6;
+}
+
+.cards .card p {
+    line-height: 1.4em;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+}
