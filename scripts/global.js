@@ -815,11 +815,14 @@ HexstreamSoft.modules.register("HexstreamSoft.EventBinding", function () {
     EventBinding.defineType(["storage", "classList"], (function () {
         function KeyBinding (parent, key) {
             const keyBinding = this;
-            const initialValue = parent.storage[key];
+            const parentStorage = parent.storage;
+            const initialValue = parentStorage[key];
             keyBinding.parent = parent;
             keyBinding.key = key;
             keyBinding.value = initialValue;
             keyBinding.incrementalSyncValue(initialValue);
+            if (parentStorage.isRelevant && !parentStorage.isRelevant(key))
+                keyBinding.incrementalSyncRelevance(false);
         }
         KeyBinding.prototype.incrementalSyncValue = function (newValue) {
             const keyBinding = this;
