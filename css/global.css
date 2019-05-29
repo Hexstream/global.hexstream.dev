@@ -395,6 +395,10 @@ sub {
     top: 0.4em;
 }
 
+p {
+    overflow-y: hidden;
+}
+
 
 html:before {
     display: none;
