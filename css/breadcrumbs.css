@@ -165,6 +165,10 @@ section .breadcrumbs-bar .breadcrumbs .here .hoisted .suffix {
     display: none;
 }
 
+section .breadcrumbs-bar .section-relative-nav.contains-prev-downwards-link + .breadcrumbs .here .hoisted {
+    transform: translate(2em);
+}
+
 .contains-breadcrumbs-bar-hoists section {
     padding-top: 1.5em;
 }
