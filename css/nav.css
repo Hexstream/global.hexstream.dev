@@ -113,13 +113,13 @@ article, section {
 
 
 #top-nav > .main > nav a[href]:hover, #top-nav > .main > nav a[href]:focus,
-#top-nav > .main > .breadcrumbs a[href]:hover, #top-nav > .main > .breadcrumbs a[href]:focus{
+#top-nav > .main > .breadcrumbs a[href]:hover, #top-nav > .main > .breadcrumbs a[href]:focus {
     background-color: var(--nav-background-highlight-color);
     outline-style: none;
 }
 
 #top-nav > .main > nav a.here:hover, #top-nav > .main > nav a.here:focus,
-#top-nav > .main > .breadcrumbs a.here:hover, #top-nav > .main > .breadcrumbs a.here:focus{
+#top-nav > .main > .breadcrumbs a.here:hover, #top-nav > .main > .breadcrumbs a.here:focus {
     background-color: initial;
 }
 
@@ -150,6 +150,10 @@ article, section {
     background-image: url("https://non-free.hexstream.xyz/global.hexstreamsoft.com/images/logos/github.svg");
 }
 
+#meta-nav .linkedin:before {
+    background-image: url("https://workshop.hexstream.xyz/svg/remakes/linkedin.svg");
+}
+
 #meta-nav .canonical:before {
     background-image: url("https://abc.hexstream.xyz/images/globe.svg");
 }
@@ -158,8 +162,13 @@ article, section {
     #meta-nav a > span {
         display: none;
     }
+
     #meta-nav .github:after {
         content: "GitHub";
+    }
+
+    #meta-nav .linkedin:after {
+        content: "LinkedIn";
     }
 
     #meta-nav .canonical:after {
@@ -171,11 +180,7 @@ article, section {
     #meta-nav a:before {
         position: initial;
     }
-    #meta-nav .github:after
-    {
-        content: "​"; /* Zero width space */
-    }
-    #meta-nav .canonical:after {
+    #meta-nav .github:after, #meta-nav .linkedin:after, #meta-nav .canonical:after {
         content: "​"; /* Zero width space */
     }
 }
