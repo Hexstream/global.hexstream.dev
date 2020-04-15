@@ -4,10 +4,10 @@ ErrorDocument 403 /special/error-pages/403.html
 ErrorDocument 400 /special/error-pages/400.html
 
 
-RedirectPermanent /images/logos/discord.svg https://non-free.hexstream.dev/global.hexstreamsoft.com/images/logos/discord.svg
-RedirectPermanent /images/logos/github.svg https://non-free.hexstream.dev/global.hexstreamsoft.com/images/logos/github.svg
-RedirectPermanent /images/logos/twitter.svg https://non-free.hexstream.dev/global.hexstreamsoft.com/images/logos/twitter.svg
-RedirectPermanent /images/pinkie-shrug.png https://non-free.hexstream.dev/global.hexstreamsoft.com/images/pinkie-shrug.png
-RedirectPermanent /images/rainbow-dash-cringe.png https://non-free.hexstream.dev/global.hexstreamsoft.com/images/rainbow-dash-cringe.png
-RedirectPermanent /images/royal-guard-with-pilum.png https://non-free.hexstream.dev/global.hexstreamsoft.com/images/royal-guard-with-pilum.png
-RedirectPermanent /images/twilight-crazy.png https://non-free.hexstream.dev/global.hexstreamsoft.com/images/twilight-crazy.png
+RedirectPermanent /images/logos/discord.svg https://non-free.hexstream.dev/global.hexstream.dev/images/logos/discord.svg
+RedirectPermanent /images/logos/github.svg https://non-free.hexstream.dev/global.hexstream.dev/images/logos/github.svg
+RedirectPermanent /images/logos/twitter.svg https://non-free.hexstream.dev/global.hexstream.dev/images/logos/twitter.svg
+RedirectPermanent /images/pinkie-shrug.png https://non-free.hexstream.dev/global.hexstream.dev/images/pinkie-shrug.png
+RedirectPermanent /images/rainbow-dash-cringe.png https://non-free.hexstream.dev/global.hexstream.dev/images/rainbow-dash-cringe.png
+RedirectPermanent /images/royal-guard-with-pilum.png https://non-free.hexstream.dev/global.hexstream.dev/images/royal-guard-with-pilum.png
+RedirectPermanent /images/twilight-crazy.png https://non-free.hexstream.dev/global.hexstream.dev/images/twilight-crazy.png
