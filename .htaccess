@@ -3,7 +3,7 @@ ErrorDocument 404 /special/error-pages/404.html
 ErrorDocument 403 /special/error-pages/403.html
 ErrorDocument 400 /special/error-pages/400.html
 
-
+RedirectPermanent /index.html https://abc.hexstream.xyz/
 RedirectPermanent /images/logos/discord.svg https://non-free.hexstream.dev/global.hexstream.dev/images/logos/discord.svg
 RedirectPermanent /images/logos/github.svg https://non-free.hexstream.dev/global.hexstream.dev/images/logos/github.svg
 RedirectPermanent /images/logos/twitter.svg https://non-free.hexstream.dev/global.hexstream.dev/images/logos/twitter.svg
