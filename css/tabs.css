@@ -52,13 +52,6 @@
     text-decoration: underline;
 }
 
-.tabs.contains-groups > div {
-    flex: 1 1 auto;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-start;
-}
-
 .tabs ul {
     flex: 1 1 auto;
     display: flex;
