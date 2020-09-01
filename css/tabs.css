@@ -24,7 +24,7 @@
 .tabs {
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: baseline;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -53,7 +53,7 @@
 }
 
 .tabs ul {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     display: flex;
     flex-flow: row wrap;
     margin: 0.25em;
