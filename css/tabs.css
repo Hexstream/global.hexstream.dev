@@ -138,6 +138,14 @@
 }
 
 
+.tabs.additional {
+    opacity: 0.6;
+}
+
+.tabs.additional:hover, .tabs.additional:focus {
+    opacity: 1;
+}
+
 
 #top-nav > .main > .tabs {
     border: none;
