@@ -123,6 +123,22 @@ article, section {
     background-color: initial;
 }
 
+#top-nav > .main > nav a .under,
+#top-nav > .main > .breadcrumbs a .under {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    width: 100%;
+    font-size: smaller;
+    margin-top: 0.2em;
+    height: var(--top-nav-margin);
+    white-space: pre;
+    margin-top: 0.2em;
+    text-align: center;
+    color: black;
+}
+
 
 #meta-nav ul > li {
     border-top: none;
