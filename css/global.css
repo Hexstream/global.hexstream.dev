@@ -341,6 +341,30 @@ a.tweet {
 }
 
 
+figure {
+    display: table;
+    padding: 0.7em;
+    padding-bottom: 0.5em;
+    border: thin solid lightgray;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    background: linen;
+}
+
+figcaption {
+    text-align: center;
+    font-style: italic;
+    margin-top: 0.2em;
+    line-height: 1.4em;
+}
+
+figure > img,
+figure > a > img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 .multiline-parentheses {
     display: table;
     margin-left: auto;
