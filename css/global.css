@@ -360,8 +360,14 @@ figcaption {
 
 figure > img,
 figure > a > img {
+    border: thin solid gray;
     max-width: 100%;
     height: auto;
+}
+
+figure > img.noborder,
+figure > a > img.noborder {
+    border-color: transparent;
 }
 
 
