@@ -117,10 +117,12 @@
     margin-bottom: 0;
 }
 
-.tabs ul > li > a, .tabs ul > li > .contains-direct-link a {
+.tabs ul > li > a,
+.tabs ul > li > .contains-direct-link a {
     display: block;
     padding: 0.2em 0.5em;
     text-decoration: none;
+    position: relative;
 }
 
 .tabs ul > li > a.here, .tabs ul > li > a.ancestor {

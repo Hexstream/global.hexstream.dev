@@ -124,7 +124,8 @@ article, section {
 }
 
 #top-nav > .main > nav a .under,
-#top-nav > .main > .breadcrumbs a .under {
+#top-nav > .main > .breadcrumbs a .under,
+.tabs a .under {
     position: absolute;
     left: 0;
     right: 0;
