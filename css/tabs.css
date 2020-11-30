@@ -157,6 +157,11 @@
     margin: 0;
 }
 
+#top-nav > .main > .tabs ul li {
+    border-top: none;
+    border-bottom: none;
+}
+
 #top-nav > .main > .tabs > ul > li > a {
     padding: 0.175em 0.5em;
 }
