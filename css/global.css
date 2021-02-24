@@ -39,6 +39,10 @@ video, audio {
     white-space: nowrap;
 }
 
+.long {
+    white-space: normal;
+}
+
 .fit-content {
     display: table;
     margin-left: auto;
