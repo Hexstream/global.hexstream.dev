@@ -8,6 +8,7 @@ html {
     --main_padding-left: 0.8rem;
     --main_padding-right: 0.8rem;
     height: 100%;
+    line-height: 1.2;
 }
 
 body {

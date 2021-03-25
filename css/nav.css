@@ -310,6 +310,7 @@ article, section {
     align-items: center;
     text-align: center;
     margin: 0.5rem;
+    line-height: normal;
 }
 
 #footer .back-to-top > a {
