@@ -213,7 +213,7 @@ article, section {
     flex-flow: column;
     align-items: flex-end;
     white-space: nowrap;
-    line-height: 1.2em;
+    line-height: 1.2;
     margin: var(--top-nav-margin) var(--top-nav-margin) 0 0;
     text-decoration: none;
     overflow: initial;

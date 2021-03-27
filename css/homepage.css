@@ -15,7 +15,7 @@ main {
 #page-header .description {
     font-size: large;
     margin-top: 0.5em;
-    line-height: 1.2em;
+    line-height: 1.2;
     word-spacing: 0.1em;
     letter-spacing: 0.025em;
 }
@@ -24,7 +24,7 @@ main {
     font-size: large;
     letter-spacing: 0.06em;
     word-spacing: 0.12em;
-    line-height: 1em;
+    line-height: 1;
 }
 
 #footer > div {

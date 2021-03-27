@@ -85,7 +85,7 @@ main {
     padding: 0;
     font-weight: bolder;
     font-size: 3em;
-    line-height: 1.2em;
+    line-height: 1.2;
     letter-spacing: 0.05em;
     word-spacing: 0.1em;
 }
@@ -93,7 +93,7 @@ main {
 @media (max-width: 16em) {
     #page-header h1 {
         font-size: 16vw;
-        line-height: 1.2em;
+        line-height: 1.2;
     }
 }
 
@@ -104,7 +104,7 @@ main {
 #page-header p {
     padding: 0;
     margin: 0;
-    line-height: 1.15em;
+    line-height: 1.15;
 }
 
 #page-header p + p {
@@ -221,7 +221,7 @@ ul {
 .notice > b {
     flex: none;
     font-size: 3em;
-    line-height: 1em;
+    line-height: 1;
     text-align: center;
     padding: 0.2rem 0.4rem;
 }
@@ -232,7 +232,7 @@ ul {
 }
 
 .notice > div p {
-    line-height: 1.4em;
+    line-height: 1.4;
     padding: 0;
     margin: 0.6em 0;
 }
@@ -276,7 +276,7 @@ ul {
 
 p {
     margin: 1em 0;
-    line-height: 1.4em;
+    line-height: 1.4;
 }
 
 main section p, main section pre, main section > * > li {
@@ -336,7 +336,7 @@ a.tweet {
 .quick-note {
     display: table;
     text-align: center;
-    line-height: 1.6em;
+    line-height: 1.6;
     margin: 0.8em auto;
 }
 
@@ -361,7 +361,7 @@ figcaption {
     text-align: center;
     font-style: italic;
     margin-top: 0.2em;
-    line-height: 1.4em;
+    line-height: 1.4;
 }
 
 figure > img,
@@ -464,7 +464,7 @@ html:after {
     left: 0;
     right: 0;
     font-size: 20vw;
-    line-height: 1.2em;
+    line-height: 1.2;
     text-align: center;
     font-weight: bold;
     color: red;

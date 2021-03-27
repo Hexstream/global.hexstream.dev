@@ -208,7 +208,7 @@ section .breadcrumbs-bar .section-relative-nav.contains-prev-downwards-link + .b
     height: 1em;
     margin-top: -0.5em;
     margin-left: -0.5em;
-    line-height: 1em;
+    line-height: 1;
     opacity: 0.25;
 }
 
