@@ -74,7 +74,7 @@ input.replaced:disabled + label + label {
 
 .navtable td input.replaced + label {
     display: block;
-    padding: 0.4em 0.6em;
+    padding: 0.3em 0.6em;
 }
 
 
