@@ -73,8 +73,8 @@ main .gallery article > a {
 
 main .gallery article > a > img {
     display: block;
-    border: thin solid gray;
-    max-width: calc(100vw - var(--gallery-article-padding-lr) * 2 - var(--main_padding-left) - var(--main_padding-right) - 0.2em);
+    border: 1px solid gray;
+    max-width: calc(100vw - var(--gallery-article-padding-lr) * 2 - var(--main_padding-left) - var(--main_padding-right) - 2px);
     height: auto;
 }
 
