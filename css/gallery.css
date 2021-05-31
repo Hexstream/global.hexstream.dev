@@ -17,10 +17,10 @@ main .gallery.linear {
 main .gallery article {
     --gallery-article-padding-lr: 1em;
     flex: 0 1 auto;
-    padding: var(--prefs_order_article_padding-top) var(--gallery-article-padding-lr) 0.5em;
+    padding: 1em var(--gallery-article-padding-lr) 0.5em;
     display: flex;
     flex-flow: column;
-    align-items: var(--prefs_align-left-center_align-items);
+    align-items: center;
     width: -moz-min-content;
     width: min-content;
     max-width: 100%;
@@ -37,9 +37,9 @@ main .gallery article > * {
 }
 
 main .gallery article > h1 {
-    margin: var(--prefs_order_article-title_margin);
+    margin: 0.1em 0 0;
     white-space: nowrap;
-    text-align: var(--prefs_align-left-center_text-align);
+    text-align: center;
     font-size: larger;
     font-weight: normal;
 }
@@ -68,7 +68,7 @@ main .gallery article > h1 .animation {
 
 main .gallery article > a {
     max-width: 100%;
-    order: var(--prefs_order_article-thumbnail_order);
+    order: -1;
 }
 
 main .gallery article > a > img {
