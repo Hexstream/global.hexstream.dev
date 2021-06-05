@@ -7,7 +7,8 @@ html.thumbnail\.visibility\=hide main .gallery article {
     padding: 0.5em;
 }
 
-html.thumbnail\.visibility\=hide main .gallery article > a {
+html.thumbnail\.visibility\=hide main .gallery article > a,
+html.thumbnail\.visibility\=hide main .gallery article > label {
     display: none;
 }
 

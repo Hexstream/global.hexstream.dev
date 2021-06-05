@@ -66,12 +66,14 @@ main .gallery article > h1 .animation {
     color: orange;
 }
 
-main .gallery article > a {
+main .gallery article > a,
+main .gallery article > label {
     max-width: 100%;
     order: -1;
 }
 
-main .gallery article > a > img {
+main .gallery article > a > img,
+main .gallery article > label > img {
     display: block;
     border: 1px solid gray;
     max-width: calc(100vw - var(--gallery-article-padding-lr) * 2 - var(--main_padding-left) - var(--main_padding-right) - 2px);
@@ -89,7 +91,8 @@ main .gallery article > a > img {
 }
 
 
-main .gallery article > a > img.noborder {
+main .gallery article > a > img.noborder,
+main .gallery article > label > img.noborder {
     border-color: transparent;
 }
 
