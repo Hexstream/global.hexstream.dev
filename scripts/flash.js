@@ -28,10 +28,12 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+window.RufflePlayer = window.RufflePlayer || {};
+window.RufflePlayer.config = {
+    "letterbox": "on"
+};
+
 if (document.documentElement.classList.contains("autoplay")) {
-    window.RufflePlayer = window.RufflePlayer || {};
-    window.RufflePlayer.config = {
-        "autoplay": "on",
-        "unmuteOverlay": "hidden"
-    };
+    window.RufflePlayer.config.autoplay = "on";
+    window.RufflePlayer.config.unmuteOverlay = "hidden";
 }
