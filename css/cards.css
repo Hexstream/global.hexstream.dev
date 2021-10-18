@@ -20,6 +20,7 @@
     border: thin solid gray;
     padding: 0.3em 0.5em 0;
     margin: 2em 1em 1em;
+    scroll-margin-top: 0.9rem;
 }
 
 .cards .card h1 {
@@ -33,6 +34,10 @@
     bottom: 100%;
     margin-bottom: 0.2em;
     opacity: 0.6;
+}
+
+.cards.cards-contain-hoisted .card {
+    scroll-margin-top: 1.8rem;
 }
 
 .cards .card p {
