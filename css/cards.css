@@ -56,6 +56,22 @@
 }
 
 
+.cards .card .self-link a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cards .card .self-link a:hover,
+.cards .card .self-link a:focus {
+    text-decoration: underline;
+}
+
+.cards .card:target > .self-link {
+    color: green;
+    opacity: 1;
+}
+
+
 .cards .card .tags.addenda {
     position: absolute;
     top: 100%;
