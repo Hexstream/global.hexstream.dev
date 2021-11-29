@@ -148,48 +148,6 @@ main {
 }
 
 
-dt {
-    margin: 1.5em 0 0 1.8em;
-    font-size: large;
-}
-
-dt + dt {
-    margin-top: 0.5em;
-}
-
-dt a {
-    text-decoration: none;
-}
-
-dd {
-    margin-left: 2em;
-}
-
-dd p:first-child {
-    margin-top: 0.25em;
-}
-
-dd p {
-    margin: 0.8em 1.5em;
-}
-
-@media (max-width: 36em) {
-    dd p {
-        margin-left: 0;
-        margin-right: 0;
-    }
-}
-
-dd ul, dd ol {
-    margin: 0.8em 3.5em;
-}
-
-dd ul li, dd ol li {
-    margin-top: 0.4em;
-    margin-bottom: 0.4em;
-}
-
-
 h1 a {
     text-decoration: none;
 }
