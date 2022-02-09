@@ -80,10 +80,9 @@ HexstreamSoft.modules.register("HexstreamSoft.dom", function () {
             const addedNodes = record.addedNodes;
             if (addedNodes)
                 Array.prototype.forEach.call(addedNodes, function (addedNode) {
+                    callback(addedNode);
                     if (addedNode.nodeType === Node.ELEMENT_NODE)
                         Array.prototype.forEach.call(addedNode.querySelectorAll("*"), callback);
-                    else
-                        callback(addedNode);
                 });
         });
     };
