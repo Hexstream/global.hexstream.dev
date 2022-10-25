@@ -413,7 +413,7 @@ html:before {
     background-size: contain;
     z-index: 1000;
 }
-p
+
 html:after {
     display: none;
     content: "Y U NO WIDER??";
