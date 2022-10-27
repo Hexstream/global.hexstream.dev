@@ -346,6 +346,8 @@ article, section {
 }
 
 #footers {
+    display: flex;
+    flex-flow: column;
     position: relative;
     margin-top: auto;
 }
