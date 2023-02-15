@@ -84,12 +84,12 @@
     padding: 0.5em 1em;
 }
 
-.navlist h1, .navlist p {
+.navlist h1, .navlist a p {
     padding: 0;
     margin: 0;
 }
 
-.navlist p {
+.navlist a p {
     line-height: 1.2;
 }
 
@@ -125,7 +125,7 @@
     color: #CCCCCC;
 }
 
-.navlist p {
+.navlist a p {
     margin-top: 0.2em;
     margin-bottom: 0;
     font-size: smaller;

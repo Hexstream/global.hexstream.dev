@@ -1,70 +1,35 @@
-@import "breadcrumbs.css";
-@import "section-nav.css";
-@import "tabs.css";
-@import "navlist.css";
+:root {
+    --breadcrumbs-link-vertical-padding: 0.2em;
+    --breadcrumbs-link-horizontal-padding: 0.25em;
+}
+
+.breadcrumbs {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+}
+
+.breadcrumbs > .crumb {
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+}
+
+.breadcrumbs > .crumb > * {
+    padding: var(--breadcrumbs-link-vertical-padding) var(--breadcrumbs-link-horizontal-padding);
+}
+
+.breadcrumbs > .crumb > .s {
+    font-weight: bold;
+}
+
 
 :root {
     --top-nav-margin: 0.5em;
-}
-
-/* Reset doesn't actually belong here... */
-
-* {
-    padding: 0;
-    margin: 0;
-}
-
-ol, ul {
-    list-style-type: none;
-}
-
-
-#site-nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-article, section {
-    position: relative;
-}
-
-.hanging-menu {
-    position: absolute;
-    right: 0;
-    margin-top: -1.555em;
-    z-index: 1;
-    text-align: right;
-    background: #ECECEC;
-    border: solid thin gray;
-}
-
-#page-header + .hanging-menu {
-    top: 1.5em;
-    margin-top: 0;
-    right: 0;
-    margin-right: var(--main_padding-right);
-}
-
-@media (max-width: 48em) {
-    #page-header + .hanging-menu {
-        position: initial;
-        display: table;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 0.8em;
-    }
-}
-
-.hanging-menu ul {
-    margin: 0;
-    font-size: smaller;
-    padding: 0.2em 0.4em;
-}
-
-.hanging-menu a {
-    text-decoration: none;
 }
 
 #top-nav {
@@ -78,6 +43,19 @@ article, section {
     flex: 1 0;
     display: flex;
     flex-flow: row wrap;
+}
+
+#top-nav .breadcrumbs {
+    padding-left: var(--breadcrumbs-link-horizontal-padding);
+}
+
+#top-nav .breadcrumbs > a:first-child {
+    padding-left: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
+    margin-left: calc(var(--breadcrumbs-link-horizontal-padding) * -1);
+}
+
+#top-nav .breadcrumbs > .crumb:last-child > a {
+    padding-right: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
 }
 
 #top-nav > .main > nav,
@@ -141,18 +119,18 @@ article, section {
 }
 
 
-#meta-nav ul > li {
+#top-nav > .main > #meta-nav ul > li {
     border-top: none;
     border-bottom: none;
 }
 
-#meta-nav a {
+#top-nav > .main > #meta-nav a {
     display: flex;
     flex-flow: row;
     align-items: stretch;
 }
 
-#meta-nav a:before {
+#top-nav > .main > #meta-nav a:before {
     content: "";
     flex: none;
     position: relative;
@@ -163,44 +141,45 @@ article, section {
     background-size: contain;
 }
 
-#meta-nav .github:before {
+#top-nav > .main > #meta-nav .github:before {
     background-image: url("https://non-free.hexstream.dev/global.hexstream.dev/images/logos/github.svg");
 }
 
-#meta-nav .linkedin:before {
+#top-nav > .main > #meta-nav .linkedin:before {
     background-image: url("https://workshop.hexstream.xyz/svg/remakes/linkedin.svg");
 }
 
-#meta-nav .canonical:before {
+#top-nav > .main > #meta-nav .canonical:before {
     background-image: url("https://abc.hexstream.xyz/images/globe.svg");
 }
 
 @media (max-width: 34em) {
-    #meta-nav a > span {
+    #top-nav > .main > #meta-nav a > span {
         display: none;
     }
 
-    #meta-nav .github:after {
+    #top-nav > .main > #meta-nav .github:after {
         content: "GitHub";
     }
 
-    #meta-nav .linkedin:after {
+    #top-nav > .main > #meta-nav .linkedin:after {
         content: "LinkedIn";
     }
 
-    #meta-nav .canonical:after {
+    #top-nav > .main > #meta-nav .canonical:after {
         content: "Web";
     }
 }
 
 @media (max-width: 20em) {
-    #meta-nav a:before {
+    #top-nav > .main > #meta-nav a:before {
         position: initial;
     }
-    #meta-nav .github:after, #meta-nav .linkedin:after, #meta-nav .canonical:after {
+    #top-nav > .main > #meta-nav .github:after, #top-nav > .main > #meta-nav .linkedin:after, #meta-nav .canonical:after {
         content: "​"; /* Zero width space */
     }
 }
+
 
 
 #top-nav + main {
@@ -219,18 +198,21 @@ article, section {
     overflow: initial;
 }
 
-#last-updated > span, .last-updated > span {
+#last-updated > span,
+.last-updated > span {
     display: none;
 }
 
-#last-updated > time, .last-updated > time {
+#last-updated > time,
+.last-updated > time {
     display: block;
     padding: 0.2em 0.5em;
     border: medium solid black;
     background: var(--nav-background-color);
 }
 
-#last-updated:after, .last-updated:after {
+#last-updated:after,
+.last-updated:after {
     content: "Page last updated on";
     font-size: smaller;
     text-align: right;
@@ -255,6 +237,44 @@ article, section {
     #last-updated:after {
         margin-left: 0;
     }
+}
+
+
+.hanging-menu {
+    position: absolute;
+    right: 0;
+    margin-top: -1.555em;
+    z-index: 1;
+    text-align: right;
+    background: #ECECEC;
+    border: solid thin gray;
+}
+
+#page-header + .hanging-menu {
+    top: 1.5em;
+    margin-top: 0;
+    right: 0;
+    margin-right: var(--main_padding-right);
+}
+
+@media (max-width: 48em) {
+    #page-header + .hanging-menu {
+        position: initial;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.8em;
+    }
+}
+
+.hanging-menu ul {
+    margin: 0;
+    font-size: smaller;
+    padding: 0.2em 0.4em;
+}
+
+.hanging-menu a {
+    text-decoration: none;
 }
 
 
@@ -321,7 +341,8 @@ article, section {
     opacity: 0.25;
 }
 
-#footer .back-to-top > a[href]:hover, #footer .back-to-top > a[href]:focus {
+#footer .back-to-top > a[href]:hover,
+#footer .back-to-top > a[href]:focus {
     background-color: var(--nav-background-highlight-color);
     outline-style: none;
     opacity: initial;

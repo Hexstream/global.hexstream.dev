@@ -1,6 +1,16 @@
-@import "nav.css";
-@import "table.css";
-@import "fonts.css";
+* {
+    padding: 0;
+    margin: 0;
+}
+
+article, section {
+    position: relative;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
 
 html {
     --nav-background-color: #FFCC99;
