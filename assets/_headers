@@ -1,9 +1,46 @@
+/*
+  ! Cache-Control
+  Cache-Control: public, max-age=86400, s-maxage=2592000
+
+/special/status.txt
+  ! Cache-Control
+  Cache-Control: no-store
+
+/*.ttf
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000
+
+/*.otf
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000
+
+
 /fonts/*
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET
-  Access-Control-Max-Age: 604800
+  Access-Control-Max-Age: 2592000
 
 /scripts/*
   Access-Control-Allow-Origin: *
   Access-Control-Allow-Methods: GET
-  Access-Control-Max-Age: 604800
+  Access-Control-Max-Age: 2592000
+
+
+/fonts/dejavu/AUTHORS
+  Content-Type: text/plain; charset=utf-8
+
+/fonts/dejavu/NEWS
+  Content-Type: text/plain; charset=utf-8
+
+/fonts/dejavu/BUGS
+  Content-Type: text/plain; charset=utf-8
+
+/fonts/dejavu/LICENSE
+  Content-Type: text/plain; charset=utf-8
+
+
+/scripts/ruffle/LICENSE_APACHE
+  Content-Type: text/plain; charset=utf-8
+
+/scripts/ruffle/LICENSE_MIT
+  Content-Type: text/plain; charset=utf-8
