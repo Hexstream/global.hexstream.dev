@@ -6,6 +6,12 @@
   ! Cache-Control
   Cache-Control: no-store
 
+
+/*.svg
+  ! Cache-Control
+  Cache-Control: public, max-age=604800, s-maxage=2592000
+
+
 /*.ttf
   ! Cache-Control
   Cache-Control: public, max-age=2592000
