@@ -857,24 +857,28 @@ html:after {
 @font-face {
     font-family: "Kaushan Script";
     src: url("../fonts/kaushan-script/KaushanScript-Regular.otf") format("opentype");
+    font-display: block;
 }
 
 
 @font-face {
     font-family: "Liberation Serif";
     src: url("../fonts/liberation/LiberationSerif-Regular.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Liberation Serif";
     font-weight: bold;
     src: url("../fonts/liberation/LiberationSerif-Bold.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Liberation Serif";
     font-style: italic;
     src: url("../fonts/liberation/LiberationSerif-Italic.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
@@ -882,24 +886,28 @@ html:after {
     font-weight: bold;
     font-style: italic;
     src: url("../fonts/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
+    font-display: swap;
 }
 
 
 @font-face {
     font-family: "DejaVu Sans";
     src: url("../fonts/dejavu/ttf/DejaVuSans.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "DejaVu Sans";
     font-weight: bold;
     src: url("../fonts/dejavu/ttf/DejaVuSans-Bold.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
     font-family: "DejaVu Sans";
     font-style: italic;
     src: url("../fonts/dejavu/ttf/DejaVuSans-Oblique.ttf") format("truetype");
+    font-display: swap;
 }
 
 @font-face {
@@ -907,4 +915,5 @@ html:after {
     font-weight: bold;
     font-style: italic;
     src: url("../fonts/dejavu/ttf/DejaVuSans-BoldOblique.ttf") format("truetype");
+    font-display: swap;
 }
