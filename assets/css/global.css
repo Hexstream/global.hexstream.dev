@@ -25,7 +25,7 @@ body {
     display: flex;
     flex-flow: column;
     min-height: 100%;
-    font-family: "Liberation Serif", "DejaVu Sans", serif;
+    font-family: "Liberation Serif", serif;
 }
 
 video, audio {
@@ -228,7 +228,7 @@ ul {
 
 .notice.error > b {
     color: red;
-    font-family: "DejaVu Sans Mono", monospace;
+    font-family: monospace;
 }
 
 .notice.note {
@@ -886,34 +886,5 @@ html:after {
     font-weight: bold;
     font-style: italic;
     src: url("../fonts/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
-    font-display: swap;
-}
-
-
-@font-face {
-    font-family: "DejaVu Sans";
-    src: url("../fonts/dejavu/ttf/DejaVuSans.ttf") format("truetype");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "DejaVu Sans";
-    font-weight: bold;
-    src: url("../fonts/dejavu/ttf/DejaVuSans-Bold.ttf") format("truetype");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "DejaVu Sans";
-    font-style: italic;
-    src: url("../fonts/dejavu/ttf/DejaVuSans-Oblique.ttf") format("truetype");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "DejaVu Sans";
-    font-weight: bold;
-    font-style: italic;
-    src: url("../fonts/dejavu/ttf/DejaVuSans-BoldOblique.ttf") format("truetype");
     font-display: swap;
 }
