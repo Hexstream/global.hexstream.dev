@@ -1,0 +1,73 @@
+.notice {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 40em;
+    padding: 0.2rem 0.4rem;
+    border: solid thick transparent;
+    margin: 0.5em auto;
+    text-align: center;
+    clear: both;
+}
+
+.notice + table {
+    margin-top: 2em;
+}
+
+.notice > b {
+    flex: none;
+    font-size: 3em;
+    line-height: 1;
+    text-align: center;
+    padding: 0.2rem 0.4rem;
+}
+
+.notice > div {
+    flex: 1 1 auto;
+    padding: 0.2rem 0.4rem;
+}
+
+.notice > div p {
+    line-height: 1.4;
+    padding: 0;
+    margin: 0.6em 0;
+}
+
+.notice.good-news {
+    border-color: green;
+}
+
+.notice.good-news > b {
+    color: green;
+    font-weight: normal;
+}
+
+.notice.warning {
+    border-color: orange;
+}
+
+.notice.warning > b {
+    color: orange;
+}
+
+.notice.error {
+    border-color: red;
+}
+
+.notice.error > b {
+    color: red;
+    font-family: monospace;
+}
+
+.notice.note {
+    border-color: lightslategray;
+}
+
+.notice.note > b {
+    color: lightslategray;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
