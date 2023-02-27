@@ -133,19 +133,6 @@
 }
 
 
-.navlist section .status-indicator {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 0.7em;
-    margin: 0.3em;
-}
-
-.status-indicator:hover, .status-indicator:focus {
-    opacity: 1;
-}
-
-
 .navlist section.contains-extras > a:first-child {
     padding-right: 0.5em;
 }

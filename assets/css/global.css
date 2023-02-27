@@ -361,34 +361,6 @@ figure > a > img.noborder {
 }
 
 
-p.status-indicator {
-    display: table;
-    white-space: nowrap;
-    letter-spacing: 0.1em;
-    padding: 0.2em 0.5em;
-    border: thin solid;
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.6;
-}
-
-.status-indicator.ready,
-.status-indicator.detailed {
-    color: green;
-}
-
-.status-indicator.incomplete,
-.status-indicator.outdated,
-.status-indicator.trivial,
-.status-indicator.raw {
-     color: orange;
-}
-
-.status-indicator.stub {
-    color: red;
-}
-
-
 .subscript-agnostic-line-heights sup, .subscript-agnostic-line-heights sub {
     vertical-align: baseline;
     position: relative;
