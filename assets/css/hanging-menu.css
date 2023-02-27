@@ -1,0 +1,36 @@
+.hanging-menu {
+    position: absolute;
+    right: 0;
+    margin-top: -1.555em;
+    z-index: 1;
+    text-align: right;
+    background: #ECECEC;
+    border: solid thin gray;
+}
+
+#page-header + .hanging-menu {
+    top: 1.5em;
+    margin-top: 0;
+    right: 0;
+    margin-right: var(--main_padding-right);
+}
+
+@media (max-width: 48em) {
+    #page-header + .hanging-menu {
+        position: initial;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.8em;
+    }
+}
+
+.hanging-menu ul {
+    margin: 0;
+    font-size: smaller;
+    padding: 0.2em 0.4em;
+}
+
+.hanging-menu a {
+    text-decoration: none;
+}
