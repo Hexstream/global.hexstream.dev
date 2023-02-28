@@ -240,36 +240,6 @@ a.tweet {
 }
 
 
-figure {
-    display: table;
-    padding: 0.7em;
-    padding-bottom: 0.5em;
-    border: thin solid lightgray;
-    margin-top: 1.5em;
-    margin-bottom: 1.5em;
-    background: linen;
-}
-
-figcaption {
-    text-align: center;
-    font-style: italic;
-    margin-top: 0.2em;
-    line-height: 1.4;
-}
-
-figure > img,
-figure > a > img {
-    border: thin solid gray;
-    max-width: 100%;
-    height: auto;
-}
-
-figure > img.noborder,
-figure > a > img.noborder {
-    border-color: transparent;
-}
-
-
 .multiline-parentheses {
     display: table;
     margin-left: auto;
