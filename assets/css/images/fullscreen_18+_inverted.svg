@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1"
+     viewBox="0 0 10 10">
+
+  <title>Fullscreen (18+) (inverted)</title>
+
+  <defs>
+    <symbol id="corner-arrow" viewBox="0 0 10 10">
+      <path d="M 0 0 L 2.5 0 L 0 2.5 Z"
+            transform="translate(1.5 1.5)"
+            fill="white" stroke="none"/>
+    </symbol>
+  </defs>
+
+  <rect x="0.25" y="0.25" width="9.5" height="9.5" stroke-width="0.5"
+        fill="black" stroke="white"/>
+
+
+  <use xlink:href="#corner-arrow"/>
+  <use xlink:href="#corner-arrow" transform="scale(-1 1) translate(-10 0)"/>
+  <use xlink:href="#corner-arrow" transform="scale(1 -1) translate(0 -10)"/>
+  <use xlink:href="#corner-arrow" transform="scale(-1 -1) translate(-10 -10)"/>
+
+  <text id="eighteen-plus"
+            text-anchor="middle" dominant-baseline="central"
+            x="5" y="5" font-size="3.5" font-weight="900"
+            fill="red" stroke="none"
+            transform="translate(0.14)">18+</text>
+
+</svg>
