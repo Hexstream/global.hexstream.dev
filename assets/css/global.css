@@ -240,25 +240,6 @@ a.tweet {
 }
 
 
-.subscript-agnostic-line-heights sup, .subscript-agnostic-line-heights sub {
-    vertical-align: baseline;
-    position: relative;
-    top: -0.4em;
-}
-
-.subscript-agnostic-line-heights sub {
-    top: 0.4em;
-}
-
-.subscript-agnostic-line-heights p {
-    overflow-y: hidden;
-}
-
-.subscript-agnostic-line-heights #page-header .description {
-    overflow-y: initial;
-}
-
-
 html:before {
     display: none;
     content: "";
