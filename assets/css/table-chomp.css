@@ -1,0 +1,33 @@
+table .chomp {
+    background-color: transparent;
+}
+
+table .chomp.top {
+    border-top: hidden;
+    border-bottom: 0.15em solid gray;
+}
+
+table .chomp.bottom {
+    border-top: 0.15em solid gray;
+    border-bottom: hidden;
+}
+
+table .chomp.left {
+    border-left: hidden;
+    border-right: 0.15em solid gray;
+}
+
+table .chomp.right {
+    border-left: 0.15em solid gray;
+    border-right: hidden;
+}
+
+table .chomp.top.bottom {
+    border-top: hidden;
+    border-bottom: hidden;
+}
+
+table .chomp.left.right {
+    border-left: hidden;
+    border-right: hidden;
+}
