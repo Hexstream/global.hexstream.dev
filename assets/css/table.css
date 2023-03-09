@@ -131,30 +131,6 @@ table th > ul:only-child, table th > ol:only-child, table td > ul:only-child, ta
 }
 
 
-table .link-cell {
-    padding: 0;
-}
-
-table .link-cell > a {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-    padding: 0.3em 0.6em;
-    text-align: center;
-    text-decoration: none;
-}
-
-table .link-cell > a > span {
-    flex: 1 0;
-}
-
-table .link-cell a[href]:hover, table .link-cell a[href]:focus {
-    /*background-color: #ECE0A5;*/
-    text-decoration: underline;
-    outline-style: none;
-}
-
-
 table > thead > tr > th.horizontal-grouping-header a,
 table > tbody > tr > th.horizontal-grouping-header a {
     text-align: center;
