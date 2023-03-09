@@ -91,31 +91,6 @@ table.sparse .not-applicable, table.contains-sparse-colgroup .not-applicable {
 }
 
 
-table .ghost {
-    background: transparent;
-    color: rgba(0, 0, 0, 0.4);
-    vertical-align: top;
-}
-
-table .ghost a {
-    color: inherit;
-}
-
-table .ghost.left {
-    text-align: right;
-    border-top: 0.15em solid transparent;
-    border-left: 0.15em solid transparent;
-    border-bottom: 0.15em solid transparent;
-}
-
-table .ghost.right {
-    text-align: left;
-    border-top: 0.15em solid transparent;
-    border-right: 0.15em solid transparent;
-    border-bottom: 0.15em solid transparent;
-}
-
-
 table th {
     white-space: nowrap;
 }
