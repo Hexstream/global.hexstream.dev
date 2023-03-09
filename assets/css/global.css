@@ -240,22 +240,6 @@ a.tweet {
 }
 
 
-.multiline-parentheses {
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    background-image: url("images/left-parenthese.svg"), url("images/right-parenthese.svg");
-    background-repeat: no-repeat;
-    background-position: 0% 50%, 100% 50%;
-    background-size: 100% 100%, 100% 100%;
-    padding: 0.6em 1.2em;
-}
-
-.multiline-parentheses .multiline-parenthese {
-    display: none;
-}
-
-
 .subscript-agnostic-line-heights sup, .subscript-agnostic-line-heights sub {
     vertical-align: baseline;
     position: relative;
