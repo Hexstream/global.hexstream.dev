@@ -239,41 +239,6 @@ a.tweet {
     font-weight: bold;
 }
 
-
-html:before {
-    display: none;
-    content: "";
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: black;
-    background-image: url("https://global.hexstream.dev/css/images/owl-of-disapproval.png");
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: contain;
-    z-index: 1000;
-}
-
-html:after {
-    display: none;
-    content: "Y U NO WIDER??";
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    font-size: 20vw;
-    line-height: 1.2;
-    text-align: center;
-    font-weight: bold;
-    color: red;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    background-color: black;
-    z-index: 1001;
-}
-
 .emoji {
     white-space: nowrap;
 }
