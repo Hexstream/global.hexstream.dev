@@ -615,32 +615,28 @@ a.tweet {
 
 @font-face {
     font-family: "Kaushan Script";
-    src: url("../fonts/kaushan-script/KaushanScript-Regular.woff2") format("woff2"),
-         url("../fonts/kaushan-script/KaushanScript-Regular.otf") format("opentype");
+    src: url("../fonts/kaushan-script/KaushanScript-Regular.woff2") format("woff2");
     font-display: block;
 }
 
 
 @font-face {
     font-family: "Liberation Serif";
-    src: url("../fonts/liberation/LiberationSerif-Regular.woff2") format("woff2"),
-         url("../fonts/liberation/LiberationSerif-Regular.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-Regular.woff2") format("woff2");
     font-display: swap;
 }
 
 @font-face {
     font-family: "Liberation Serif";
     font-weight: bold;
-    src: url("../fonts/liberation/LiberationSerif-Bold.woff2") format("woff2"),
-         url("../fonts/liberation/LiberationSerif-Bold.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-Bold.woff2") format("woff2");
     font-display: swap;
 }
 
 @font-face {
     font-family: "Liberation Serif";
     font-style: italic;
-    src: url("../fonts/liberation/LiberationSerif-Italic.woff2") format("woff2"),
-         url("../fonts/liberation/LiberationSerif-Italic.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-Italic.woff2") format("woff2");
     font-display: swap;
 }
 
@@ -648,7 +644,6 @@ a.tweet {
     font-family: "Liberation Serif";
     font-weight: bold;
     font-style: italic;
-    src: url("../fonts/liberation/LiberationSerif-BoldItalic.woff2") format("woff2"),
-         url("../fonts/liberation/LiberationSerif-BoldItalic.ttf") format("truetype");
+    src: url("../fonts/liberation/LiberationSerif-BoldItalic.woff2") format("woff2");
     font-display: swap;
 }
