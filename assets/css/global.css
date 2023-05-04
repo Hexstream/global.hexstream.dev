@@ -647,3 +647,10 @@ a.tweet {
     src: url("../fonts/liberation/LiberationSerif-BoldItalic.woff2") format("woff2");
     font-display: swap;
 }
+
+
+@font-face {
+    font-family: "Last Resort";
+    src: url("../fonts/last-resort/LastResort-Regular.woff2") format("woff2");
+    font-display: block;
+}
