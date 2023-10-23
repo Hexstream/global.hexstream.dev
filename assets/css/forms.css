@@ -2,68 +2,82 @@ input.replaced {
     display: none;
 }
 
-input.replaced + label {
+input.replaced + label,
+input.replaced + * > label:first-of-type {
     background-repeat: no-repeat;
     background-origin: content-box;
     background-position: 50% 50%;
 }
 
-input[type="radio"].replaced + label {
+input[type="radio"].replaced + label,
+input[type="radio"].replaced + * > label:first-of-type {
     background-image: url("images/unchecked-radio-button.svg");
     background-size: 1em;
 }
 
-input[type="radio"].replaced:disabled + label {
+input[type="radio"].replaced:disabled + label,
+input[type="radio"].replaced:disabled + * > label:first-of-type {
     background-image: url("images/disabled-unchecked-radio-button.svg");
 }
 
-input[type="radio"].replaced[data-dynamic-context~="related-radio-button"] + label {
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"] + label,
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"] + * > label:first-of-type {
     background-image: url("images/unchecked-radio-button.svg"), url("images/related-radio-button.svg");
     background-size: 1em, 2.1em 1em;
 }
 
-input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:disabled + label {
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:disabled + label,
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:disabled + * > label:first-of-type {
     background-image: url("images/disabled-unchecked-radio-button.svg"), url("images/related-radio-button.svg");
 }
 
-input[type="radio"].replaced:checked + label {
+input[type="radio"].replaced:checked + label,
+input[type="radio"].replaced:checked + * > label:first-of-type {
     background-image: url("images/checked-radio-button.svg");
 }
 
-input[type="radio"].replaced:checked:disabled + label {
+input[type="radio"].replaced:checked:disabled + label,
+input[type="radio"].replaced:checked:disabled + * > label:first-of-type {
     background-image: url("images/disabled-checked-radio-button.svg");
 }
 
-input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked + label {
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked + label,
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked + * > label:first-of-type {
     background-image: url("images/checked-radio-button.svg"), url("images/related-radio-button.svg");
     background-size: 1em, 2.1em 1em;
 }
 
-input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked:disabled + label {
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked:disabled + label,
+input[type="radio"].replaced[data-dynamic-context~="related-radio-button"]:checked:disabled + * > label:first-of-type {
     background-image: url("images/disabled-checked-radio-button.svg"), url("images/related-radio-button.svg");
 }
 
-input[type="checkbox"].replaced + label {
+input[type="checkbox"].replaced + label,
+input[type="checkbox"].replaced + * > label:first-of-type {
     background-image: url("images/unchecked-checkbox.svg");
     background-size: 0.886226925454em;
     /* Radio buttons (circles) and checkboxes (squares) are made to have the same area,
        else checkboxes look (and actually are) bigger. */
 }
 
-input[type="checkbox"].replaced:disabled + label {
+input[type="checkbox"].replaced:disabled + label,
+input[type="checkbox"].replaced:disabled + * > label:first-of-type {
     background-image: url("images/disabled-unchecked-checkbox.svg");
 }
 
-input[type="checkbox"].replaced:checked + label {
+input[type="checkbox"].replaced:checked + label,
+input[type="checkbox"].replaced:checked + * > label:first-of-type {
     background-image: url("images/checked-checkbox.svg");
 }
 
-input[type="checkbox"].replaced:checked:disabled + label {
+input[type="checkbox"].replaced:checked:disabled + label,
+input[type="checkbox"].replaced:checked:disabled + * > label:first-of-type {
     background-image: url("images/disabled-checked-checkbox.svg");
 }
 
 
-input.replaced:disabled + label + label {
+input.replaced:disabled + label + label,
+input.replaced:disabled + * > label:first-of-type + label {
     opacity: 0.6;
 }
 
@@ -72,7 +86,8 @@ input.replaced:disabled + label + label {
     background-color: #ECE0A5;
 }
 
-.navtable td input.replaced + label {
+.navtable td input.replaced + label,
+.navtable td input.replaced + * > label:first-of-type {
     display: block;
     padding: 0.3em 0.6em;
 }
@@ -91,22 +106,6 @@ input.replaced:disabled + label + label {
     margin-bottom: 0.5em;
 }
 
-.labelled-control {
-    display: flex;
-    flex-flow: row;
-    align-items: center;
-}
-
-.labelled-control input.replaced + label {
-    flex: none;
-    width: 1em;
-    padding-right: 0.2em;
-}
-
-.labelled-control input.replaced + label + label {
-    flex: 0 1 auto;
-}
-
 .controls-group.horizontal {
     display: flex;
     flex-flow: row;
@@ -114,4 +113,33 @@ input.replaced:disabled + label + label {
 
 .controls-group.horizontal > * + * {
     margin-left: 0.4em;
+}
+
+
+.labelled-control {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.labelled-control label:first-of-type {
+    flex: none;
+    width: 1em;
+    padding-right: 0.2em;
+}
+
+.labelled-control label:first-of-type + label {
+    flex: 0 1 auto;
+}
+
+input.replaced + .labelled-control {
+    display: inline-flex;
+}
+
+input.replaced + .labelled-control + input.replaced + .labelled-control {
+    margin-left: 0.75em;
+}
+
+section > .breadcrumbs-bar ~ input.replaced + .labelled-control {
+    transform: translateY(-0.4em);
 }
