@@ -172,7 +172,8 @@ p {
     line-height: 1.4;
 }
 
-main section p, main section pre, main section > * > li {
+main section :is(p, pre),
+main section > * > li {
     overflow-x: auto;
 }
 
@@ -218,7 +219,7 @@ li li {
     color: red;
 }
 
-.good-news a, .watch-out a {
+:is(.good-news, .watch-out) a {
     color: inherit;
 }
 
@@ -315,8 +316,7 @@ a.tweet {
     padding-right: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
 }
 
-#top-nav > .main > nav,
-#top-nav > .main > .breadcrumbs {
+#top-nav > .main > :is(nav, .breadcrumbs) {
     display: flex;
     flex-flow: row wrap;
     position: relative;
@@ -325,41 +325,34 @@ a.tweet {
     border: medium solid black;
 }
 
-#top-nav > .main > nav a,
-#top-nav > .main > .breadcrumbs a {
+#top-nav > .main > :is(nav, .breadcrumbs) a {
     position: relative;
     text-decoration: none;
 }
 
-#top-nav > .main > nav > a,
-#top-nav > .main > .breadcrumbs > a {
+#top-nav > .main > :is(nav, .breadcrumbs) > a {
     padding: var(--breadcrumbs-link-vertical-padding) var(--breadcrumbs-link-horizontal-padding);
 }
 
-#top-nav > .main > nav > a:first-child,
-#top-nav > .main > .breadcrumbs > a:first-child {
+#top-nav > .main > :is(nav, .breadcrumbs) > a:first-child {
     padding-left: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
 }
 
-#top-nav > .main > nav > a:last-child,
-#top-nav > .main > .breadcrumbs > a:last-child {
+#top-nav > .main > :is(nav, .breadcrumbs) > a:last-child {
     padding-right: calc(var(--breadcrumbs-link-horizontal-padding) * 2);
 }
 
 
-#top-nav > .main > nav a[href]:hover, #top-nav > .main > nav a[href]:focus,
-#top-nav > .main > .breadcrumbs a[href]:hover, #top-nav > .main > .breadcrumbs a[href]:focus {
+#top-nav > .main > :is(nav, .breadcrumbs) a[href]:is(:hover, :focus) {
     background-color: var(--nav-background-highlight-color);
     outline-style: none;
 }
 
-#top-nav > .main > nav a.here:hover, #top-nav > .main > nav a.here:focus,
-#top-nav > .main > .breadcrumbs a.here:hover, #top-nav > .main > .breadcrumbs a.here:focus {
+#top-nav > .main > :is(nav, .breadcrumbs) a.here:is(:hover, :focus) {
     background-color: initial;
 }
 
-#top-nav > .main > nav a .under,
-#top-nav > .main > .breadcrumbs a .under,
+#top-nav > .main > :is(nav, .breadcrumbs) a .under,
 .tabs a .under {
     position: absolute;
     left: 0;
@@ -429,12 +422,16 @@ a.tweet {
 }
 
 @media (max-width: 20em) {
+
     #top-nav > .main > #meta-nav a:before {
         position: initial;
     }
-    #top-nav > .main > #meta-nav .github:after, #top-nav > .main > #meta-nav .linkedin:after, #meta-nav .canonical:after {
+
+    #top-nav > .main > #meta-nav :is(.github, .linkedin):after,
+    #meta-nav .canonical:after {
         content: "​"; /* Zero width space */
     }
+
 }
 
 
@@ -537,8 +534,7 @@ a.tweet {
     margin: 0.25em 0.5em;
 }
 
-#footer .main > a[href]:hover,
-#footer .main > a[href]:focus {
+#footer .main > a[href]:is(:hover, :focus) {
     text-decoration: underline;
 }
 
@@ -560,8 +556,7 @@ a.tweet {
     opacity: 0.25;
 }
 
-#footer .back-to-top > a[href]:hover,
-#footer .back-to-top > a[href]:focus {
+#footer .back-to-top > a[href]:is(:hover, :focus) {
     background-color: var(--nav-background-highlight-color);
     outline-style: none;
     opacity: initial;

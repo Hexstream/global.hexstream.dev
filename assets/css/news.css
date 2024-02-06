@@ -3,7 +3,8 @@
     margin: 2em auto 0;
 }
 
-#news > header, #news > header > h1 {
+#news > header,
+#news > header > h1 {
     margin-bottom: 0;
 }
 

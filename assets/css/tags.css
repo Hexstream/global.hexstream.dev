@@ -23,8 +23,7 @@ main .tags .tag.hv {
     white-space: initial;
 }
 
-main .tags .tag.hv .h,
-main .tags .tag.hv .v {
+main .tags .tag.hv :is(.h, .v) {
     white-space: nowrap;
 }
 
@@ -44,7 +43,8 @@ main .tags .tag.filesize {
     padding-left: 1.2em;
 }
 
-main .tags:hover .tag, main article:target .tags .tag {
+main .tags:hover .tag,
+main article:target .tags .tag {
     opacity: 1;
 }
 
@@ -52,8 +52,7 @@ main .tags a.tag:hover {
     text-decoration: underline;
 }
 
-main .tags .separator,
-main .tags .s {
+main .tags :is(.separator, .s) {
     display: none;
 }
 

@@ -20,21 +20,21 @@
     padding: 0.3em 0.6em;
 }
 
-.navtable th, .navtable td {
+.navtable :is(th, td) {
     padding: 0;
 }
 
-.navtable th a, .navtable td a {
+.navtable :is(th, td) a {
     display: block;
     padding: 0.3em 0.6em;
     text-decoration: none;
 }
 
-.navtable th.noa, .navtable td.noa {
+.navtable :is(th, td).noa {
     padding: 0.3em 0.6em;
 }
 
-.navtable td a[href]:hover, .navtable td a[href]:focus {
+.navtable td a[href]:is(:hover, :focus) {
     background-color: #ECE0A5;
 }
 

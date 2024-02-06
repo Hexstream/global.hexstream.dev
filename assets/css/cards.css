@@ -51,8 +51,7 @@
     color: inherit;
 }
 
-.cards.cards-link-to-themselves .card h1 a:hover,
-.cards.cards-link-to-themselves .card h1 a:focus {
+.cards.cards-link-to-themselves .card h1 a:is(:hover, :focus) {
     text-decoration: underline;
 }
 
@@ -66,8 +65,7 @@
     color: inherit;
 }
 
-.cards .card .self-link a:hover,
-.cards .card .self-link a:focus {
+.cards .card .self-link a:is(:hover, :focus) {
     text-decoration: underline;
 }
 
@@ -87,7 +85,6 @@
     font-size: smaller;
 }
 
-.cards .card .tags.addenda:hover,
-.cards .card .tags.addenda:focus {
+.cards .card .tags.addenda:is(:hover, :focus) {
     opacity: 1;
 }

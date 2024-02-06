@@ -84,7 +84,8 @@
     padding: 0.5em 1em;
 }
 
-.navlist h1, .navlist a p {
+.navlist h1,
+.navlist a p {
     padding: 0;
     margin: 0;
 }
@@ -93,7 +94,7 @@
     line-height: 1.2;
 }
 
-.navlist section:hover, .navlist section:focus {
+.navlist section:is(:hover, :focus) {
     background-color: #ECE0A5;
     outline-style: none;
 }
@@ -117,7 +118,7 @@
     padding: 0.25em 0.5em;
 }
 
-.navlist > h1 a[href]:hover, .navlist > h1 a[href]:focus {
+.navlist > h1 a[href]:is(:hover, :focus) {
     color: inherit;
 }
 
@@ -182,8 +183,7 @@
     }
 }
 
-.navlist section.contains-extras > .extras > li > a[href]:hover,
-.navlist section.contains-extras > .extras > li > a[href]:focus {
+.navlist section.contains-extras > .extras > li > a[href]:is(:hover, :focus) {
     background-color: #ECE0A5;
     outline-style: none;
     border-color: black;

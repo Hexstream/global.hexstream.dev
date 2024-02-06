@@ -82,7 +82,7 @@ input.replaced:disabled + * > label:first-of-type + label {
 }
 
 
-.navtable td label:hover, .navtable td label:focus {
+.navtable td label:is(:hover, :focus) {
     background-color: #ECE0A5;
 }
 

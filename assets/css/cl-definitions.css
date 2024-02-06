@@ -20,11 +20,7 @@ article.method.definition {
     margin-top: 2em;
 }
 
-article.reader.definition > section.description,
-article.method.definition > section.description,
-article.class.definition > section.description,
-article.package.definition > section.description,
-article.variable.definition > section.description {
+article.definition:is(.reader, .method, .class, .package, .variable) > section.description {
     margin-top: 0;
 }
 
@@ -58,19 +54,11 @@ article.definition + article.definition {
 }
 
 
-article.method.definition section.description h1,
-article.reader.generic-function.definition section.description h1,
-article.class.definition section.description h1,
-article.package.definition section.description h1,
-article.variable.definition section.description h1 {
+article.definition:is(.method, .generic-function, .class, .package, .variable) section.description h1 {
     display: none;
 }
 
-article.method.definition section.description > *,
-article.reader.generic-function.definition section.description > *,
-article.class.definition section.description > *,
-article.package.definition section.description > *,
-article.variable.definition section.description > * {
+article.definition:is(.method, .generic-function, .class, .package, .variable) section.description > * {
     margin-left: 1em;
 }
 
@@ -79,9 +67,7 @@ article.method.see-description-below h1 {
 }
 
 
-p.args-and-retvals,
-p.direct-superclasses,
-p.metaclass {
+p:is(.args-and-retvals, .direct-superclasses, .metaclass) {
     margin-top: 0.25em;
     margin-left: 2em;
 }

@@ -1,5 +1,6 @@
 @media (max-width: 12.5em) {
-    section h1.breadcrumbs, section h1.breadcrumbs .anchor {
+    section h1.breadcrumbs,
+    section h1.breadcrumbs .anchor {
         font-size: medium;
     }
 }
@@ -49,7 +50,9 @@ section .breadcrumbs-bar .breadcrumbs > .crumb > .s {
     margin-top: -1px;
 }
 
-section .breadcrumbs-bar a, section .breadcrumbs-bar .breadcrumbs > .crumbs .s, section .breadcrumbs-bar .breadcrumbs > .crumb > .helper {
+section .breadcrumbs-bar a,
+section .breadcrumbs-bar .breadcrumbs > .crumbs .s,
+section .breadcrumbs-bar .breadcrumbs > .crumb > .helper {
     padding: var(--breadcrumbs-link-vertical-padding) var(--breadcrumbs-link-horizontal-padding);
     border: thin solid transparent;
 }
@@ -93,8 +96,7 @@ section .breadcrumbs-bar .breadcrumbs .here .hoisted {
     background-color: #ECECEC;
 }
 
-section .breadcrumbs-bar .breadcrumbs .here .hoisted .prefix,
-section .breadcrumbs-bar .breadcrumbs .here .hoisted .suffix {
+section .breadcrumbs-bar .breadcrumbs .here .hoisted :is(.prefix, .suffix) {
     display: none;
 }
 
@@ -106,7 +108,7 @@ section .breadcrumbs-bar .section-relative-nav.contains-prev-downwards-link + .b
     padding-top: 1.5em;
 }
 
-section .breadcrumbs-bar a[href]:hover, section .breadcrumbs-bar a[href]:focus {
+section .breadcrumbs-bar a[href]:is(:hover, :focus) {
     background-color: var(--nav-background-color);
     border: thin solid black;
     opacity: 1;

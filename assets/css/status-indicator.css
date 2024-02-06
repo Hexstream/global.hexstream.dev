@@ -9,20 +9,15 @@ p.status-indicator {
     opacity: 0.6;
 }
 
-.status-indicator:hover,
-.status-indicator:focus {
+.status-indicator:is(:hover, :focus) {
     opacity: 1;
 }
 
-.status-indicator.ready,
-.status-indicator.detailed {
+.status-indicator:is(.ready, .detailed) {
     color: green;
 }
 
-.status-indicator.incomplete,
-.status-indicator.outdated,
-.status-indicator.trivial,
-.status-indicator.raw {
+.status-indicator:is(.incomplete, .outdated, .trivial, .raw) {
      color: orange;
 }
 
