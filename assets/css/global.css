@@ -380,7 +380,7 @@ a.tweet {
     align-items: stretch;
 }
 
-#top-nav > .main > #meta-nav a:before {
+#top-nav > .main > #meta-nav a::before {
     content: "";
     flex: none;
     position: relative;
@@ -391,15 +391,15 @@ a.tweet {
     background-size: contain;
 }
 
-#top-nav > .main > #meta-nav .github:before {
+#top-nav > .main > #meta-nav .github::before {
     background-image: url("../non-free/images/logos/github.svg");
 }
 
-#top-nav > .main > #meta-nav .linkedin:before {
+#top-nav > .main > #meta-nav .linkedin::before {
     background-image: url("https://workshop.hexstream.xyz/svg/remakes/linkedin.svg");
 }
 
-#top-nav > .main > #meta-nav .canonical:before {
+#top-nav > .main > #meta-nav .canonical::before {
     background-image: url("https://abc.hexstream.xyz/images/globe.svg");
 }
 
@@ -408,27 +408,27 @@ a.tweet {
         display: none;
     }
 
-    #top-nav > .main > #meta-nav .github:after {
+    #top-nav > .main > #meta-nav .github::after {
         content: "GitHub";
     }
 
-    #top-nav > .main > #meta-nav .linkedin:after {
+    #top-nav > .main > #meta-nav .linkedin::after {
         content: "LinkedIn";
     }
 
-    #top-nav > .main > #meta-nav .canonical:after {
+    #top-nav > .main > #meta-nav .canonical::after {
         content: "Web";
     }
 }
 
 @media (max-width: 20em) {
 
-    #top-nav > .main > #meta-nav a:before {
+    #top-nav > .main > #meta-nav a::before {
         position: initial;
     }
 
-    #top-nav > .main > #meta-nav :is(.github, .linkedin):after,
-    #meta-nav .canonical:after {
+    #top-nav > .main > #meta-nav :is(.github, .linkedin)::after,
+    #meta-nav .canonical::after {
         content: "​"; /* Zero width space */
     }
 
@@ -465,8 +465,8 @@ a.tweet {
     background: var(--nav-background-color);
 }
 
-#last-updated:after,
-.last-updated:after {
+#last-updated::after,
+.last-updated::after {
     content: "Page last updated on";
     font-size: smaller;
     text-align: right;
@@ -475,7 +475,7 @@ a.tweet {
     margin-left: -0.2em;
 }
 
-.last-updated:after {
+.last-updated::after {
     content: "Section last updated on";
 }
 
@@ -488,7 +488,7 @@ a.tweet {
         margin-left: var(--top-nav-margin);
         margin-right: 0;
     }
-    #last-updated:after {
+    #last-updated::after {
         margin-left: 0;
     }
 }
