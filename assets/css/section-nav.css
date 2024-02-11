@@ -62,7 +62,7 @@ section .breadcrumbs-bar a {
 }
 
 section .breadcrumbs-bar .breadcrumbs .here {
-    opacity: 1;
+    opacity: revert;
 }
 
 section .breadcrumbs-bar .breadcrumbs .ellipsis {
@@ -111,7 +111,7 @@ section .breadcrumbs-bar .section-relative-nav.contains-prev-downwards-link + .b
 section .breadcrumbs-bar a[href]:is(:hover, :focus) {
     background-color: var(--nav-background-color);
     border: thin solid black;
-    opacity: 1;
+    opacity: revert;
 }
 
 
@@ -211,7 +211,7 @@ section .breadcrumbs-bar .section-relative-nav .of.tight {
 }
 
 section .breadcrumbs-bar .section-relative-nav .of:hover {
-    opacity: 1;
+    opacity: revert;
 }
 
 section .description-and-last-updated {
@@ -278,7 +278,7 @@ section > :first-child .breadcrumbs a.direct-link {
 }
 
 section > :first-child a.direct-link:hover {
-    opacity: 1;
+    opacity: revert;
     background-color: var(--nav-background-color);
     border-color: black;
 }
@@ -295,21 +295,20 @@ section > header > a.details-link:hover {
 }
 
 .end-of-section-indicator {
+    display: table;
     font-size: smaller;
     color: black;
-    opacity: 0.25;
     border-top: thin solid gray;
     border-bottom: thin solid gray;
     margin: 1em auto;
-    display: table;
+}
+
+.end-of-section-indicator:where(:not(:hover)) {
+    opacity: 0.25;
 }
 
 .end-of-section-indicator a {
     color: black;
     padding: 0 1em;
     text-decoration: none;
-}
-
-.end-of-section-indicator:hover {
-    opacity: 1;
 }

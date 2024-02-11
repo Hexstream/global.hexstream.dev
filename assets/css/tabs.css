@@ -16,9 +16,9 @@
 }
 
 .tab-groups .tabs {
-    max-width: initial;
-    margin-left: initial;
-    margin-right: initial;
+    max-width: revert;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .tabs {
@@ -100,11 +100,10 @@
     padding-left: 0.2em;
     padding-top: 0;
     padding-bottom: 0;
-    opacity: 0.3;
 }
 
-.tabs ul .contains-direct-link > a.direct-link:is(:hover, :focus) {
-    opacity: 1;
+.tabs ul .contains-direct-link > a.direct-link:where(:not(:is(:hover, :focus))) {
+    opacity: 0.3;
 }
 
 
@@ -125,7 +124,7 @@
 }
 
 .tabs ul > li > a:is(.here, .ancestor) {
-    text-decoration: underline;
+    text-decoration: revert;
 }
 
 .tabs ul > li > a[href]:is(:hover, :focus) {
@@ -138,12 +137,8 @@
 }
 
 
-.tabs.additional {
+.tabs.additional:where(:not(:is(:hover, :focus))) {
     opacity: 0.6;
-}
-
-.tabs.additional:is(:hover, :focus) {
-    opacity: 1;
 }
 
 
@@ -165,5 +160,5 @@
 }
 
 #top-nav > .main > .tabs > ul > li > a.here {
-    text-decoration: underline;
+    text-decoration: revert;
 }

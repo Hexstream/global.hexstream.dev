@@ -187,7 +187,7 @@
     background-color: #ECE0A5;
     outline-style: none;
     border-color: black;
-    opacity: 1;
+    opacity: revert;
 }
 
 .navlist section.contains-extras > .extras > li > a.image {

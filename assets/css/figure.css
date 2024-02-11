@@ -19,7 +19,7 @@ figure > img,
 figure > a > img {
     border: thin solid gray;
     max-width: 100%;
-    height: auto;
+    height: revert;
 }
 
 figure > img.noborder,

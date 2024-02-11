@@ -51,7 +51,7 @@ video, audio {
 }
 
 .long {
-    white-space: normal;
+    white-space: revert;
 }
 
 .fit-content {
@@ -349,7 +349,7 @@ a.tweet {
 }
 
 #top-nav > .main > :is(nav, .breadcrumbs) a.here:is(:hover, :focus) {
-    background-color: initial;
+    background-color: revert;
 }
 
 #top-nav > .main > :is(nav, .breadcrumbs) a .under,
@@ -424,7 +424,7 @@ a.tweet {
 @media (max-width: 20em) {
 
     #top-nav > .main > #meta-nav a::before {
-        position: initial;
+        position: revert;
     }
 
     #top-nav > .main > #meta-nav :is(.github, .linkedin)::after,
@@ -449,7 +449,7 @@ a.tweet {
     line-height: 1.2;
     margin: var(--top-nav-margin) var(--top-nav-margin) 0 0;
     text-decoration: none;
-    overflow: initial;
+    overflow: revert;
 }
 
 #last-updated > span,
@@ -535,7 +535,7 @@ a.tweet {
 }
 
 #footer .main > a[href]:is(:hover, :focus) {
-    text-decoration: underline;
+    text-decoration: revert;
 }
 
 #footer .back-to-top {
@@ -559,7 +559,7 @@ a.tweet {
 #footer .back-to-top > a[href]:is(:hover, :focus) {
     background-color: var(--nav-background-highlight-color);
     outline-style: none;
-    opacity: initial;
+    opacity: revert;
 }
 
 @media (max-width: 34em) {
@@ -588,7 +588,7 @@ a.tweet {
 }
 
 #footers #footer {
-    position: initial;
+    position: revert;
     margin-top: 0;
 }
 
@@ -596,12 +596,11 @@ a.tweet {
 .anchor {
     text-decoration: none;
     font-weight: bold;
-    opacity: 0.20;
     font-size: large;
 }
 
-.anchor:hover {
-    opacity: 1;
+.anchor:where(:not(:hover)) {
+    opacity: 0.20;
 }
 
 

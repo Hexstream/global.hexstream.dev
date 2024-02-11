@@ -20,7 +20,7 @@ main .tags .tag {
 }
 
 main .tags .tag.hv {
-    white-space: initial;
+    white-space: revert;
 }
 
 main .tags .tag.hv :is(.h, .v) {
@@ -45,11 +45,11 @@ main .tags .tag.filesize {
 
 main .tags:hover .tag,
 main article:target .tags .tag {
-    opacity: 1;
+    opacity: revert;
 }
 
 main .tags a.tag:hover {
-    text-decoration: underline;
+    text-decoration: revert;
 }
 
 main .tags :is(.separator, .s) {

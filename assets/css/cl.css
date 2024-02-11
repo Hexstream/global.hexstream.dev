@@ -15,7 +15,7 @@ code a {
 }
 
 code a[href]:hover {
-    text-decoration: underline;
+    text-decoration: revert;
     background-color: yellow;
 }
 

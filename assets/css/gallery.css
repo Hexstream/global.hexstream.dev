@@ -47,7 +47,7 @@ main .gallery article > h1 {
     }
 
     main .gallery article > h1 {
-        white-space: initial;
+        white-space: revert;
     }
 }
 
@@ -56,7 +56,7 @@ main .gallery article > h1 > a:first-child {
 }
 
 main .gallery article > h1 > a:first-child:hover {
-    text-decoration: underline;
+    text-decoration: revert;
 }
 
 main .gallery article > h1 .animation {
@@ -72,7 +72,7 @@ main .gallery article > :is(a, label) > img {
     display: block;
     border: 1px solid gray;
     max-width: calc(100vw - var(--gallery-article-padding-lr) * 2 - var(--main_padding-left) - var(--main_padding-right) - 2px);
-    height: auto;
+    height: revert;
 }
 
 @media (max-width: 30em) {

@@ -42,7 +42,7 @@ table tr:hover .anchor {
 }
 
 table tr .anchor:hover {
-    opacity: 1;
+    opacity: revert;
 }
 
 
@@ -56,13 +56,12 @@ table.contains-direct-links th.direct-link {
 }
 
 table.contains-direct-links th.direct-link a {
-    opacity: 0.2;
     padding-left: 0.2em;
     padding-right: 0.4em;
 }
 
-table.contains-direct-links .direct-link a[href]:hover {
-    opacity: 1;
+table.contains-direct-links th.direct-link a:where(:not([href]:hover)) {
+    opacity: 0.2;
 }
 
 
@@ -97,7 +96,7 @@ table th {
 
 @media (max-width: 34em) {
     table th {
-        white-space: initial;
+        white-space: revert;
     }
 }
 
@@ -149,7 +148,7 @@ table > tbody > tr > :is(th, td) > div:only-child {
 }
 
 th {
-    text-align: left;
+    text-align: revert;
     background-color: #E0E0E0;
 }
 

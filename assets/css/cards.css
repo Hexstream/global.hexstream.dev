@@ -1,5 +1,5 @@
 .cards .card p {
-    overflow-x: initial;
+    overflow-x: revert;
 }
 
 
@@ -52,7 +52,7 @@
 }
 
 .cards.cards-link-to-themselves .card h1 a:is(:hover, :focus) {
-    text-decoration: underline;
+    text-decoration: revert;
 }
 
 .cards.cards-link-to-themselves .card:target > h1 {
@@ -61,17 +61,16 @@
 
 
 .cards .card .self-link a {
-    text-decoration: none;
     color: inherit;
 }
 
-.cards .card .self-link a:is(:hover, :focus) {
-    text-decoration: underline;
+.cards .card .self-link a:where(:not(:is(:hover, :focus))) {
+    text-decoration: none;
 }
 
 .cards .card:target > .self-link {
     color: green;
-    opacity: 1;
+    opacity: revert;
 }
 
 
@@ -86,5 +85,5 @@
 }
 
 .cards .card .tags.addenda:is(:hover, :focus) {
-    opacity: 1;
+    opacity: revert;
 }

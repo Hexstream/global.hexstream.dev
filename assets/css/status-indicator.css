@@ -10,7 +10,7 @@ p.status-indicator {
 }
 
 .status-indicator:is(:hover, :focus) {
-    opacity: 1;
+    opacity: revert;
 }
 
 .status-indicator:is(.ready, .detailed) {

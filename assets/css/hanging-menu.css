@@ -17,7 +17,7 @@
 
 @media (max-width: 48em) {
     #page-header + .hanging-menu {
-        position: initial;
+        position: revert;
         display: table;
         margin-left: auto;
         margin-right: auto;
