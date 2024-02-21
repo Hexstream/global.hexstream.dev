@@ -19,6 +19,7 @@ html {
     --main_padding-right: 0.8rem;
     height: 100%;
     line-height: 1.2;
+    overflow-wrap: break-word;
 }
 
 body {
@@ -170,11 +171,6 @@ ul {
 p {
     margin: 1em 0;
     line-height: 1.4;
-}
-
-main section :is(p, pre),
-main section > * > li {
-    overflow-x: auto;
 }
 
 
