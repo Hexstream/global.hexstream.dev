@@ -52,7 +52,7 @@ video, audio {
 }
 
 .long {
-    white-space: revert;
+    white-space: initial;
 }
 
 .fit-content {

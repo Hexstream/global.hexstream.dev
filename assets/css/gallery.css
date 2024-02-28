@@ -47,7 +47,7 @@ main .gallery article > h1 {
     }
 
     main .gallery article > h1 {
-        white-space: revert;
+        white-space: initial;
     }
 }
 

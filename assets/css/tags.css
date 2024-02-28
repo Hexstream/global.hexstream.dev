@@ -20,7 +20,7 @@ main .tags .tag {
 }
 
 main .tags .tag.hv {
-    white-space: revert;
+    white-space: initial;
 }
 
 main .tags .tag.hv :is(.h, .v) {
