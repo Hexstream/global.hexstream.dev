@@ -7,7 +7,7 @@ pre.example {
     margin: 1em 0;
     padding: 1em;
     border: thin solid lightgray;
-    background: #ECECEC;
+    background-color: #ECECEC;
 }
 
 code a {
@@ -23,11 +23,11 @@ p code {
     white-space: nowrap;
     padding: 0.1em 0.1em;
     border: thin solid lightgray;
-    background: #ECECEC;
+    background-color: #ECECEC;
 }
 
 .relevant:is(code, cite) {
-    background: transparent;
+    background-color: transparent;
     padding: 0;
     border: none;
     white-space: nowrap;

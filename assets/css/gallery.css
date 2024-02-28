@@ -25,7 +25,7 @@ main .gallery article {
 }
 
 main .gallery article:target {
-    background: beige;
+    background-color: beige;
     outline: thin dashed gray;
 }
 

@@ -27,7 +27,7 @@ table th.anchor {
     border-top: transparent;
     border-left: transparent;
     border-bottom: transparent;
-    background: transparent;
+    background-color: transparent;
     width: 1.8em;
     opacity: 0;
 }
@@ -51,7 +51,7 @@ table.contains-direct-links th.name a {
 }
 
 table.contains-direct-links th.direct-link {
-    background: #E0E0E0;
+    background-color: #E0E0E0;
     border-left: hidden;
 }
 
@@ -86,7 +86,7 @@ table th a[href]:is(:hover, :focus) {
 
 table:is(.sparse, .contains-sparse-colgroup) .not-applicable {
     color: transparent;
-    background: transparent;
+    background-color: transparent;
 }
 
 

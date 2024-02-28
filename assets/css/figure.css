@@ -5,7 +5,7 @@ figure {
     border: thin solid lightgray;
     margin-top: 1.5em;
     margin-bottom: 1.5em;
-    background: linen;
+    background-color: linen;
 }
 
 figcaption {

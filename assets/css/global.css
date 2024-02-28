@@ -177,7 +177,7 @@ p {
 .panel {
     position: relative;
     border: solid medium #AAAAAA;
-    background: #ECECEC;
+    background-color: #ECECEC;
 }
 
 
@@ -316,7 +316,7 @@ a.tweet {
     display: flex;
     flex-flow: row wrap;
     position: relative;
-    background: var(--nav-background-color);
+    background-color: var(--nav-background-color);
     margin: var(--top-nav-margin);
     border: medium solid black;
 }
@@ -458,7 +458,7 @@ a.tweet {
     display: block;
     padding: 0.2em 0.5em;
     border: medium solid black;
-    background: var(--nav-background-color);
+    background-color: var(--nav-background-color);
 }
 
 #last-updated::after,
@@ -547,7 +547,7 @@ a.tweet {
 #footer .back-to-top > a {
     font-size: x-large;
     width: 1.2em;
-    background: var(--nav-background-color);
+    background-color: var(--nav-background-color);
     border: medium solid black;
     opacity: 0.25;
 }

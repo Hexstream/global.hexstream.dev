@@ -57,7 +57,7 @@
     display: flex;
     flex-flow: row wrap;
     margin: 0.25em;
-    background: var(--nav-background-color);
+    background-color: var(--nav-background-color);
     border: medium solid black;
 }
 
