@@ -4,9 +4,7 @@ input.replaced {
 
 input.replaced + label,
 input.replaced + * > label:first-of-type {
-    background-repeat: no-repeat;
     background-origin: content-box;
-    background-position: 50% 50%;
 }
 
 input[type="radio"].replaced + label,

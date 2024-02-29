@@ -191,10 +191,7 @@
 }
 
 .navlist section.contains-extras > .extras > li > a.image {
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
     background-origin: content-box;
-    background-size: contain;
     min-height: 2.5em;
     color: transparent;
 }

@@ -29,7 +29,6 @@ main .tags .tag.hv :is(.h, .v) {
 
 main .tags .tag.artist {
     background-image: url("images/paintbrush.png");
-    background-repeat: no-repeat;
     background-position: 0% center;
     background-size: auto 75%;
     padding-left: 1.2em;
@@ -37,7 +36,6 @@ main .tags .tag.artist {
 
 main .tags .tag.filesize {
     background-image: url("images/weight-trapeze.png");
-    background-repeat: no-repeat;
     background-position: 0.2em 37.5%;
     background-size: auto 65%;
     padding-left: 1.2em;

@@ -1,6 +1,9 @@
-* {
+*, ::before, ::after {
     padding: 0;
     margin: 0;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
 }
 
 article, section {
@@ -242,9 +245,6 @@ a.tweet {
 
 .heart {
     color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
     background-image: url("../non-free/images/heart.svg");
 }
 
@@ -382,9 +382,6 @@ a.tweet {
     position: relative;
     left: calc(var(--breadcrumbs-link-horizontal-padding) * -1);
     width: 1em;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
 }
 
 #top-nav > .main > #meta-nav .github::before {

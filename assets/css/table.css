@@ -80,7 +80,9 @@ table th a[href]:is(:hover, :focus) {
 :is(table, colgroup).sparse {
     background-color: #ECECEC;
     background-image: url("images/not-applicable.svg");
+    background-repeat: repeat;
     background-position: top left;
+    background-size: auto auto;
     background-attachment: scroll;
 }
 
