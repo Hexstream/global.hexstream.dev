@@ -462,7 +462,7 @@ a.tweet {
 .last-updated::after {
     content: "Page last updated on";
     font-size: smaller;
-    text-align: right;
+    text-align: end;
     line-height: inherit;
     white-space: nowrap;
     margin-left: -0.2em;

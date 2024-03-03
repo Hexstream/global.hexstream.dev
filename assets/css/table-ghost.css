@@ -9,14 +9,14 @@ table .ghost a {
 }
 
 table .ghost.left {
-    text-align: right;
+    text-align: end;
     border-top: 0.15em solid transparent;
     border-left: 0.15em solid transparent;
     border-bottom: 0.15em solid transparent;
 }
 
 table .ghost.right {
-    text-align: left;
+    text-align: initial;
     border-top: 0.15em solid transparent;
     border-right: 0.15em solid transparent;
     border-bottom: 0.15em solid transparent;

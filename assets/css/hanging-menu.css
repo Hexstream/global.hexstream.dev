@@ -3,7 +3,7 @@
     right: 0;
     margin-top: -1.555em;
     z-index: 1;
-    text-align: right;
+    text-align: end;
     background-color: #ECECEC;
     border: solid thin gray;
 }

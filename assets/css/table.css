@@ -67,7 +67,7 @@ table.contains-direct-links th.direct-link a:where(:not([href]:hover)) {
 
 
 table th.name {
-    text-align: right;
+    text-align: end;
 }
 
 
@@ -150,7 +150,7 @@ table > tbody > tr > :is(th, td) > div:only-child {
 }
 
 th {
-    text-align: revert;
+    text-align: initial;
     background-color: #E0E0E0;
 }
 
@@ -168,9 +168,9 @@ td, th {
 }
 
 table tr > th:first-child {
-    text-align: right;
+    text-align: end;
 }
 
 table tr > th.library-name {
-    text-align: left;
+    text-align: initial;
 }
