@@ -18,7 +18,6 @@ main .gallery article {
     display: flex;
     flex-flow: column;
     align-items: center;
-    width: -moz-min-content;
     width: min-content;
     max-width: 100%;
     overflow: hidden;

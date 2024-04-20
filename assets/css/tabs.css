@@ -26,7 +26,6 @@
     flex-flow: row wrap;
     justify-content: center;
     align-items: baseline;
-    max-width: -moz-max-content;
     max-width: max-content;
     margin: 0.25em auto;
 }
