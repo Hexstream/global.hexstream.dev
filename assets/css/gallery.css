@@ -102,39 +102,3 @@ main tr.alternate:target {
 main .gallery article.alternate:target {
     display: flex;
 }
-
-
-/* Preferences */
-
-html.title\.visibility\=hide main .gallery article > h1 {
-    display: none;
-}
-
-
-html.thumbnail\.visibility\=hide main .gallery article {
-    padding: 0.5em;
-}
-
-html.thumbnail\.visibility\=hide main .gallery article > :is(a, label) {
-    display: none;
-}
-
-html.thumbnail\.visibility\=hide main .gallery article > h1 {
-    margin-top: 0;
-}
-
-
-html.tags\.visibility\=hide main .tags,
-html.\/tags\/technical\/filesize\.visibility\=hide main .tags .tag.filesize,
-html.\/tags\/technical\/see-alt\.visibility\=hide main .tags .tag.see-alt {
-    display: none;
-}
-
-
-html.alternates\.visibility\=always main tr.alternate {
-    display: table-row;
-}
-
-html.alternates\.visibility\=always main .gallery article.alternate {
-    display: flex;
-}
