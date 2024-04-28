@@ -20,9 +20,19 @@ article.method.definition {
     margin-top: 2em;
 }
 
-article.definition:is(.reader, .method, .class, .package, .variable) > section.description {
+
+article.definition > section.description:only-of-type {
     margin-top: 0;
 }
+
+article.definition > section.description:only-of-type h1 {
+    display: none;
+}
+
+article.definition > section.description:only-of-type > * {
+    margin-left: 1em;
+}
+
 
 article.definition > section > * {
     margin-left: 2em;
@@ -53,14 +63,6 @@ article.definition + article.definition {
     font-style: italic;
 }
 
-
-article.definition:is(.method, .generic-function, .class, .package, .variable) section.description h1 {
-    display: none;
-}
-
-article.definition:is(.method, .generic-function, .class, .package, .variable) section.description > * {
-    margin-left: 1em;
-}
 
 article.method.see-description-below h1 {
     margin-top: 0.3em;
