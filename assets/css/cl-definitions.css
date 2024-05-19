@@ -96,3 +96,17 @@ p.args-and-retvals + .or + p.args-and-retvals {
     font-weight: bold;
     font-style: italic;
 }
+
+
+article.definition .arguments-and-values ul,
+article.definition .methods-list {
+    list-style-type: revert;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+article.definition .arguments-and-values ul > li,
+article.definition .methods-list > li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}

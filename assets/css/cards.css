@@ -7,7 +7,7 @@
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
-    margin: 1em 0 0 -1em
+    margin: 1em 0 0 -1em;
 }
 
 .cards > li + li {
@@ -21,6 +21,7 @@
     padding: 0.3em 0.5em 0;
     margin: 2em 1em 1em;
     scroll-margin-top: 0.9rem;
+    --p-vertical-margin: 0.6em;
 }
 
 .cards .card h1 {
@@ -39,13 +40,6 @@
 .cards.cards-contain-hoisted .card {
     scroll-margin-top: 1.8rem;
 }
-
-.cards .card p {
-    line-height: 1.4;
-    margin-top: 0.6em;
-    margin-bottom: 0.6em;
-}
-
 
 .cards.cards-link-to-themselves .card h1 a {
     color: inherit;

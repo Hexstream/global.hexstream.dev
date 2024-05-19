@@ -6,12 +6,29 @@
     background-size: contain;
 }
 
-article, section {
-    position: relative;
+:is(ol, ul):where(:not(.list)) {
+    list-style-type: none;
 }
 
-ol, ul {
-    list-style-type: none;
+p,
+pre,
+:is(ol, ul):where(.list) {
+    margin-top: var(--p-vertical-margin);
+    margin-bottom: var(--p-vertical-margin);
+    line-height: var(--p-line-height);
+}
+
+:is(ol, ul):where(.list) {
+    margin-left: 1em;
+}
+
+:is(ol, ul):where(.list) > li {
+    margin-top: calc(var(--p-vertical-margin) / 2);
+    margin-bottom: calc(var(--p-vertical-margin) / 2);
+}
+
+:is(ol, ul):where(.list) > li::marker {
+    font-weight: bold;
 }
 
 
@@ -20,6 +37,8 @@ html {
     --nav-background-highlight-color: #FFDD99;
     --main_padding-left: 0.8rem;
     --main_padding-right: 0.8rem;
+    --p-vertical-margin: 1em;
+    --p-line-height: 1.4;
     height: 100%;
     line-height: 1.2;
     overflow-wrap: break-word;
@@ -38,8 +57,18 @@ video, audio {
 }
 
 .scroll {
+    margin-top: 1em;
+    margin-bottom: 1em;
     overflow-x: auto;
     overflow-y: hidden;
+}
+
+.scroll > :first-child {
+    margin-top: 0;
+}
+
+.scroll > :last-child {
+    margin-bottom: 0;
 }
 
 .scroll.contains-table {
@@ -62,6 +91,10 @@ video, audio {
     display: table;
     margin-left: auto;
     margin-right: auto;
+}
+
+article, section {
+    position: relative;
 }
 
 section {
@@ -166,16 +199,6 @@ h1 a {
     text-decoration: none;
 }
 
-ul {
-    margin: 1em 2em;
-}
-
-
-p {
-    margin: 1em 0;
-    line-height: 1.4;
-}
-
 
 .panel {
     position: relative;
@@ -189,14 +212,6 @@ h1 {
     position: relative;
 }
 
-
-li + li {
-    margin-top: 0.5em;
-}
-
-li li {
-    margin-bottom: 0.25em;
-}
 
 .modifier-key, .emacs-command {
     border: solid thin #CCCCCC;

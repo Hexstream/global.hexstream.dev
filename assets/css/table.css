@@ -123,11 +123,11 @@ table p {
     margin: 0.5em;
 }
 
-table :is(ul, ol) {
+table :is(ol, ul) {
     margin: 0.5em 1em;
 }
 
-table :is(th, td) > :is(ul, ol):only-child {
+table :is(th, td) > :is(ol, ul):only-child {
     margin: 0;
 }
 
