@@ -91,7 +91,7 @@ p.args-and-retvals + .or + p.args-and-retvals {
 .merged-args-and-retvals .or {
     position: absolute;
     right: 100%;
-    margin-top: -1.35em;
+    margin-top: -1.5em;
     margin-right: -1.5em;
     font-weight: bold;
     font-style: italic;
