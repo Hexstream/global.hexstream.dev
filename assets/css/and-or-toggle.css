@@ -1,0 +1,51 @@
+.and-or-toggle {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    font-size: large;
+    padding: 0.25em;
+    text-align: center;
+}
+
+.and-or-toggle > div {
+    display: flex;
+    flex-flow: row;
+    border: thin solid black;
+    padding: 0.25em;
+}
+
+.and-or-toggle > label {
+    font-size: small;
+    color: gray;
+}
+
+.and-or-toggle > label:hover {
+    color: black;
+}
+
+.and-or-toggle label {
+    padding: 0.25em 0.5em;
+    border: thin solid transparent;
+}
+
+.and-or-toggle > div label:hover {
+    border: thin solid gray;
+}
+
+.and-or-toggle label:hover {
+    text-decoration: underline;
+}
+
+.and-or-toggle input {
+    display: none;
+}
+
+.and-or-toggle:has(input.left:checked) > div input.left + label,
+.and-or-toggle:has(input.right:checked) > div input.right + label {
+    border: thin solid gray;
+    background-color: lightgreen;
+}
+
+.and-or-toggle > input.left.right:checked + label {
+    visibility: hidden;
+}
