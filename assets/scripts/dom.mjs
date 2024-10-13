@@ -1,6 +1,5 @@
 export {
-    forEachAddedNode,
-    nodeOrAncestorSatisfying
+    forEachAddedNode
 };
 
 function forEachAddedNode (mutationRecords, callback) {
@@ -13,17 +12,4 @@ function forEachAddedNode (mutationRecords, callback) {
                     Array.prototype.forEach.call(addedNode.querySelectorAll("*"), callback);
             });
     });
-};
-
-function nodeOrAncestorSatisfying (node, test) {
-    if (test(node))
-        return node;
-    else
-    {
-        const parentElement = node.parentElement;
-        if (parentElement)
-            return nodeOrAncestorSatisfying(parentElement, test);
-        else
-            return undefined;
-    }
 };

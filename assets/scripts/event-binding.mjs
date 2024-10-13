@@ -1,8 +1,4 @@
 import {
-    nodeOrAncestorSatisfying
-} from "https://global.hexstream.dev/scripts/dom.mjs";
-
-import {
     DefinitionTree
 } from "https://global.hexstream.dev/scripts/definition-tree.mjs";
 
@@ -159,9 +155,7 @@ types.define(
     });
 
 function nodeStateDomainName (node) {
-    const nodeStateDomain = node => node.dataset.stateDomain;
-    const domainNode = nodeOrAncestorSatisfying(node, nodeStateDomain);
-    return domainNode ? nodeStateDomain(domainNode) : undefined;
+    return node.closest("[data-state-domain]")?.dataset.stateDomain;
 }
 
 class Selector {}

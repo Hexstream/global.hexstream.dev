@@ -1,6 +1,5 @@
 import {
-    forEachAddedNode,
-    nodeOrAncestorSatisfying
+    forEachAddedNode
 } from "./dom.mjs";
 
 const directions =
@@ -216,11 +215,10 @@ const rootMockNode = MockNode.realNodeToMockNode[""];
 
 function process (node) {
     /* node must match ".section-relative-nav" */
-    const isSection = node => node.tagName === "SECTION";
-    const thisSection = nodeOrAncestorSatisfying(node, isSection);
+    const thisSection = node.closest("section");
     if (MockNode.realNodeToMockNode[getId(thisSection)])
         return null;
-    const parentSection = nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
+    const parentSection = thisSection.parentNode.closest("section");
     return new MockNode(thisSection, parentSection ? MockNode.realNodeToMockNode[getId(parentSection)] : rootMockNode);
 }
 
