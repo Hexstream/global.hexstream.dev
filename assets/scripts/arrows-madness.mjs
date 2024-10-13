@@ -61,6 +61,8 @@ const directions =
 
 const directionNames = Object.keys(directions);
 
+const getId = !document.querySelector("html[data-arrows-madness-config~='for']") ? node => node.id : node => node.dataset.for || node.id;
+
 class NavSet {
     constructor (mockNode) {
         this.mockNode = mockNode;
@@ -105,7 +107,7 @@ class NavSet {
             if (targetMockNode)
             {
                 record.targetMockNode = targetMockNode;
-                record.linkElement.href = targetMockNode.realNode.id;
+                record.linkElement.href = getId(targetMockNode.realNode);
             }
             else
             {
@@ -115,7 +117,7 @@ class NavSet {
         }
         else if (targetMockNode)
         {
-            const linkElement = NavSet.makeLink(direction, targetMockNode.realNode.id);
+            const linkElement = NavSet.makeLink(direction, getId(targetMockNode.realNode));
             record = {
                 targetMockNode: targetMockNode,
                 linkElement: linkElement
@@ -130,7 +132,7 @@ class MockNode {
     constructor (realNode, parent) {
         const mockNode = this;
         mockNode.parent = parent;
-        MockNode.realNodeToMockNode[realNode.id] = mockNode;
+        MockNode.realNodeToMockNode[getId(realNode)] = mockNode;
         mockNode.realNode = realNode;
         mockNode["⬈"] = null;
         mockNode["⬊"] = null;
@@ -216,10 +218,10 @@ function process (node) {
     /* node must match ".section-relative-nav" */
     const isSection = node => node.tagName === "SECTION";
     const thisSection = nodeOrAncestorSatisfying(node, isSection);
-    if (MockNode.realNodeToMockNode[thisSection.id])
+    if (MockNode.realNodeToMockNode[getId(thisSection)])
         return null;
     const parentSection = nodeOrAncestorSatisfying(thisSection.parentNode, isSection);
-    return new MockNode(thisSection, parentSection ? MockNode.realNodeToMockNode[parentSection.id] : rootMockNode);
+    return new MockNode(thisSection, parentSection ? MockNode.realNodeToMockNode[getId(parentSection)] : rootMockNode);
 }
 
 for (let node of document.querySelectorAll(".section-relative-nav")) {
