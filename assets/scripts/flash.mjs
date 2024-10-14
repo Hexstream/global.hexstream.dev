@@ -4,9 +4,9 @@ export {
 
 function requestFullscreen (element) {
     const backend = element.requestFullscreen
-          || element.webkitRequestFullscreen
-          || element.mozRequestFullScreen
-          || element.msRequestFullscreen;
+          ?? element.webkitRequestFullscreen
+          ?? element.mozRequestFullScreen
+          ?? element.msRequestFullscreen;
     if (backend)
         backend.call(element);
     else
@@ -24,13 +24,11 @@ if (goFullscreen) {
 
 const copyButton = document.querySelector(".flash-file-url button");
 
-if (copyButton) {
-    copyButton.addEventListener("click", function () {
-        navigator.clipboard.writeText(document.querySelector(".flash-file-url code").textContent);
-    });
-}
+copyButton?.addEventListener("click", function () {
+    navigator.clipboard.writeText(document.querySelector(".flash-file-url code").textContent);
+});
 
-window.RufflePlayer = window.RufflePlayer || {};
+window.RufflePlayer = window.RufflePlayer ?? {};
 window.RufflePlayer.config = {
     "letterbox": "on"
 };

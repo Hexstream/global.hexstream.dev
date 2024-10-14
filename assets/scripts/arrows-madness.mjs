@@ -176,9 +176,7 @@ class MockNode {
             return;
         function doUpdate (thisNode, otherNode, direction) {
             thisNode[direction] = otherNode;
-            const navset = thisNode.navset;
-            if (navset)
-                navset.setDirectionTarget(direction, otherNode);
+            thisNode.navset?.setDirectionTarget(direction, otherNode);
         }
         doUpdate(thisNode, otherNode, forward);
         if (isReciprocal)

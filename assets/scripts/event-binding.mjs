@@ -36,9 +36,8 @@ window.addEventListener("storage", function (event) {
 
 class Binding {
     constructor (parent) {
-        this.parent = parent || null;
-        if (parent)
-            parent.addChild(this);
+        this.parent = parent ?? null;
+        parent?.addChild(this);
     }
 
     sync () {
@@ -308,7 +307,7 @@ types.define(
         getToken () {
             const storage = this.from.storage;
             const key = this.from.key;
-            const relevant = storage.isRelevant ? storage.isRelevant(key) : true;
+            const relevant = storage.isRelevant?.(key) ?? true;
             return relevant ? key + "=" + storage[key] : undefined;
         }
 
@@ -365,7 +364,7 @@ types.define(
 
 function compose (main, both, endpoint) {
     const composed = Object.assign({}, main);
-    [both || {}, endpoint || {}].forEach(function (extra) {
+    [both ?? {}, endpoint ?? {}].forEach(function (extra) {
         Object.keys(extra).forEach(function (key) {
             if (composed.hasOwnProperty(key))
                 throw Error("Clash for property \"" + key + "\".\n" + {main: main, both: both, endpoint: endpoint});
@@ -381,9 +380,9 @@ types.define(
     class Binding_Unibind extends BindingGroup {
         constructor (parent, endpoints, sharedOptions) {
             super(parent);
-            sharedOptions = sharedOptions || {};
+            sharedOptions = sharedOptions ?? {};
             this.endpoints = endpoints;
-            this.sharedOptions = sharedOptions || {};
+            this.sharedOptions = sharedOptions ?? {};
             const typeDefinition = types.find(endpoints.map(endpoint => endpoint.type));
             const combinedFrom = compose(endpoints[0], sharedOptions.both, sharedOptions.source);
             const combinedTo = compose(endpoints[1], sharedOptions.both, sharedOptions.destination);
@@ -399,7 +398,7 @@ types.define(
         constructor (parent, endpoints, sharedOptions) {
             super(parent);
             this.endpoints = endpoints;
-            this.sharedOptions = sharedOptions || {};
+            this.sharedOptions = sharedOptions ?? {};
             this.addChild(new unibind(this, endpoints, sharedOptions));
             this.addChild(new unibind(this, endpoints.splice(0).reverse(), sharedOptions));
         }
