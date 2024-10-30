@@ -141,7 +141,7 @@ types.define(
             const key = this.from.key;
             const node = this.to.node;
             const value = storage[key];
-            if (node.tagName === "INPUT") {
+            if (node.matches("input")) {
                 node.disabled = storage.isRelevant ? !storage.isRelevant(key) : false;
                 if (value !== undefined)
                     node.checked = value === node.dataset.stateValue;

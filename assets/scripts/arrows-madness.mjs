@@ -226,7 +226,7 @@ for (let node of document.querySelectorAll(".section-relative-nav")) {
 
 const observer = new MutationObserver(function (records, observer) {
     forEachAddedNode(records, function (addedNode) {
-        if (addedNode.nodeType === Node.ELEMENT_NODE && addedNode.classList.contains("section-relative-nav"))
+        if (addedNode.matches?.(".section-relative-nav"))
             process(addedNode);
     });
 });
