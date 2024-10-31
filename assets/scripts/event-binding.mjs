@@ -242,6 +242,17 @@ types.define(
 
     });
 
+function maybeAutoValue (node, schema, key) {
+    if (!node.matches("[type=checkbox]:not([data-state-value], [data-state-antivalue])"))
+        return node;
+    const possibleValues = schema.possibleValues(key);
+    if (possibleValues.length !== 2)
+        throw new Error (`Tried to autovalue for node ${node}, schema ${schema}, key ${key} but there are not exactly 2 possible values. Possible values: ${possibleValues}`);
+    node.dataset.stateValue = possibleValues[0];
+    node.dataset.stateAntivalue = possibleValues[1];
+    return node;
+}
+
 types.define(["embed", "selector", "storage", "document"],
             class Binding_SelectorToStorage_Document extends BindingGroup {
                 constructor(parent) {
@@ -255,15 +266,19 @@ types.define(["embed", "selector", "storage", "document"],
                     const storage = parent.to.storage;
                     const nodeToStorage = types.find(["node", "storage"]);
                     for (const node of document.querySelectorAll("input[type=radio], input[type=checkbox]")) {
-                        if (node.dataset.stateValue && nodeStateDomainName(node) === stateDomainName)
-                            binding.addChild(new nodeToStorage(binding,
-                                                               {
-                                                                   node: node
-                                                               },
-                                                               {
-                                                                   storage: storage,
-                                                                   key: node.dataset.stateKey
-                                                               }));
+                        if (nodeStateDomainName(node) === stateDomainName) {
+                            const key = node.dataset.stateKey;
+                            maybeAutoValue(node, storage.schema, key);
+                            if (node.dataset.stateValue)
+                                binding.addChild(new nodeToStorage(binding,
+                                                                   {
+                                                                       node: node
+                                                                   },
+                                                                   {
+                                                                       storage: storage,
+                                                                       key: key
+                                                                   }));
+                        }
                     }
                 }
             });
