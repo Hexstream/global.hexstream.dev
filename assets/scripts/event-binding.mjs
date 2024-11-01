@@ -242,15 +242,28 @@ types.define(
 
     });
 
-function maybeAutoValue (node, schema, key) {
-    if (!node.matches("[type=checkbox]:not([data-state-value], [data-state-antivalue])"))
+function maybeAutoValueCheckbox (node, schema, key) {
+    if (node.matches("[data-state-value], [data-state-antivalue]"))
         return node;
     const possibleValues = schema.possibleValues(key);
     if (possibleValues.length !== 2)
-        throw new Error (`Tried to autovalue for node ${node}, schema ${schema}, key ${key} but there are not exactly 2 possible values. Possible values: ${possibleValues}`);
+        throw new Error (`Tried to autovalue checkbox ${node}, schema ${schema}, key ${key} but there are not exactly 2 possible values. Possible values: ${possibleValues}`);
     node.dataset.stateValue = possibleValues[0];
     node.dataset.stateAntivalue = possibleValues[1];
     return node;
+}
+
+function maybeAutoValueRadioButtons (nodes, schema, key) {
+    if (nodes.some(node => node.matches("[data-state-value]")))
+        return nodes;
+    const possibleValues = schema.possibleValues(key);
+    const nodeCount = nodes.length;
+    const possibleValuesCount = possibleValues.length;
+    if (nodeCount !== possibleValuesCount)
+        throw new Error (`Tried to autovalue radio buttons ${nodes}, schema ${schema}, key ${key} but there are not exactly as many nodes (${nodeCount}) as possible values (${possibleValuesCount}). Possible values: ${possibleValues}`);
+    for (let i = 0; i < nodeCount; i++)
+        nodes[i].dataset.stateValue = possibleValues[i];
+    return nodes;
 }
 
 types.define(["embed", "selector", "storage", "document"],
@@ -264,11 +277,13 @@ types.define(["embed", "selector", "storage", "document"],
                     const document = selector.document;
                     const stateDomainName = selector.stateDomainName;
                     const storage = parent.to.storage;
+                    const schema = storage.schema;
                     const nodeToStorage = types.find(["node", "storage"]);
-                    for (const node of document.querySelectorAll("input[type=radio], input[type=checkbox]")) {
-                        if (nodeStateDomainName(node) === stateDomainName) {
-                            const key = node.dataset.stateKey;
-                            maybeAutoValue(node, storage.schema, key);
+                    function createBindings (selector, preprocess) {
+                        var nodes = Array.from(document.querySelectorAll(selector));
+                        nodes = nodes.filter(node => nodeStateDomainName(node) === stateDomainName);
+                        preprocess(nodes);
+                        for (const node of nodes) {
                             if (node.dataset.stateValue)
                                 binding.addChild(new nodeToStorage(binding,
                                                                    {
@@ -276,10 +291,21 @@ types.define(["embed", "selector", "storage", "document"],
                                                                    },
                                                                    {
                                                                        storage: storage,
-                                                                       key: key
+                                                                       key: node.dataset.stateKey
                                                                    }));
                         }
                     }
+                    createBindings("input[type=checkbox]", function (nodes) {
+                        for (const node of nodes)
+                            maybeAutoValueCheckbox(node, schema, node.dataset.stateKey);
+                    });
+                    createBindings("input[type=radio]", function (nodes) {
+                        const keyToRadioButtons = new KeyToValues();
+                        for (const node of nodes)
+                            keyToRadioButtons.addValue(node.dataset.stateKey, node);
+                        for (const key of Object.keys(keyToRadioButtons.map))
+                            maybeAutoValueRadioButtons(keyToRadioButtons.values(key), schema, key);
+                    });
                 }
             });
 
