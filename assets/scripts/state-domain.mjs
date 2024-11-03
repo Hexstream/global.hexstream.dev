@@ -3,12 +3,77 @@ export {
     StateDomain
 };
 
+const trueSpec = {
+    possibleValues: ["show", "hide"]
+};
+
+const falseSpec = {
+    possibleValues: ["show", "hide"],
+    defaultValue: "hide"
+};
+
+function resolveSpec (spec) {
+    if (spec === true)
+        return trueSpec;
+    else if (spec === false)
+        return falseSpec;
+    else
+        return spec;
+}
+
+function makeValueResolver (spec) {
+    spec = resolveSpec(spec);
+    let base = spec.base;
+    if (base !== undefined) {
+        const innerResolver = makeValueResolver(base);
+        return key => spec[key] ?? innerResolver(key);
+    } else {
+        return key => spec[key];
+    }
+}
+
 class StateDomainSchema {
 
-    constructor (properties) {
-        const keys = Object.keys(properties);
-        this.properties = properties;
+    constructor (propertySpecs) {
+        const keys = Object.keys(propertySpecs);
         this.keys = keys;
+        const properties = {};
+        for (const key of keys) {
+            const spec = propertySpecs[key];
+            const resolveValue = makeValueResolver(spec);
+            const props = {};
+            function initHighLevelLowLevel (highLevelKey, lowLevelKey, eitherRequired, highLevelValueToLowLevelValue) {
+                const highLevelValue = resolveValue(highLevelKey);
+                if (highLevelValue)
+                    props[highLevelKey] = highLevelValue;
+                const lowLevelValue = resolveValue(lowLevelKey);
+                if (lowLevelValue) {
+                    if (highLevelValue)
+                        throw new Error(`Cannot specify both ${highLevelKey} and ${lowLevelKey}.\nkey: ${key}\nSpec: ${spec}`);
+                    else
+                        props[lowLevelKey] = lowLevelValue;
+                } else {
+                    if (highLevelValue)
+                        props[lowLevelKey] = highLevelValueToLowLevelValue(highLevelValue);
+                    else if (eitherRequired)
+                        throw new Error(`Must specify ${highLevelKey} or ${lowLevelKey}.\nkey: ${key}\nSpec: ${spec}`);
+                }
+                return [highLevelValue, lowLevelValue];
+            }
+            const [possibleValues] = initHighLevelLowLevel("possibleValues", "valueValidator", true,
+                                                           possibleValues => value => possibleValues.indexOf(value) >= 0);
+            const defaultValue = resolveValue("defaultValue");
+            if (defaultValue !== undefined)
+                props.defaultValue = defaultValue;
+            else if (possibleValues)
+                props.defaultValue = possibleValues[0];
+            initHighLevelLowLevel("relevantIf", "computeRelevance", false, function (relevantIf) {
+                const entries = Object.entries(relevantIf);
+                return domain => entries.every(([key, value]) => domain[key] === value);
+            });
+            properties[key] = props;
+        }
+        this.properties = properties;
         this.varyingRelevanceKeys = this.keys.filter(key => !this.isAlwaysRelevant(key));
     }
 
@@ -29,8 +94,7 @@ class StateDomainSchema {
     }
 
     isAcceptableValue (key, value) {
-        const possibleValues = this.possibleValues(key);
-        return possibleValues ? possibleValues.indexOf(value) >= 0 : (this.valueValidator(key))(value);
+        return (this.valueValidator(key))(value);
     }
 
     isAlwaysRelevant (key) {
