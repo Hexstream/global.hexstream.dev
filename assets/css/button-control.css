@@ -1,0 +1,36 @@
+.button-control input {
+    display: none;
+}
+
+.button-control label {
+    display: block;
+    background-color: white;
+    padding: 0.4em 0.6em;
+    border: thin solid black;
+    border-radius: 1em;
+}
+
+.button-control label:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.button-control input:checked + label {
+    background-color: lightgreen;
+}
+
+
+#page-options {
+    display: flex;
+    flex-flow: row wrap-reverse;
+    gap: 0.5em;
+    margin: 0.5em;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+html:has(#page-options) #footer .back-to-top.right {
+    visibility: hidden;
+}
