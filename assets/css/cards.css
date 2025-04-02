@@ -30,15 +30,15 @@
     margin-bottom: -0.2rem;
 }
 
+.cards .card:has(.hoisted) {
+    scroll-margin-top: 1.8rem;
+}
+
 .cards .card .hoisted {
     position: absolute;
     bottom: 100%;
     margin-bottom: 0.2em;
     opacity: 0.6;
-}
-
-.cards.cards-contain-hoisted .card {
-    scroll-margin-top: 1.8rem;
 }
 
 .cards.cards-link-to-themselves .card h1 a {

@@ -8,11 +8,11 @@
     }
 }
 
-.navtable.contains-main-colgroup {
+.navtable:has(> colgroup.main) {
     border: none;
 }
 
-.navtable colgroup.main {
+.navtable > colgroup.main {
     border: 0.15em solid black;
 }
 

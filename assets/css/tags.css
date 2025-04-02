@@ -55,12 +55,12 @@ main .tags :is(.separator, .s) {
 }
 
 
-main .tags.contains-groups {
+main .tags:has(> .group) {
     flex-flow: column;
     align-items: center;
 }
 
-main .tags.contains-groups > .group {
+main .tags > .group {
     display: flex;
     flex-flow: row wrap;
     justify-content: inherit;

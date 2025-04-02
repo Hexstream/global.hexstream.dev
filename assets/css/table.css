@@ -6,19 +6,19 @@ table {
     border: solid 0.15em gray;
 }
 
-table.contains-main-colgroup {
+table:has(> colgroup.main) {
     border: none;
 }
 
-table colgroup.main {
+table > colgroup.main {
     border: solid 0.15em gray;
 }
 
-table.contains-weightless-colgroups {
+table:has(> colgroup.weightless) {
     position: relative;
 }
 
-table.contains-anchor-column {
+table:has(> colgroup > col.anchor) {
     left: -0.9em;
 }
 
@@ -46,21 +46,21 @@ table tr .anchor:hover {
 }
 
 
-table.contains-direct-links th.name a {
+table:has(.direct-link) th.name a {
     padding-right: 0.2em;
 }
 
-table.contains-direct-links th.direct-link {
+table th.direct-link {
     background-color: #E0E0E0;
     border-left: hidden;
 }
 
-table.contains-direct-links th.direct-link a {
+table th.direct-link a {
     padding-left: 0.2em;
     padding-right: 0.4em;
 }
 
-table.contains-direct-links th.direct-link a:where(:not([href]:hover)) {
+table th.direct-link a:where(:not([href]:hover)) {
     opacity: 0.2;
 }
 
@@ -86,7 +86,7 @@ table th a[href]:is(:hover, :focus) {
     background-attachment: scroll;
 }
 
-table:is(.sparse, .contains-sparse-colgroup) .not-applicable {
+table:is(.sparse, :has(> colgroup.sparse)) .not-applicable {
     color: transparent;
     background-color: transparent;
 }

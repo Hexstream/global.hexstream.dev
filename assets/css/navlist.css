@@ -5,11 +5,11 @@
     margin-top: 2em;
 }
 
-.fit-content.contains-navlists {
+.fit-content:has(.navlists) {
     margin-top: 2em;
 }
 
-.fit-content.contains-navlists .navlists {
+.fit-content .navlists {
     margin-top: 0;
 }
 
@@ -47,11 +47,11 @@
     align-items: stretch;
 }
 
-.navlist.contains-title {
+.navlist:has(> h1) {
     border: none;
 }
 
-.navlist.contains-title .body {
+.navlist:has(> h1) > .body {
     border: thin solid black;
 }
 
@@ -134,11 +134,11 @@
 }
 
 
-.navlist section.contains-extras > a:first-child {
+.navlist section:has(> .extras) > a:first-child {
     padding-right: 0.5em;
 }
 
-.navlist section.contains-extras > .extras {
+.navlist section > .extras {
     flex: 0 1 auto;
     display: flex;
     flex-flow: row wrap;
@@ -147,16 +147,16 @@
     margin: 0;
 }
 
-.navlist section.contains-extras > .extras > li {
+.navlist section > .extras > li {
     display: flex;
     flex-flow: row wrap;
 }
 
-.navlist section.contains-extras > .extras > li + li {
+.navlist section > .extras > li + li {
     margin-top: 0;
 }
 
-.navlist section.contains-extras > .extras > li > a {
+.navlist section > .extras > li > a {
     flex: none;
     display: flex;
     flex-flow: row;
@@ -169,28 +169,28 @@
     opacity: 0.4;
 }
 
-.navlist section.contains-extras > .extras > li:last-child > a {
+.navlist section > .extras > li:last-child > a {
     border-right: none;
 }
 
 @media (max-width: 34em) {
-    .navlist section.contains-extras > .extras > li > a {
+    .navlist section > .extras > li > a {
         border-top: thin solid transparent;
         border-bottom: thin solid transparent;
     }
-    .navlist section.contains-extras > .extras > li:last-child > a {
+    .navlist section > .extras > li:last-child > a {
         border-right: thin solid transparent;
     }
 }
 
-.navlist section.contains-extras > .extras > li > a[href]:is(:hover, :focus) {
+.navlist section > .extras > li > a[href]:is(:hover, :focus) {
     background-color: #ECE0A5;
     outline-style: none;
     border-color: black;
     opacity: revert;
 }
 
-.navlist section.contains-extras > .extras > li > a.image {
+.navlist section > .extras > li > a.image {
     background-origin: content-box;
     min-height: 2.5em;
     color: transparent;

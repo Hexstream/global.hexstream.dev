@@ -98,11 +98,11 @@ section .breadcrumbs-bar .breadcrumbs .here .hoisted :is(.prefix, .suffix) {
     display: none;
 }
 
-section .breadcrumbs-bar .section-relative-nav.contains-prev-downwards-link + .breadcrumbs .here .hoisted {
+section .breadcrumbs-bar .section-relative-nav:has(.prev.downwards) + .breadcrumbs .here .hoisted {
     transform: translate(2em);
 }
 
-.contains-breadcrumbs-bar-hoists section {
+section:has(> .breadcrumbs-bar .breadcrumbs .hoisted) {
     padding-top: 1.5em;
 }
 

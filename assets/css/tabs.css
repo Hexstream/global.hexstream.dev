@@ -30,11 +30,11 @@
     margin: 0.25em auto;
 }
 
-.tabs.contains-title {
+.tabs:has(> h1) {
     flex-flow: row wrap;
 }
 
-.tabs.contains-title > h1 {
+.tabs > h1 {
     flex: none;
     font-size: medium;
     border: medium solid transparent;
@@ -42,12 +42,12 @@
     white-space: nowrap;
 }
 
-.tabs.contains-title > h1 > a {
+.tabs > h1 > a {
     display: block;
     padding: 0.2em 0.25em;
 }
 
-.tabs.contains-title > h1 > a[href]:hover {
+.tabs > h1 > a[href]:hover {
     text-decoration: underline;
 }
 
@@ -66,33 +66,36 @@
     border: thin solid grey;
 }
 
-.tabs ul > li.contains-children {
+.tabs ul > li:has(> ul) {
     display: flex;
     flex-flow: column;
     align-items: stretch;
 }
 
-.tabs ul > li.contains-children > * {
+.tabs ul > li:has(> ul) > * {
     flex: none;
 }
 
-.tabs ul > li.contains-children > ul {
+.tabs ul > li > ul {
     font-size: smaller;
     margin-top: 0;
 }
 
-.tabs ul .contains-direct-link {
+.tabs ul > li:has(> a.direct-link),
+.tabs ul > li > span:has(> a.direct-link) {
     display: flex;
     flex-flow: row;
     align-items: stretch;
 }
 
-.tabs ul .contains-direct-link > a:not(.direct-link) {
+.tabs ul > li:has(a.direct-link) > a:not(.direct-link),
+.tabs ul > li > span:has(a.direct-link) > a:not(.direct-link) {
     flex: 1 0;
     padding-right: 0.2em;
 }
 
-.tabs ul .contains-direct-link > a.direct-link {
+.tabs ul > li > a.direct-link,
+.tabs ul > li > span > a.direct-link {
     flex: none;
     display: flex;
     align-items: center;
@@ -101,7 +104,8 @@
     padding-bottom: 0;
 }
 
-.tabs ul .contains-direct-link > a.direct-link:where(:not(:is(:hover, :focus))) {
+.tabs ul > li > a.direct-link:where(:not(:is(:hover, :focus))),
+.tabs ul > li > span > a.direct-link:where(:not(:is(:hover, :focus))) {
     opacity: 0.3;
 }
 
@@ -114,8 +118,7 @@
     margin-bottom: 0;
 }
 
-.tabs ul > li > a,
-.tabs ul > li > .contains-direct-link a {
+.tabs ul > li a {
     display: block;
     padding: 0.2em 0.5em;
     text-decoration: none;

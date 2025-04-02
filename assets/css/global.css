@@ -71,14 +71,6 @@ video, audio {
     margin-bottom: 0;
 }
 
-.scroll.contains-table {
-    margin-left: 1em;
-}
-
-.scroll.contains-table > table {
-    margin: 0;
-}
-
 .nowrap {
     white-space: nowrap;
 }
@@ -187,7 +179,7 @@ main {
         padding-right: 0.3em;
     }
 
-    table.contains-direct-links th.direct-link a {
+    table:has(.direct-link) {
         padding-left: 0;
         padding-right: 0.2em;
     }
