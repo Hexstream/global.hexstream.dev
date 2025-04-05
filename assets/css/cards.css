@@ -41,33 +41,6 @@
     opacity: 0.6;
 }
 
-.cards.cards-link-to-themselves .card h1 a {
-    color: inherit;
-}
-
-.cards.cards-link-to-themselves .card h1 a:is(:hover, :focus) {
-    text-decoration: revert;
-}
-
-.cards.cards-link-to-themselves .card:target > h1 {
-    color: green;
-}
-
-
-.cards .card .self-link a {
-    color: inherit;
-}
-
-.cards .card .self-link a:where(:not(:is(:hover, :focus))) {
-    text-decoration: none;
-}
-
-.cards .card:target > .self-link {
-    color: green;
-    opacity: revert;
-}
-
-
 .cards .card .tags.addenda {
     position: absolute;
     top: 100%;

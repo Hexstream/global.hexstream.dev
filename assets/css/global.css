@@ -192,8 +192,25 @@ h1 {
     position: relative;
 }
 
-h1 a {
+h1 a:where(:not(:hover, :focus)) {
     text-decoration: none;
+}
+
+a.self-link {
+    color: inherit;
+}
+
+a.self-link:where(:not(:hover, :focus)) {
+    text-decoration: none;
+}
+
+:target > :is(h1, .hoisted, th, td):has(a.self-link) {
+    opacity: revert;
+}
+
+:target > :is(h1, .hoisted, th, td) a.self-link {
+    color: green;
+    opacity: revert;
 }
 
 
