@@ -233,13 +233,6 @@ a.tweet {
     color: cadetblue;
 }
 
-.quick-note {
-    display: table;
-    text-align: center;
-    line-height: 1.6;
-    margin: 0.8em auto;
-}
-
 .state-warning {
     text-align: center;
     color: red;
