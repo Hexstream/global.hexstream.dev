@@ -12,11 +12,21 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 .tab-groups .tabs {
     max-width: revert;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.tab-groups .tabs:has(> h1) {
+    flex-flow: column;
+    align-items: center;
+}
+
+.tab-groups .tabs > h1 {
     margin-left: 0;
     margin-right: 0;
 }
