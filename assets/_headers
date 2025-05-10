@@ -1,6 +1,6 @@
 https://global.hexstream.dev/*
   ! Cache-Control
-  Cache-Control: public, max-age=86400
+  Cache-Control: max-age=86400
 
 /special/status.txt
   ! Cache-Control
@@ -9,20 +9,20 @@ https://global.hexstream.dev/*
 
 https://global.hexstream.dev/*.svg
   ! Cache-Control
-  Cache-Control: public, max-age=604800
+  Cache-Control: max-age=604800
 
 
 https://global.hexstream.dev/*.woff2
   ! Cache-Control
-  Cache-Control: public, max-age=2592000
+  Cache-Control: max-age=2592000
 
 https://global.hexstream.dev/*.ttf
   ! Cache-Control
-  Cache-Control: public, max-age=2592000
+  Cache-Control: max-age=2592000
 
 https://global.hexstream.dev/*.otf
   ! Cache-Control
-  Cache-Control: public, max-age=2592000
+  Cache-Control: max-age=2592000
 
 
 /fonts/*
