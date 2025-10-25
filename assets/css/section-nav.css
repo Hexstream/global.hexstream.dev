@@ -141,6 +141,7 @@ section .breadcrumbs-bar .section-relative-nav > :not(.anchor) {
     margin-top: -0.5em;
     margin-left: -0.5em;
     line-height: 1;
+    text-decoration: none;
     opacity: 0.25;
 }
 
