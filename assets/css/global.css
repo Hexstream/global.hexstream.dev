@@ -393,6 +393,10 @@ a.tweet {
     width: 1em;
 }
 
+#top-nav > .main > #meta-nav .shortlink::before {
+    content: revert;
+}
+
 #top-nav > .main > #meta-nav .github::before {
     background-image: url("../non-free/images/logos/github.svg");
 }
