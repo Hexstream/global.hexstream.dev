@@ -1,0 +1,32 @@
+#top-nav .crumb:has(.shortlink.self.under) {
+    position: relative;
+}
+
+#top-nav > .main > :is(nav, .breadcrumbs) .under,
+.tabs .under {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    font-size: smaller;
+    margin-top: 0.25em;
+    white-space: pre;
+    text-align: center;
+    color: black;
+}
+
+#top-nav > .main > :is(nav, .breadcrumbs) a[href].under:is(:hover, :focus) {
+    background-color: revert;
+}
+
+#top-nav .shortlink.self.under {
+    left: revert;
+    width: revert;
+    padding: 0 !important;
+    margin-right: 0.5rem !important;
+}
+
+#top-nav .shortlink.self.under:is(:hover, :focus) {
+    color: revert;
+    text-decoration: underline;
+}

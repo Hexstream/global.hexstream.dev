@@ -357,22 +357,6 @@ a.tweet {
     background-color: revert;
 }
 
-#top-nav > .main > :is(nav, .breadcrumbs) a .under,
-.tabs a .under {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    width: 100%;
-    font-size: smaller;
-    margin-top: 0.2em;
-    height: var(--top-nav-margin);
-    white-space: pre;
-    margin-top: 0.2em;
-    text-align: center;
-    color: black;
-}
-
 
 #top-nav > .main > #meta-nav ul > li {
     border-top: none;
@@ -391,10 +375,6 @@ a.tweet {
     position: relative;
     left: calc(var(--breadcrumbs-link-horizontal-padding) * -1);
     width: 1em;
-}
-
-#top-nav > .main > #meta-nav .shortlink::before {
-    content: revert;
 }
 
 #top-nav > .main > #meta-nav .github::before {
